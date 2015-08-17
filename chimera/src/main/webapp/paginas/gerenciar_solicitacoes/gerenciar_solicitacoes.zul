@@ -1,0 +1,84 @@
+<?page title="Gerenciar Solicitações" contentType="text/html;charset=UTF-8"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/componentes/templates/master/template_master.zul"?>
+<zk>
+
+	<div self="@define(content)" align="center"
+		style="margin-top:50px">
+
+		<fgrid hflex="min" sclass="nostyle">
+			<rows>
+
+				<row>
+					<label value="Usuário:" />
+					<textbox id="fldUser" width="100%" />
+
+					<label value="Departamento:" />
+					<textbox id="fldDepartament" width="100%" />
+
+
+				</row>
+				<row>
+					<label value="Cargo:" />
+					<textbox id="fldCargo" width="100%" />
+
+					<label value="Permissão:" />
+					<textbox id="fldPermission" width="100%" />
+
+
+				</row>
+				<row spans="1,3">
+					<label value="Título:" />
+					<textbox id="fldTittle" width="100%" />
+				</row>
+				<row>
+					<label value="Recurso:" />
+					<combobox id="fldRecurso" width="100%" />
+
+					<label value="Status:" />
+					<textbox id="fldStatus" width="60%" />
+				</row>
+			</rows>
+		</fgrid>
+		<listbox sclass="mylist" id="list"
+			emptyMessage="Nenhuma solicitação selecionada." width="790px"
+			style="margin-top:10px" mold="paging" pageSize="4">
+
+ 
+			<listhead sizable="false">
+				<listheader label="Data" align="center"
+					sort="auto(name)" />
+				<listheader label="Usuário" align="center"
+					sort="auto(descricao)" />
+				<listheader label="Descrição" align="center"
+					sort="auto(departamento)" />
+			</listhead>
+			<template name="model">5
+
+
+				<listitem>
+					<listcell label="@bind" sclass="highlightcell"></listcell>
+					<listcell label="@bind"></listcell>
+					<listcell label="@bind"></listcell>
+					<listcell>
+
+						<button image="/imagens/remove-icon.png"
+							onClick="@command('desativar') @global-command('refresh')" />
+						<button image="/imagens/edit.png"
+							onClick="@command('telaAlterar') @global-command('refresh')" />
+					</listcell>
+
+				</listitem>
+
+
+			</template>
+		</listbox>
+		<auxhead>
+			<auxheader class="topic">
+				<fbutton label="Salvar" onClick="@command('')" />
+				<fbutton label="Rejeitar" onClick="@command('')" />
+				<fbutton label="Aprovar" onClick="@command('')" />
+				<fbutton label="Limpar" onClick="@command('')" />
+			</auxheader>
+		</auxhead>
+	</div>
+</zk>

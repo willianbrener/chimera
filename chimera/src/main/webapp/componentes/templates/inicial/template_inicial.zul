@@ -1,0 +1,34 @@
+<zk>
+
+	<script type="text/javascript" src="/js/jquery.maskedinput-1.3.js" />
+	<!-- style="-moz-border-radius: 8px; /* Para Firefox */ -webkit-border-radius: 8px; /*Para Safari e Chrome */ border-radius: 8px; /* Para Opera 10.5+*/background-color: white; margin:0 auto; width: 900px; border: solid thick #E6E8FA; border-width: 0.15em;" -->
+	<borderlayout hflex="1" vflex="1" if="${not sessionScope.userCredential.anonymous}">
+		<north vflex="min" border="none"
+			style=" width:100%; height:135px;">
+			<include
+				src="/componentes/templates/inicial/header_inicial.zul" />
+		</north>
+
+		<center vflex="min" border="none" class="center"
+			style="overflow: auto; background-position: bottom right; background-repeat: no-repeat; background-color: #e1e0e0; background-attachment: scroll;"
+			autoscroll="true">
+			<div class="center" xmlns:w='client' self="@insert(content)"
+				height="100%" width="100%" style="overflow: auto;">
+			</div>
+		</center>
+
+			<west vflex="min" border="none" style="background-color: #e1e0e0;" >
+				<include src="/componentes/templates/inicial/navbar.zul" />
+			</west>
+
+		<south border="none" class="footer"
+			style="background-color:#CDC9C9; text-align: center; bottom:0; height:20px;">
+			<include
+				src="/componentes/templates/inicial/footer_inicial.zul" />
+		</south>
+		
+	</borderlayout>
+	<div if="${sessionScope.userCredential.anonymous}">
+		Redirect to login page.....
+	</div>
+</zk>

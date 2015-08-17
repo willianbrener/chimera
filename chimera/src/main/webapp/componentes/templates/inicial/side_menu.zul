@@ -1,0 +1,11 @@
+<zk xmlns:n="native">
+<style src="/css/css.zul"/>
+	<menubar  id="menubar" orient="vertical" autodrop="true">
+		<menu label="MANTER CARGO">
+					<menupopup>
+						<menuitem label="Cadastro"  href = "/paginas/cadastros_base/cargo/frmCargo.zul"  />
+						<menuitem label="Pesquisa"	href = "/paginas/cadastros_base/cargo/psqCargo.zul" />
+					</menupopup>
+		</menu>
+	</menubar>
+</zk>

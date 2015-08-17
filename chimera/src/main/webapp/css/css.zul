@@ -1,0 +1,29 @@
+<zk>
+	<style>
+		<![CDATA[
+		         
+		         
+		     /*Menu lateral*/
+			.content .Menu {
+			    margin: 0;
+			}
+			.content .subTitle {
+			    margin: 0;
+			}
+		         
+		    /*Histórico de Navegação*/
+		    table.z-hbox.navigation a {
+		    	padding: 5px;
+		    	color: #1212DA;
+		    	text-decoration: initial;
+		  	 	font-size: 12px;
+		    } 
+		             
+		    table.z-hbox.navigation a:hover {
+		    	color: #27B62D;
+		    }
+		    
+		   
+		]]>		
+	</style>
+</zk>

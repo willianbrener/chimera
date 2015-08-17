@@ -1,0 +1,63 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+
+	<window title="Cargo Alterar" border="normal" id="CargoUpdate"
+		width="430px" height="auto" apply="org.zkoss.bind.BindComposer"
+		sclass="mymodal" minimizable="false" mode="modal" maximizable="false"
+		closable="false" position="center"
+		viewModel="@id('vm') @init('br.com.ueg.pids.ViewModel.CargoUpdateViewModel')">
+		<separator />
+		<flabeltitle value="Cargo Informações" />
+		<separator />
+		<panel width="100%">
+			<panelchildren>
+				<separator />
+				<grid width="99.5%">
+					<columns>
+						<column label="" width="150px" />
+						<column label="" />
+					</columns>
+					<rows>
+						<row>
+							<hbox>
+								<flabel value="Nome:" />
+							</hbox>
+							<ftextbox name="fldName"
+								value="@bind(vm.itemSelected.name)" width="180px" inplace="true" />
+						</row>
+						<row>
+							<flabel value="Departamento:" />
+							<combobox width="180px" model="@load(vm.departamentoList)"
+								selectedItem="@bind(vm.departamentoSelecionado)"
+								value="@load(vm.itemSelected.departamento)"
+								>
+								
+								<template name="model">
+									<comboitem 		label="@load(each.descricao)" />
+								</template>
+							</combobox>
+						</row>
+						<row>
+							<hbox>
+								<flabel value="Descrição:" />
+							</hbox>
+							<ftextbox name="fldDescricao"
+								value="@bind(vm.itemSelected.descricao)" width="210px;" 
+								rows="6"
+								tabindex="11" inplace="true"  type="text"  />
+						</row>
+
+					</rows>
+				</grid>
+			</panelchildren>
+		</panel>
+		<separator />
+		<div align="center">
+			<fbutton id="submit" label="Submit"
+				onClick="@command('update')" />
+			<fbutton id="cancel" label="Cancel"
+				onClick="@command('closeThis')" />
+		</div>
+		<separator />
+	</window>
+</zk>

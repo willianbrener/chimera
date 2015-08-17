@@ -1,0 +1,53 @@
+  <?page title="Pesquisa Cargo" contentType="text/html;charset=UTF-8"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/componentes/templates/master/template_master.zul"?>
+  <zk>  
+ 
+
+  <div self="@define(content)"
+        apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('br.com.ueg.pids.ViewModel.CargoViewModel')"
+           align="center"  width="100%" style="margin-top:50px">
+
+  <hbox align="center" sclass="searchform">
+        <textbox value="@bind(vm.busca)"  sclass="searchfield"/>
+        <Addbutton label="Pesquisar" image="" onClick="@command('ListarTodos')" />
+    </hbox>
+
+    <listbox sclass="mylist" id="list" model="@bind(vm.lstCargo)" emptyMessage="Nenhuma categoria selecionada." width="600px"
+     style="margin-top:10px"  selectedItem="@bind(vm.itemSelected)"  mold="paging" pageSize="8">
+        	
+
+        	<listhead sizable="true">
+            <listheader label="Nome" align="center" sort="auto(name)" />
+            <listheader label="Descricao" align="center" sort="auto(descricao)" />
+               <listheader label="Departamento" align="center" sort="auto(departamento)" />
+            <listheader label="Status" align="center" sort="auto(status)" />
+        </listhead>
+        <template name="model">
+      
+        
+            <listitem>
+                <listcell  label="@bind(each.name)" sclass="highlightcell"></listcell>
+                 <listcell label="@bind(each.descricao)"></listcell>
+                 <listcell  label="@bind(each.departamento)"></listcell>
+                <listcell  label="@bind(each.status)"></listcell>
+            </listitem>
+           
+            
+        </template>
+    </listbox>
+
+    <auxhead>
+        		<auxheader colspan="4" class="topic">
+        			<fbutton label="Alterar" onClick="@command('telaAlterar')" />
+        			<fbutton label="Deletar" onClick="@command('deletar')" />
+        			<label
+        				value="Para alterar ou desativar selecione um item"
+        				style="color: blue; font-size:8pt" />
+        		</auxheader>
+        	</auxhead>
+
+   </div>
+
+    </zk>
+    

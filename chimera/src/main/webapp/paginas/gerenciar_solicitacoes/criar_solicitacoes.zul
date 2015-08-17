@@ -1,0 +1,62 @@
+ <?page title="Criar Solicitações" contentType="text/html;charset=UTF-8"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/componentes/templates/master/template_master.zul"?>
+<zk>
+
+	 <div self="@define(content)" apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('br.com.ueg.pids.ViewModel.GerenciarSolicitacoesViewModel')"
+		form="@id('fx') @load(vm.entity) @save(vm.entity, before='salvar')"
+		align="center" style="margin-top:50px" width="100%">
+	
+		<fgrid hflex="min"  sclass="nostyle">
+		<rows>
+			
+			<row >
+				<label value="Usuário:"/>
+				<textbox id="fldUser"  width="100%" />
+				
+				<label value="Departamento:"/>
+				<textbox id="fldDepartament"   width="100%" />
+								
+				<label value="Data:" tooltiptext="Data"/>
+				<datebox id="fldDate"  format="dd/MM/yyyy" locale="pt_BR" placeholder="DD/MM/YYYY" width="100%"  />
+			</row>
+			<row>
+				<label value="Cargo:"/>
+				<combobox id="fldCargo"   width="100%" />
+				
+				<label value="Permissão:" />
+				<textbox id="fldPermission"   width="100%"/>
+				
+				<label value="Hora:" tooltiptext="Hora"/>
+				<textbox id="fldHour"   placeholder="HH:MM"  width="50%" />
+			</row>
+			<row spans="1,3">
+				<label value="Título:"/>
+				<textbox id="fldTittle"  width="100%" />
+				
+				<label value="Recurso:"/>
+				<combobox id="fldRecurso"   width="100%" />
+			</row>
+			<row spans="1,5">
+			<flabel value="Descrição:" />
+					<ftextbox id="fldDescription"
+					rows="7"
+					width="100%;" tabindex="11" />
+			</row>
+			</rows>		
+	</fgrid>
+	<auxhead>
+        		<auxheader  class="topic">
+        			<fbutton label="Salvar" onClick="@command('telaAlterar')" />
+        			<fbutton label="Cancelar" onClick="@command('deletar')" />
+        			<fbutton label="Limpar" onClick="@command('deletar')" />	
+        		</auxheader>
+        	</auxhead>
+        	<script type="text/javascript">
+        zk.afterMount(function() {
+	    	jq("$fldHour").mask("99:99");
+	    	jq("$fldDate").mask("99/99/9999");
+	    });
+   	</script>
+</div>
+</zk>

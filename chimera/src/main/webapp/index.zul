@@ -1,0 +1,6 @@
+<zk>
+  <window >
+     Welcome to ZK Secured Page
+      <button label="Logout" href="/j_spring_security_logout"/>
+ </window>
+</zk>
