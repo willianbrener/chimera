@@ -1,3 +1,4 @@
+
 <zk>
 
 	<script type="text/javascript" src="/js/jquery.maskedinput-1.3.js" />
@@ -30,5 +31,6 @@
 	</borderlayout>
 	<div if="${sessionScope.userCredential.anonymous}">
 		Redirect to login page.....
+		<![CDATA[Executions.sendRedirect("/login.zul");]]> 
 	</div>
 </zk>

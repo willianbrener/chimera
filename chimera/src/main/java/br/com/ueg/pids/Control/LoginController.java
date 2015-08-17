@@ -36,7 +36,7 @@ Session sess = Sessions.getCurrent();
 		String pd = password.getValue();
 		
 		if(!authService.login(nm,pd)){
-			message.setValue("account or password are not correct.");
+			message.setValue("account ou password incorretos.");
 			return;
 		}
 		UserCredential cre= authService.getUserCredential();

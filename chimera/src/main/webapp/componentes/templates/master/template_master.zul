@@ -1,10 +1,11 @@
-<zk>
 
+<zk>
+	
 	<script type="text/javascript" src="/scripts/jquery.maskedinput.js" />
 
 	<separator height="20px" />
 	<!-- style="-moz-border-radius: 8px; /* Para Firefox */ -webkit-border-radius: 8px; /*Para Safari e Chrome */ border-radius: 8px; /* Para Opera 10.5+*/background-color: white; margin:0 auto; width: 900px ; border: solid thick #E6E8FA; border-width: 0.15em;" -->
-	<borderlayout height="95%">
+	<borderlayout  height="95%" if="${not sessionScope.userCredential.anonymous}">
 		<north vflex="min" border="none"
 			style=" width:100%; height:135px;">
 			<include
@@ -29,4 +30,8 @@
 			<include src="/componentes/templates/inicial/navbar.zul" />
 		</west>
 	</borderlayout>
+	<div if="${sessionScope.userCredential.anonymous}">
+		Redirect to login page.....
+		<![CDATA[Executions.sendRedirect("/login.zul");]]> 
+	</div>
 </zk>
