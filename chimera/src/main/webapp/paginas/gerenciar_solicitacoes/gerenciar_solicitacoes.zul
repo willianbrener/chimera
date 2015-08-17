@@ -23,8 +23,6 @@
 
 					<label value="Permissão:" />
 					<textbox id="fldPermission" width="100%" />
-
-
 				</row>
 				<row spans="1,3">
 					<label value="Título:" />
