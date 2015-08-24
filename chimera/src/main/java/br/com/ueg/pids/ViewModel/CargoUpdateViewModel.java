@@ -24,6 +24,11 @@ import br.com.ueg.pids.Utils.Return;
 public class CargoUpdateViewModel extends
 		GenericViewModel<Cargo, CargoController> {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8185330955569018133L;
+	
 	@Wire("#CargoUpdate")
 	private Window win;
 	private String recordMode;

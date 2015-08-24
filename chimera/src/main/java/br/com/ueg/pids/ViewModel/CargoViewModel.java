@@ -21,6 +21,12 @@ import br.com.ueg.pids.Utils.Return;
 
 public class CargoViewModel extends GenericViewModel<Cargo, CargoController> {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5364229695993402589L;
+	
+	
 	@Wire("#CustomerCRUD")
 	private Window win;
 	private List<Departamento> departamentoList = new ArrayList<Departamento>();
