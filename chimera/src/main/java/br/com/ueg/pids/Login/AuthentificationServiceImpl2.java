@@ -12,13 +12,13 @@ public class AuthentificationServiceImpl2 extends AuthentificationServiceImpl1{
 
 	private static final long serialVersionUID = 1L;
 	
-UserInfoService userInfoService = new UserInfoServiceImpl();
+	UserInfoService userInfoService = new UserInfoServiceImpl();
 	
 	@Override
 	public boolean login(String nm, String pd) {
 		Usuario user = userInfoService.findUser(nm);
 		//simples de verificação de senha
-		if(user==null || !user.getPassword().equals(pd)){
+		if (user == null || !user.getPassword().equals(pd)) {
 			return false;
 		}
 		
@@ -29,7 +29,6 @@ UserInfoService userInfoService = new UserInfoServiceImpl();
 			return false;
 		}
 		sess.setAttribute("userCredential",cre);
-		
 		
 		return true;
 	}

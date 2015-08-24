@@ -25,7 +25,6 @@ Textbox password;
 @Wire
 Label message;
 
-
 //services
 AuthenticationService authService = new AuthentificationServiceImpl2();
 Session sess = Sessions.getCurrent();
@@ -35,14 +34,13 @@ Session sess = Sessions.getCurrent();
 		String nm = account.getValue();
 		String pd = password.getValue();
 		
-		if(!authService.login(nm,pd)){
+		if (!authService.login(nm, pd)) {
 			message.setValue("account ou password incorretos.");
 			return;
 		}
 		UserCredential cre= authService.getUserCredential();
-		message.setValue("Welcome, "+cre.getName());
+		message.setValue("Welcome, " + cre.getName());
 		message.setSclass("");
-		
 		
 		Executions.sendRedirect("/paginas/initial_page.zul");
 	}
@@ -51,6 +49,5 @@ Session sess = Sessions.getCurrent();
 		sess.removeAttribute("userCredential");
 		Executions.sendRedirect("/login.zul");
 	}
-
 
 }

@@ -7,8 +7,6 @@ import java.util.List;
 import br.com.ueg.pids.Model.UserInfoService;
 import br.com.ueg.pids.Model.Usuario;
 
-
-
 public class UserInfoServiceImpl implements UserInfoService,Serializable{
 	private static final long serialVersionUID = 1L;
 	

@@ -24,7 +24,7 @@ public class GenericDAO {
 	private static GenericDAO dao = null;
 	
 	public static GenericDAO getInstance(){
-		if(dao==null){
+		if (dao == null) {
 			dao = new GenericDAO();
 		}
 		return dao;
@@ -34,7 +34,6 @@ public class GenericDAO {
 		try {
 			this.con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/chimera","postgres","postgres");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -46,7 +45,7 @@ public class GenericDAO {
 	public boolean exists(Table<?> table){
 		boolean result = false;
 		Object object = this.getObject(table);
-		if(object!=null){
+		if (object != null) {
 			result = true;
 		}
 		return result;
@@ -67,7 +66,7 @@ public class GenericDAO {
 			int colCount = rs.getMetaData().getColumnCount();
 			if (rs.next()) {
 				HashMap<String,Object> record = new HashMap<String, Object>();
-				for(int i=1;i<=colCount;i++){
+				for (int i = 1; i <= colCount; i++) {
 					strSetValues = strSetValues +","+ rs.getString(i)+"";
 				}
 			}else{
@@ -84,8 +83,6 @@ public class GenericDAO {
 		table.setTableColumnsValues(strSetValues);
 		
 		return table;
-		
-		
 	}
 	/** remove um objeto do banco de dados.
 	 * @param table
@@ -182,7 +179,7 @@ public class GenericDAO {
 			int colCount = rs.getMetaData().getColumnCount();
 			while(rs.next()){
 				HashMap<String,Object> record = new HashMap<String, Object>();
-				for(int i=1;i<=colCount;i++){
+				for (int i = 1; i <= colCount; i++) {
 					record.put(rs.getMetaData().getColumnName(i), rs.getString(i));
 				}
 				result.add(record);
@@ -203,7 +200,7 @@ public class GenericDAO {
 	private static String quotedString(String v){
 		String[] values = v.split(",");
 		String retorno ="";
-		for(int i=0;i<values.length;i++){
+		for (int i = 0; i < values.length; i++) {
 			retorno = retorno + ",'" + values[i] + "'";
 		}
 		retorno = retorno.substring(1);
@@ -221,8 +218,8 @@ public class GenericDAO {
 		
 		String retorno = "";
 		
-		for(int i=0;i < colNames.length;i++){
-			retorno = retorno+", " +colNames[i]+"='"+colValues[i]+"'";
+		for (int i = 0; i < colNames.length; i++) {
+			retorno = retorno + ", " + colNames[i] + "='" + colValues[i] + "'";
 		}
 		return retorno.substring(1);
 	}

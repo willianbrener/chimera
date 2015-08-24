@@ -46,8 +46,6 @@ public class CargoUpdateViewModel extends
 	@Command
 	public void closeThis() {
 		win.detach();
-	
-		
 	}
 
 	@Command
@@ -68,9 +66,7 @@ public class CargoUpdateViewModel extends
 			Messagebox.show("Cargo alterado com sucesso!", "Sucess",Messagebox.OK, Messagebox.INFORMATION);
 			
 			Executions.sendRedirect("/paginas/cadastros_base/cargo/psqCargo.zul");
-
 		}
-		
 		return ret;
 	}
 

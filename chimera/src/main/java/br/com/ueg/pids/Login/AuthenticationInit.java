@@ -19,7 +19,7 @@ public class AuthenticationInit implements Initiator {
 	public void doInit(Page page, Map<String, Object> args) throws Exception {
 		
 		UserCredential cre = authService.getUserCredential();
-		if(cre==null || cre.isAnonymous()){
+		if (cre == null || cre.isAnonymous()) {
 			Executions.sendRedirect("/login.zul");
 			return;
 		}
