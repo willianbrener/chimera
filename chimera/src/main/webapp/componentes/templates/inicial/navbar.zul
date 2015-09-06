@@ -23,13 +23,13 @@
 			
 			<navitem label="Cadastrar">
 				<attribute name="onClick"><![CDATA[
-				Executions.sendRedirect("/paginas/cadastros_base/cargo/frmCargo.zul");
+				Executions.sendRedirect("/paginas/cadastros_base/cargo/cadastrar.zul");
 			]]></attribute>
 			</navitem>
 			
 			<navitem label="Pesquisar">
 				<attribute name="onClick"><![CDATA[
-				Executions.sendRedirect("/paginas/cadastros_base/cargo/psqCargo.zul");
+				Executions.sendRedirect("/paginas/cadastros_base/cargo/pesquisar.zul");
 			]]></attribute>
 			</navitem>
 			
