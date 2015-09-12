@@ -1,10 +1,5 @@
-<?page title="Gerenciar Solicitações" contentType="text/html;charset=UTF-8"?>
-<?init class="org.zkoss.zk.ui.util.Composition" arg0="/componentes/templates/master/template_master.zul"?>
+
 <zk>
-
-	<div self="@define(content)" align="center"
-		style="margin-top:50px">
-
 		<fgrid hflex="min" sclass="nostyle">
 			<rows>
 
@@ -24,10 +19,7 @@
 					<label value="Permissão:" />
 					<textbox id="fldPermission" width="100%" />
 				</row>
-				<row spans="1,3">
-					<label value="Título:" />
-					<textbox id="fldTittle" width="100%" />
-				</row>
+				
 				<row>
 					<label value="Recurso:" />
 					<combobox id="fldRecurso" width="100%" />
@@ -37,7 +29,7 @@
 				</row>
 			</rows>
 		</fgrid>
-		<listbox sclass="mylist" id="list"
+		<listbox sclass="mylist" id="list" 
 			emptyMessage="Nenhuma solicitação selecionada." width="790px"
 			style="margin-top:10px" mold="paging" pageSize="4">
 
@@ -51,8 +43,6 @@
 					sort="auto(departamento)" />
 			</listhead>
 			<template name="model">5
-
-
 				<listitem>
 					<listcell label="@bind" sclass="highlightcell"></listcell>
 					<listcell label="@bind"></listcell>
@@ -66,17 +56,14 @@
 					</listcell>
 
 				</listitem>
-
-
 			</template>
 		</listbox>
 		<auxhead>
 			<auxheader class="topic">
-				<fbutton label="Salvar" onClick="@command('')" />
-				<fbutton label="Rejeitar" onClick="@command('')" />
-				<fbutton label="Aprovar" onClick="@command('')" />
-				<fbutton label="Limpar" onClick="@command('')" />
+				<fbutton label="Salvar" onClick="@command('salvar')" />
+				<fbutton label="Rejeitar" onClick="@command('rejeitar')" />
+				<fbutton label="Aprovar" onClick="@command('aprovar')" />
+				<fbutton label="Limpar" onClick="@command('limpar')" />
 			</auxheader>
 		</auxhead>
-	</div>
 </zk>

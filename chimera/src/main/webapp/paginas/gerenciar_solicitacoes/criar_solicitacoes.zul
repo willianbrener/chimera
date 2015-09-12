@@ -1,28 +1,25 @@
- <?page title="Criar Solicitações" contentType="text/html;charset=UTF-8"?>
-<?init class="org.zkoss.zk.ui.util.Composition" arg0="/componentes/templates/master/template_master.zul"?>
 <zk>
-
-	 <div self="@define(content)" apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm') @init('br.com.ueg.pids.ViewModel.GerenciarSolicitacoesViewModel')"
-		form="@id('fx') @load(vm.entity) @save(vm.entity, before='salvar')"
-		align="center" style="margin-top:50px" width="100%">
-	
-		<fgrid hflex="min"  sclass="nostyle">
+		<fgrid width="900px" sclass="nostyle">
 		<rows>
 			
 			<row >
 				<label value="Usuário:"/>
-				<textbox id="fldUser"  width="100%" />
+				<textbox id="fldUser"  width="100%" readonly="true"/>
 				
 				<label value="Departamento:"/>
-				<textbox id="fldDepartament"   width="100%" />
+				<textbox id="fldDepartament"   width="100%"  readonly="true"/>
 								
 				<label value="Data:" tooltiptext="Data"/>
 				<datebox id="fldDate"  format="dd/MM/yyyy" locale="pt_BR" placeholder="DD/MM/YYYY" width="100%"  />
 			</row>
 			<row>
 				<label value="Cargo:"/>
-				<combobox id="fldCargo"   width="100%" />
+				 <combobox model="@load(vm.cargoList)" width="75%"
+                        selectedItem="@save(vm.cargoSelected)" >
+                        <template name="model">
+							<comboitem label="@load(each.name)" />
+						</template>
+                  </combobox>
 				
 				<label value="Permissão:" />
 				<textbox id="fldPermission"   width="100%"/>
@@ -45,18 +42,18 @@
 			</row>
 			</rows>		
 	</fgrid>
-	<auxhead>
-        		<auxheader  class="topic">
-        			<fbutton label="Salvar" onClick="@command('telaAlterar')" />
-        			<fbutton label="Cancelar" onClick="@command('deletar')" />
-        			<fbutton label="Limpar" onClick="@command('deletar')" />	
-        		</auxheader>
-        	</auxhead>
+	
+		<auxhead>
+    		<auxheader  class="topic">
+    			<fbutton label="Salvar" onClick="@command('salvar')" />
+    			<fbutton label="Cancelar" onClick="@command('cancelar')" />
+    			<fbutton label="Limpar" onClick="@command('limpar')" />	
+    		</auxheader>
+    	</auxhead>
         	<script type="text/javascript">
         zk.afterMount(function() {
 	    	jq("$fldHour").mask("99:99");
 	    	jq("$fldDate").mask("99/99/9999");
 	    });
    	</script>
-</div>
 </zk>

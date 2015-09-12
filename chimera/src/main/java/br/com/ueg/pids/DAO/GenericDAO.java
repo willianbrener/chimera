@@ -1,226 +1,411 @@
 package br.com.ueg.pids.DAO;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
+
+import java.lang.reflect.Field;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
-import br.com.ueg.pids.Model.Table;
+import br.com.ueg.pids.Annotations.Campo;
+import br.com.ueg.pids.Enum.TypeMessage;
+import br.com.ueg.pids.Model.IModel;
+import br.com.ueg.pids.Utils.Connect;
+import br.com.ueg.pids.Utils.Mensagem;
+import br.com.ueg.pids.Utils.Reflection;
+import br.com.ueg.pids.Utils.Return;
 
 
-/**
- * @author Guiliano
- *
- */
-@SuppressWarnings({"rawtypes","unused"})
+
+
 public class GenericDAO {
-	
-	private Connection con = null;
-	
-	private static GenericDAO dao = null;
-	
-	public static GenericDAO getInstance(){
-		if (dao == null) {
-			dao = new GenericDAO();
-		}
-		return dao;
-	}
-	
-	private GenericDAO(){
-		try {
-			this.con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/chimera","postgres","postgres");
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	/** verifica se uma objeto já existe no banco de dados.
-	 * @param table
-	 * @return
-	 */
-	public boolean exists(Table<?> table){
-		boolean result = false;
-		Object object = this.getObject(table);
-		if (object != null) {
-			result = true;
-		}
-		return result;
-	}
-	
-	
-	
-	public <T extends Table> T  getObject(T table){
 
-		String sql = "select "+table.getTableColumnNames()+" from " + table.getTableName() + " ";
-		sql = sql + " where " + table.getPKName() + "='" + String.valueOf(table.getPK()) + "'";
-		System.out.println("sql:"+sql);
-		String strSetValues = "";
-		Statement st;
-		try {
-			st = con.createStatement();
-			ResultSet rs = st.executeQuery(sql);
-			int colCount = rs.getMetaData().getColumnCount();
-			if (rs.next()) {
-				HashMap<String,Object> record = new HashMap<String, Object>();
-				for (int i = 1; i <= colCount; i++) {
-					strSetValues = strSetValues +","+ rs.getString(i)+"";
-				}
-			}else{
-				return null;
+	static GenericDAO genericDAO;
+	Mensagem message = new Mensagem();
+	
+	static { genericDAO = null; }
+		
+	public static GenericDAO obterInstancia(){
+			if (genericDAO == null ) {
+				genericDAO = new GenericDAO();
 			}
-			rs.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
+			return genericDAO;
 		}
+	
+	public Return inserir(IModel<?> entidade){
+		Return res = null;
 		
-		strSetValues = strSetValues.substring(1);
+		String auxFieldsName="";
+		String auxFieldsValues="";
+		Class<?> cls = entidade.getClass();	
+		Field[] fld = cls.getDeclaredFields();
 		
-		table.setTableColumnsValues(strSetValues);
-		
-		return table;
-	}
-	/** remove um objeto do banco de dados.
-	 * @param table
-	 * @return
-	 */
-	public boolean deletar(Table<?> table){
-		boolean result = false;
-		String sql = "delete from " + table.getTableName() + " ";
-		sql = sql + " where " + table.getPKName() + "='" + String.valueOf(table.getPK()) + "'";
-		System.out.println("sql:"+sql);
-		Statement st;
-		
-			try {
-				st = con.createStatement();
+		try {
+			for(int i = 1; i < fld.length; i++){
+				Campo cmp = fld[i].getAnnotation(Campo.class);				
+				if(cmp!=null){
+					if(Reflection.getFieldValue(entidade, fld[i].getName())!=null){
+						String str = "";
+						if(Reflection.getFieldValue(entidade, fld[i].getName()) instanceof IModel<?>){
+							str = "" + (((IModel<?>) Reflection.getFieldValue(entidade, fld[i].getName())).getPK());
+						}else{
+							str = "" + Reflection.getFieldValue(entidade, fld[i].getName());
+						}
+						auxFieldsName=auxFieldsName+","+cmp.nome();
+						auxFieldsValues=auxFieldsValues+", '"+ str +"'";
+					}
+				}				
+			}
+		}catch (Throwable e) {
+			System.err.println(e);
 			
-				int row = st.executeUpdate(sql);
-				if (row>0) {
-					result = true;
-				}
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		}		
+		
+		
+		String sql = "insert into " + entidade.getTableName();
+			   sql = sql + "(" + auxFieldsName.substring(1) + ")";			   
+			   sql = sql + " values(" + auxFieldsValues.substring(1) + ")";
+		
+		
+		if(Connect.getConexao()){
+			int i = Connect.runSQL(sql);
+			System.out.println(sql);
+			if (i == 1){
+				Connect.close();
+				return new Return(true,"O "+ entidade.getTableName()+ "foi inserido com sucesso!", TypeMessage.SUCESSO);
+				
+			}else{
+				System.out.println("O " + entidade.getTableName() +"  Não Foi Inserido problema no DAO.inserir");  
+				Connect.close();
+				return  new Return(false, "Não Foi Inserido", TypeMessage.ERROR);
 			}
-		
-		return result;
-	}
-
-	
-	/** Metodo utilizado para salvar uma tabela no banco de dados.(o objeto deve ser novo)
-	 * @param table
-	 * @return true caso consiga salvar e falso do contrario
-	 */
-	public boolean salvar(Table<?> table){
-		boolean result = false;
-		String cols = GenericDAO.quotedString(table.getTableColumnValues());
-		
-		String sql = "insert into " + table.getTableName();
-			   sql = sql + "(" + table.getTableColumnNames() + ")";			   
-			   sql = sql + " values(" + cols + ")";
-		
-		try {
-			Statement st = this.con.createStatement();
-			result = st.execute(sql);
-			st.close();
-			result = true;
-		} catch (SQLException e) {
-			e.printStackTrace();
+				
 		}
-		System.out.println("sql:"+sql);
+		System.out.println("O " + entidade.getTableName() + "Não Foi Inserido problema no Connect.getConexão()");
 		
-		return result;
+		return  new Return(false,"Não Foi Inserido problema no Connect.getConexão()", TypeMessage.ERROR);
 	}
 	
-	/** Metodo utilizado pra atualizar um objeto no banco de dados.
-	 * @param table
-	 * @return
-	 */
-	public boolean alterar(Table<?> table){
-		boolean result = false;
+	
+	public Return alterar(IModel<?> entidade){
+		String auxFields="";
+		Class<?> cls = entidade.getClass();	
+		Field[] fld = cls.getDeclaredFields();
 		
-		String sql = "update " + table.getTableName() + " " ;		
-			   sql = sql + "set "+GenericDAO.getSetString(table) + " ";
-			   sql = sql + "where " + table.getPKName() + "='"+String.valueOf(table.getPK())+"'";
-		
-	    System.out.println("sql:"+sql);
-	    
-	    Statement st;
-	    int row =0;
 		try {
-			st = con.createStatement();
-			row = st.executeUpdate(sql);
-			st.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return false;
-		}	    	    
-	    
-	    if(row>0){ 
-	    	result= true;
-	    }
-		return result;
+			for(int i = 0; i < fld.length; i++){
+				Campo cmp = fld[i].getAnnotation(Campo.class);				
+				if(cmp!=null){
+					if(Reflection.getFieldValue(entidade, fld[i].getName())!=null){
+						String str = "";
+						if(Reflection.getFieldValue(entidade, fld[i].getName()) instanceof IModel<?>){
+							str = "" + (((IModel<?>) Reflection.getFieldValue(entidade, fld[i].getName())).getPK());
+						}else{
+							str = "" + Reflection.getFieldValue(entidade, fld[i].getName());
+						}
+						auxFields=auxFields+","+cmp.nome()+"= '" + str + "'";
+					}
+				}				
+			}
+		}catch (Throwable e) {
+			System.err.println(e);
+			
+		}		
+		
+		String sql = "update " + entidade.getTableName() + " " ;		
+		   sql = sql + "set "+auxFields.substring(1) + " ";
+		   sql = sql + " where " + entidade.getPKName() + "='" + String.valueOf(entidade.getPK()) + "'";
+		
+		if(Connect.getConexao()){
+			System.out.println("sql = "+sql);
+			int i = Connect.runSQL(sql);
+			if (i == 1){
+				Connect.close();
+				return new Return(true, entidade.getTableName()+ " Alterado com sucesso!", TypeMessage.SUCESSO);
+				
+			}else{
+				System.out.println("O " + entidade.getTableName() + "Não Foi Alterado problema no DAO.Alterar");  
+				Connect.close();
+				return  new Return(false, "Não Foi Alterado", TypeMessage.ERROR);
+			}
+		}
+		System.out.println("O "+ entidade.getTableName() +" Não Foi Alterado problema no DAO.alterar.Connect.getConexão");
+		return new Return(false);
 	}
 	
-	public List<HashMap<String, Object>> listarTodos(Table<?> table){
+	public Return excluir(IModel<?> entidade){
+		String auxFields="";
+		Class<?> cls = entidade.getClass();	
+		Field[] fld = cls.getDeclaredFields();
 		
-		List<HashMap<String, Object>> result = new ArrayList<HashMap<String,Object>>();
+		try {
+			for(int i = 0; i < fld.length; i++){
+				Campo cmp = fld[i].getAnnotation(Campo.class);				
+				if(cmp!=null){
+					if(Reflection.getFieldValue(entidade, fld[i].getName())!=null){
+						auxFields=auxFields+","+cmp.nome()+"=?";
+					}
+				}				
+			}
+		}catch (Throwable e) {
+			System.err.println(e);
+			
+		}		
 		
-		
-		String sql = "select "+table.getTableColumnNames()+" from "+table.getTableName()+ " ";
+		String sql = "update " + entidade.getTableName() + " " ;		
+		   sql = sql + "set ativo= 'false'";
+		   sql = sql + " where " + entidade.getPKName() + "='" + String.valueOf(entidade.getPK()) + "'";
+		System.out.println("sql = "+sql);
+		if(Connect.getConexao()){
+			
+			int i = Connect.runSQL(sql);
+			if (i == 1){
+				Connect.close();
+				return new Return(false, entidade.getTableName()+ " Desativado com sucesso!", TypeMessage.SUCESSO);
+				
+			}else{
+				System.out.println("O "+ entidade.getTableName() + "Não Foi excluido problema no DAO.excluir");  
+				Connect.close();
+				return new Return(false);
+			}
+		}
+		System.out.println("O " + entidade.getTableName() + "Não Foi Excluido problema no DAOUsuario.excluir.Connect.getConexão");
+		return new Return(false);
+	}
 
+	
+	public Return ativar(IModel<?> entidade){
+		String auxFields="";
+		Class<?> cls = entidade.getClass();	
+		Field[] fld = cls.getDeclaredFields();
+		
 		try {
-			Statement st = con.createStatement();
-			ResultSet rs = st.executeQuery(sql);
-			int colCount = rs.getMetaData().getColumnCount();
-			while(rs.next()){
+			for(int i = 0; i < fld.length; i++){
+				Campo cmp = fld[i].getAnnotation(Campo.class);				
+				if(cmp!=null){
+					if(Reflection.getFieldValue(entidade, fld[i].getName())!=null){
+						auxFields=auxFields+","+cmp.nome()+"=?";
+					}
+				}				
+			}
+		}catch (Throwable e) {
+			System.err.println(e);
+			
+		}		
+		
+		String sql = "update " + entidade.getTableName() + " " ;		
+		   sql = sql + "set ativo= 'true'";
+		   sql = sql + " where " + entidade.getPKName() + "='" + String.valueOf(entidade.getPK()) + "'";
+		System.out.println("sql = "+sql);
+		if(Connect.getConexao()){
+			
+			int i = Connect.runSQL(sql);
+			if (i == 1){
+				Connect.close();
+				return new Return(false, entidade.getTableName()+ " Ativado com sucesso!", TypeMessage.SUCESSO);
+				
+			}else{
+				System.out.println("O "+ entidade.getTableName() + "Não Foi excluido problema no DAO.excluir");  
+				Connect.close();
+				return new Return(false);
+			}
+		}
+		System.out.println("O " + entidade.getTableName() + "Não Foi Excluido problema no DAOUsuario.excluir.Connect.getConexão");
+		return new Return(false);
+	}
+	/*
+	 * função pesquisarUsuario pode ser chamada por uma string onde pesquisa qualquer 
+	 * parte da palavra do titulo, diretor ou genero
+	 * ou por um inteiro onde se pesquisa pelo id do filme..
+	 */
+
+	
+	public ArrayList<HashMap<String,Object>>  pesquisarNome(IModel<?> entidade, String nome) throws SQLException{
+		
+		String sql = "select "+ entidade.getTableColumnNames()+" from " + entidade.getTableName() + " ";
+		sql = sql + " where ativo = true and ";
+		
+		String nomeVariaveis = entidade.getVariaveisPesquisarNome();
+		String[] vetorVariaveis = new String [nomeVariaveis.split(",").length];
+		vetorVariaveis = nomeVariaveis.split(",");
+		for (int i = 0; i < vetorVariaveis.length ; i++){
+			sql = sql + " "+ vetorVariaveis[i] + " LIKE '%" + nome + "%' OR";
+		}
+		
+		sql = sql.substring(0, sql.length()-2);
+		sql = sql + " ;";
+		
+		System.out.println("sql:"+sql);
+		if(Connect.getConexao()){
+			
+			ArrayList<HashMap<String,Object>> result = new ArrayList<HashMap<String,Object>>();
+			
+		ResultSet rs =  Connect.setResultSet(sql);
+		int colCount = rs.getMetaData().getColumnCount();
+		while(rs.next()){
 				HashMap<String,Object> record = new HashMap<String, Object>();
-				for (int i = 1; i <= colCount; i++) {
+				for(int i=1;i<=colCount;i++){
 					record.put(rs.getMetaData().getColumnName(i), rs.getString(i));
 				}
 				result.add(record);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-		
+		Connect.close();
 		return result;
+		}
+		System.out.println("O " + entidade.getTableName() + " Não Foi pesquisado problema no DAOUsuario pesquisarusuario(String) Connect.getConexão");
+		return null;
+	}
+	
+public ArrayList<HashMap<String,Object>>  pesquisarNomeAtivo(IModel<?> entidade, String nome) throws SQLException{
+		
+		String sql = "select "+ entidade.getTableColumnNames()+" from " + entidade.getTableName() + " ";
+		sql = sql + " where ativo = 'true' and ";
+		
+		String nomeVariaveis = entidade.getVariaveisPesquisarNome();
+		String[] vetorVariaveis = new String [nomeVariaveis.split(",").length];
+		vetorVariaveis = nomeVariaveis.split(",");
+		for (int i = 0; i < vetorVariaveis.length ; i++){
+			sql = sql + " "+ vetorVariaveis[i] + " LIKE '%" + nome + "%' OR";
+		}
+		
+		sql = sql.substring(0, sql.length()-2);
+		sql = sql + " ;";
+		
+		System.out.println("sql:"+sql);
+		if(Connect.getConexao()){
+			
+			ArrayList<HashMap<String,Object>> result = new ArrayList<HashMap<String,Object>>();
+			
+		ResultSet rs =  Connect.setResultSet(sql);
+		int colCount = rs.getMetaData().getColumnCount();
+		while(rs.next()){
+				HashMap<String,Object> record = new HashMap<String, Object>();
+				for(int i=1;i<=colCount;i++){
+					record.put(rs.getMetaData().getColumnName(i), rs.getString(i));
+				}
+				result.add(record);
+		}
+		Connect.close();
+		return result;
+		}
+		System.out.println("O " + entidade.getTableName() + " Não Foi pesquisado problema no DAOUsuario pesquisarusuario(String) Connect.getConexão");
+		return null;
+	}
+	
+	public ArrayList<HashMap<String,Object>>  pesquisarID(IModel<?> entidade) throws SQLException{
+		
+		String sql = "select "+ entidade.getTableColumnNames()+" from " + entidade.getTableName() + " ";
+		sql = sql + " where  ativo = 'true' and " + entidade.getPKName() + "='" + String.valueOf(entidade.getPK()) + "'";
+		
+		System.out.println("sql:"+sql);
+		if(Connect.getConexao()){
+			
+			ArrayList<HashMap<String,Object>> result = new ArrayList<HashMap<String,Object>>();
+			
+		ResultSet rs =  Connect.setResultSet(sql);
+		int colCount = rs.getMetaData().getColumnCount();
+		while(rs.next()){
+				HashMap<String,Object> record = new HashMap<String, Object>();
+				for(int i=1;i<=colCount;i++){
+					record.put(rs.getMetaData().getColumnName(i), rs.getString(i));
+				}
+				result.add(record);
+		}
+		Connect.close();
+		return result;
+		}
+		System.out.println("O " + entidade.getTableName() + " Não Foi pesquisado problema no DAOUsuario pesquisarusuario(String) Connect.getConexão");
+		return null;
 	}
 	
 	
-	/** recebe uma string separada por virgula e pega os valores e envolve em aspas simples
-	 * @param v
-	 * @return
-	 */
-	private static String quotedString(String v){
-		String[] values = v.split(",");
-		String retorno ="";
-		for (int i = 0; i < values.length; i++) {
-			retorno = retorno + ",'" + values[i] + "'";
+public ArrayList<HashMap<String,Object>>  pesquisarCriterio(IModel<?> entidade, int criterio) throws SQLException{
+		
+		String sql = "select "+ entidade.getTableColumnNames()+" from " + entidade.getTableName() + " ";
+		sql = sql + " where ativo = 'true' and " + entidade.getCriterio() +" = " +criterio+ " order by " + entidade.getOrdenacao() + " ;";
+		
+		
+		System.out.println("sql pesquisarCriterio :"+sql);
+		if(Connect.getConexao()){
+			
+			ArrayList<HashMap<String,Object>> result = new ArrayList<HashMap<String,Object>>();
+			
+		ResultSet rs =  Connect.setResultSet(sql);
+		int colCount = rs.getMetaData().getColumnCount();
+		while(rs.next()){
+				HashMap<String,Object> record = new HashMap<String, Object>();
+				for(int i=1;i<=colCount;i++){
+					record.put(rs.getMetaData().getColumnName(i), rs.getString(i));
+				}
+				result.add(record);
 		}
-		retorno = retorno.substring(1);
-		return retorno;
+		Connect.close();
+		return result;
+		}
+		System.out.println("O " + entidade.getTableName() + " Não Foi pesquisado problema no DAOUsuario pesquisarusuario(String) Connect.getConexão");
+		return null;
+	}
+
+public ArrayList<HashMap<String,Object>>  pesquisarPorCategoriaOuNome(IModel<?> entidade, String nome, int idSupCategoria) throws SQLException{
+	
+	String sql = "select "+ entidade.getTableColumnNames()+" from " + entidade.getTableName() + " ";
+	sql = sql + " where  ativo = 'true' and supcategoria ='" + idSupCategoria + "' and";
+	
+	System.out.println("sql:"+sql);
+	String nomeVariaveis = entidade.getVariaveisPesquisarNome();
+	String[] vetorVariaveis = new String [nomeVariaveis.split(",").length];
+	vetorVariaveis = nomeVariaveis.split(",");
+	for (int i = 0; i < vetorVariaveis.length ; i++){
+		sql = sql + " "+ vetorVariaveis[i] + " LIKE '%" + nome + "%' OR";
 	}
 	
+	sql = sql.substring(0, sql.length()-2);
+	sql = sql + " ;";
 	
-	/** retorna a string de Set utilizada para atualizar as colunas de uma tabela
-	 * @param table
-	 * @return
-	 */
-	private static String getSetString(Table<?> table){
-		String[] colNames  = table.getTableColumnNames().split(",");
-		String[] colValues = table.getTableColumnValues().split(",");
+	System.out.println("sql:"+sql);
+	if(Connect.getConexao()){
 		
-		String retorno = "";
+		ArrayList<HashMap<String,Object>> result = new ArrayList<HashMap<String,Object>>();
 		
-		for (int i = 0; i < colNames.length; i++) {
-			retorno = retorno + ", " + colNames[i] + "='" + colValues[i] + "'";
+	ResultSet rs =  Connect.setResultSet(sql);
+	int colCount = rs.getMetaData().getColumnCount();
+	while(rs.next()){
+			HashMap<String,Object> record = new HashMap<String, Object>();
+			for(int i=1;i<=colCount;i++){
+				record.put(rs.getMetaData().getColumnName(i), rs.getString(i));
+			}
+			result.add(record);
+	}
+	Connect.close();
+	return result;
+	}
+	System.out.println("O " + entidade.getTableName() + " Não Foi pesquisado problema no DAOUsuario pesquisarusuario(String) Connect.getConexão");
+	return null;
+}
+
+public Return validarItemUnico(IModel<?> entidade, String[] valores, String[]nomesVariaveis) throws SQLException{
+	int contador = 0;
+	String sql = null;
+	if(valores.length != nomesVariaveis.length){
+		return  new Return(false, "Validacão de item ùnico Incorreta, valores devem possuir o mesmo número de variáveis", TypeMessage.ERROR);
+	}
+	if(Connect.getConexao()){
+		while (contador < valores.length){
+			sql = "select "+ entidade.getTableColumnNames()+" from " + entidade.getTableName() + " ";
+			sql = sql + " where "+ nomesVariaveis[contador]+ " = '"+ valores[contador]+"' ;";
+			ResultSet rs =  Connect.setResultSet(sql);
+			if(rs.next()){
+				return  new Return(false, "Já possui este registro no campo " + nomesVariaveis[contador] , TypeMessage.ERROR);
+			}
+			contador++;
 		}
-		return retorno.substring(1);
+		return  new Return(true, "", TypeMessage.SUCESSO);
+	}else{
+		return  new Return(false, "Erro de conexão com o banco na validação de item único...", TypeMessage.ERROR);
 	}
 }
+
+
+}
+
+

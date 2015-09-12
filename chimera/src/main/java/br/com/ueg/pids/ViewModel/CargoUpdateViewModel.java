@@ -21,13 +21,13 @@ import br.com.ueg.pids.Enum.Departamento;
 import br.com.ueg.pids.Model.Cargo;
 import br.com.ueg.pids.Utils.Return;
 
+@SuppressWarnings("serial")
 public class CargoUpdateViewModel extends
 		GenericViewModel<Cargo, CargoController> {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -8185330955569018133L;
 	
 	@Wire("#CargoUpdate")
 	private Window win;
@@ -44,7 +44,7 @@ public class CargoUpdateViewModel extends
 		Selectors.wireComponents(view, this, false);
 		setRecordMode(recordMode);
 		if (recordMode.equals("EDIT")) {
-			this.itemSelected = (Cargo) c1.clone();
+//			this.itemSelected = (Cargo) c1.clone();
 		}
 	}
 

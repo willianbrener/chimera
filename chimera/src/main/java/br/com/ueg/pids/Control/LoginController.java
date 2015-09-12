@@ -39,7 +39,7 @@ Session sess = Sessions.getCurrent();
 			return;
 		}
 		UserCredential cre= authService.getUserCredential();
-		message.setValue("Welcome, " + cre.getName());
+		message.setValue("Bem vindo, " + cre.getName());
 		message.setSclass("");
 		
 		Executions.sendRedirect("/paginas/initial_page.zul");

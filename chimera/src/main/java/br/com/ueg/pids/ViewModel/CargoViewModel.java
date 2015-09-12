@@ -92,7 +92,7 @@ public class CargoViewModel extends GenericViewModel<Cargo, CargoController> {
 							} else {
 								if (event.getName().equals("onYes")) {
 
-									getControl().deletar(getItemSelected());
+//									getControl().desativar((getItemSelected();
 									Messagebox.show(
 											"Cargo deletado com sucesso!",
 											"Sucess", Messagebox.OK,
@@ -103,7 +103,7 @@ public class CargoViewModel extends GenericViewModel<Cargo, CargoController> {
 									// Page.getAttribute("binder");
 									// binder.loadAll();
 
-									setLstCargo(getControl().ListarTodos());
+//									setLstCargo(getControl().ListarTodos());
 								}
 							}
 						}
@@ -117,9 +117,9 @@ public class CargoViewModel extends GenericViewModel<Cargo, CargoController> {
 	@NotifyChange("lstCargo")
 	public void ListarTodos() {
 		if (getBusca() == null || getBusca().equals("") || getBusca() == "") {
-			setLstCargo(getControl().ListarTodos());
+			setLstCargo(getControl().getLstEntities());
 		} else {
-			setLstCargo(getControl().pesquisa(getBusca()));
+//			setLstCargo(getControl().getLstCriteria((getBusca());
 		}
 
 	}

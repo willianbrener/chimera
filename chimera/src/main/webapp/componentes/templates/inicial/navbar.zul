@@ -93,12 +93,12 @@
 		<nav label="Generenciar Solicitações" iconSclass="z-icon-group">
 		<navitem label="Solicitações">
 			<attribute name="onClick"><![CDATA[
-			Executions.sendRedirect("/paginas/gerenciar_solicitacoes/gerenciar_solicitacoes.zul");
+			Executions.sendRedirect("/paginas/gerenciar_solicitacoes/pesquisar.zul");
 			]]></attribute>
 			</navitem>
 			<navitem label="Criar Solicitação">
 			<attribute name="onClick"><![CDATA[
-			Executions.sendRedirect("/paginas/gerenciar_solicitacoes/criar_solicitacoes.zul");
+			Executions.sendRedirect("/paginas/gerenciar_solicitacoes/cadastrar.zul");
 			]]></attribute>
 			</navitem>		
 		</nav>

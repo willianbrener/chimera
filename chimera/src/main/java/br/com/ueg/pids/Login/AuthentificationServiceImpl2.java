@@ -17,7 +17,7 @@ public class AuthentificationServiceImpl2 extends AuthentificationServiceImpl1{
 	@Override
 	public boolean login(String nm, String pd) {
 		Usuario user = userInfoService.findUser(nm);
-		//simples de verificação de senha
+		//simples verificação de senha
 		if (user == null || !user.getPassword().equals(pd)) {
 			return false;
 		}
