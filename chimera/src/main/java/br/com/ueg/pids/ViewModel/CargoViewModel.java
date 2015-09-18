@@ -60,10 +60,10 @@ public class CargoViewModel extends GenericViewModel<Cargo, CargoController> {
 
 			ret = getControl().salvar(getEntity());
 			if (ret.isValid()) {
-				Messagebox.show("Cadastro realizado com sucesso!", "Sucess",
+				Messagebox.show("Cadastro realizado com sucesso!","Sucess",
 						Messagebox.OK, Messagebox.INFORMATION);
 				Executions
-						.sendRedirect("/paginas/cadastros_base/cargo/psqCargo.zul");
+						.sendRedirect("/paginas/cadastros_base/cargo/pesquisar.zul");
 			}
 
 		}
@@ -82,7 +82,7 @@ public class CargoViewModel extends GenericViewModel<Cargo, CargoController> {
 					Messagebox.OK, Messagebox.EXCLAMATION);
 		} else {
 			String str = "Deseja deletar o cargo \""
-					+ getItemSelected().getName() + "\"?";
+					+ getItemSelected().getNome() + "\"?";
 			Messagebox.show(str, "Confirm", Messagebox.YES | Messagebox.NO,
 					Messagebox.QUESTION, new EventListener() {
 
@@ -163,7 +163,7 @@ public class CargoViewModel extends GenericViewModel<Cargo, CargoController> {
 	}
 
 	public Cargo getObject() {
-		return new Cargo();
+		return new Cargo(cargoSelectedIndex, aux, aux, aux);
 	}
 
 	public CargoController getControl() {

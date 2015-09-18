@@ -23,7 +23,9 @@
 		    	color: #27B62D;
 		    }
 		    
-		   
+		    #loginWin{
+		    	color:black;
+		    }
 		]]>		
 	</style>
 </zk>

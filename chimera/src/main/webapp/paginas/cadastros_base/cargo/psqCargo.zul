@@ -1,4 +1,5 @@
-  <zk>  
+<?init class="br.com.ueg.pids.Login.AuthenticationInit"?>
+<zk>  
 
   	<hbox align="center" sclass="searchform">
         <textbox value="@bind(vm.busca)"  sclass="searchfield"/>
@@ -10,7 +11,7 @@
         	
 
         	<listhead sizable="true">
-            	<listheader label="Nome" align="center" sort="auto(name)" />
+            	<listheader label="Nome" align="center" sort="auto(nome)" />
             	<listheader label="Descricao" align="center" sort="auto(descricao)" />
             	<listheader label="Departamento" align="center" sort="auto(departamento)" />
             	<listheader label="Status" align="center" sort="auto(status)" />
@@ -19,7 +20,7 @@
       
         
             <listitem>
-                <listcell  label="@bind(each.name)" sclass="highlightcell"></listcell>
+                <listcell  label="@bind(each.nome)" sclass="highlightcell"></listcell>
                 <listcell label="@bind(each.descricao)"></listcell>
                 <listcell  label="@bind(each.departamento)"></listcell>
                 <listcell  label="@bind(each.status)"></listcell>

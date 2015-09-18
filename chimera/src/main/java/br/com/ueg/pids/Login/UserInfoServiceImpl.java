@@ -14,6 +14,8 @@ public class UserInfoServiceImpl implements UserInfoService,Serializable{
 	static{
 		userList.add(new Usuario("anonymous","1234","Anonymous","anonumous@your.com"));
 		userList.add(new Usuario("admin","1234","Admin","admin@your.com"));
+		userList.add(new Usuario("user","1234","User","user@your.com"));
+		userList.add(new Usuario("executioner","1234","Executioner","executioner@your.com"));
 	}
 	
 	/** sincronizado é apenas porque nós usamos UserList estática para impedir o acesso simultâneo **/

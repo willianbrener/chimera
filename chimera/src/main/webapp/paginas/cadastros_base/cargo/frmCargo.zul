@@ -1,10 +1,10 @@
-
+<?init class="br.com.ueg.pids.Login.AuthenticationInit"?>
 <zk>
 		<fgrid hflex="min"><!-- style="border:1px solid white;"-->
 			<rows>
 				<row>
 					<flabel value="Nome:" />
-					<ftextbox id="fldName" value="@bind(fx.name)"
+					<ftextbox id="fldName" value="@bind(fx.nome)"
 						width="180px" focus="true" style="color:black !important;"  />
 				</row>
 				<row>

@@ -39,10 +39,16 @@ Session sess = Sessions.getCurrent();
 			return;
 		}
 		UserCredential cre= authService.getUserCredential();
+		
+		if(cre.isUser()){
+			Executions.sendRedirect("/paginas/initial_page_user.zul");
+		}else if(cre.isAdmin()){
+			Executions.sendRedirect("/paginas/initial_page.zul");
+		}else if(cre.isExecutioner()){
+			Executions.sendRedirect("/paginas/initial_page_executioner.zul");
+		}
 		message.setValue("Bem vindo, " + cre.getName());
 		message.setSclass("");
-		
-		Executions.sendRedirect("/paginas/initial_page.zul");
 	}
 @Listen("onClick=#logout;")
 	public void doLogout() {

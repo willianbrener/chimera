@@ -28,7 +28,21 @@ public class UserCredential implements Serializable{
 	public boolean isAnonymous() {
 		return hasRole("anonymous") || "anonymous".equals(account);
 	}
-
+	
+	public boolean isUser(){
+		return hasRole("user") || "user".equals(account);
+		
+	}
+	
+	public boolean isAdmin(){
+		return hasRole("admin") || "admin".equals(account);
+		
+	}
+	
+	public boolean isExecutioner(){
+		return hasRole("executioner") || "executioner".equals(account);
+		
+	}
 	public String getAccount() {
 		return account;
 	}
