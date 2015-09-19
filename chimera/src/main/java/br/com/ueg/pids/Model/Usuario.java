@@ -3,8 +3,10 @@ package br.com.ueg.pids.Model;
 import java.io.Serializable;
 import java.util.Date;
 
+import br.com.ueg.pids.Annotations.Table;
 
 
+@Table(nome="usuario")
 public class Usuario implements Serializable,Cloneable {
 	private static final long serialVersionUID = 1L;
 	String account;
