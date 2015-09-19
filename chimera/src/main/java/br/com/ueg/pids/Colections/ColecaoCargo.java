@@ -21,7 +21,8 @@ public class ColecaoCargo {
 				Cargo cargo = new Cargo(	Integer.parseInt((String) hashMap.get("idcargo")),
 												(String) hashMap.get("nome"),
 												(String) hashMap.get("departamento"),
-												(String) hashMap.get("descricao"));
+												(String) hashMap.get("descricao"),
+												(hashMap.get("ativo").equals("t")));
 				listaCargos.add(cargo);
 			}
 		}

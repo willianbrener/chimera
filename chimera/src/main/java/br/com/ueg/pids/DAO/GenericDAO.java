@@ -221,21 +221,33 @@ public class GenericDAO {
 
 	
 	public ArrayList<HashMap<String,Object>>  pesquisarNome(IModel<?> entidade, String nome) throws SQLException{
+		String sql = null;
+		if(nome != null ){
+			String sqlPorNome = "select "+ entidade.getTableColumnNames()+" from " + entidade.getTableName() + " ";
+			sqlPorNome = sqlPorNome + " where ativo = true and ";
+			
+			
+			String nomeVariaveis = entidade.getVariaveisPesquisarNome();
+			String[] vetorVariaveis = new String [nomeVariaveis.split(",").length];
+			vetorVariaveis = nomeVariaveis.split(",");
+			for (int i = 0; i < vetorVariaveis.length ; i++){
+				sqlPorNome = sqlPorNome + " "+ vetorVariaveis[i] + " LIKE '%" + nome + "%' OR";
+			}
+			
+			sqlPorNome = sqlPorNome.substring(0, sqlPorNome.length()-2);
+			sqlPorNome = sqlPorNome + " ;";
+			System.out.println("sql:"+sqlPorNome);
+			sql = sqlPorNome;
 		
-		String sql = "select "+ entidade.getTableColumnNames()+" from " + entidade.getTableName() + " ";
-		sql = sql + " where ativo = true and ";
-		
-		String nomeVariaveis = entidade.getVariaveisPesquisarNome();
-		String[] vetorVariaveis = new String [nomeVariaveis.split(",").length];
-		vetorVariaveis = nomeVariaveis.split(",");
-		for (int i = 0; i < vetorVariaveis.length ; i++){
-			sql = sql + " "+ vetorVariaveis[i] + " LIKE '%" + nome + "%' OR";
+		}else{
+			String sqlAll = "select "+ entidade.getTableColumnNames()+" from " + entidade.getTableName() + " ";
+			sqlAll = sqlAll + " where ativo = true";
+			sql = sqlAll;
 		}
 		
-		sql = sql.substring(0, sql.length()-2);
-		sql = sql + " ;";
-		
-		System.out.println("sql:"+sql);
+				
+	 
+	//	System.out.println("sql:"+sql);
 		if(Connect.getConexao()){
 			
 			ArrayList<HashMap<String,Object>> result = new ArrayList<HashMap<String,Object>>();

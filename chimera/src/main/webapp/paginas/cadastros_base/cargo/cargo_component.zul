@@ -23,7 +23,7 @@
 								<flabel value="Nome:" />
 							</hbox>
 							<ftextbox name="fldName"
-								value="@bind(vm.itemSelected.name)" width="180px" inplace="true" />
+								value="@bind(vm.itemSelected.nome)" width="180px" inplace="true" />
 						</row>
 						<row>
 							<flabel value="Departamento:" />

@@ -44,7 +44,7 @@ public class CargoUpdateViewModel extends
 		Selectors.wireComponents(view, this, false);
 		setRecordMode(recordMode);
 		if (recordMode.equals("EDIT")) {
-//			this.itemSelected = (Cargo) c1.clone();
+			itemSelected = c1;
 		}
 	}
 
@@ -70,7 +70,7 @@ public class CargoUpdateViewModel extends
 			closeThis();
 			Messagebox.show("Cargo alterado com sucesso!", "Sucess",Messagebox.OK, Messagebox.INFORMATION);
 			
-			Executions.sendRedirect("/paginas/cadastros_base/cargo/psqCargo.zul");
+			Executions.sendRedirect("/paginas/cadastros_base/cargo/pesquisar.zul");
 		}
 		return ret;
 	}

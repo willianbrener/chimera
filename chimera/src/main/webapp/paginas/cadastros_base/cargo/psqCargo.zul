@@ -2,7 +2,7 @@
 <zk>  
 
   	<hbox align="center" sclass="searchform">
-        <textbox value="@bind(vm.busca)"  sclass="searchfield"/>
+        <textbox value="@bind(vm.keyword)"  sclass="searchfield"/>
         <Addbutton label="Pesquisar" image="" onClick="@command('ListarTodos')" />
     </hbox>
 
@@ -14,7 +14,7 @@
             	<listheader label="Nome" align="center" sort="auto(nome)" />
             	<listheader label="Descricao" align="center" sort="auto(descricao)" />
             	<listheader label="Departamento" align="center" sort="auto(departamento)" />
-            	<listheader label="Status" align="center" sort="auto(status)" />
+            	<listheader label="Status" align="center" sort="auto(ativo)" />
         	</listhead>
         <template name="model">
       
@@ -23,7 +23,7 @@
                 <listcell  label="@bind(each.nome)" sclass="highlightcell"></listcell>
                 <listcell label="@bind(each.descricao)"></listcell>
                 <listcell  label="@bind(each.departamento)"></listcell>
-                <listcell  label="@bind(each.status)"></listcell>
+                <listcell  label="@bind(each.ativo)"></listcell>
             </listitem>
             
         </template>

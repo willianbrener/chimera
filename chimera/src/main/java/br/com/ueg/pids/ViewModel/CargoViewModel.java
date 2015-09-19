@@ -31,7 +31,7 @@ public class CargoViewModel extends GenericViewModel<Cargo, CargoController> {
 	private Window win;
 	private List<Departamento> departamentoList = new ArrayList<Departamento>();
 	private Departamento departamentoSelecionado;
-	private List<Cargo> lstCargo;
+	private List<?> lstCargo;
 	String aux;
 	private Integer cargoSelectedIndex;
 	private String busca;
@@ -57,7 +57,7 @@ public class CargoViewModel extends GenericViewModel<Cargo, CargoController> {
 				getEntity().setDepartamento(
 						getDepartamentoSelecionado().getDescricao());
 			}
-
+			getEntity().setAtivo(true);
 			ret = getControl().salvar(getEntity());
 			if (ret.isValid()) {
 				Messagebox.show("Cadastro realizado com sucesso!","Sucess",
@@ -92,7 +92,7 @@ public class CargoViewModel extends GenericViewModel<Cargo, CargoController> {
 							} else {
 								if (event.getName().equals("onYes")) {
 
-//									getControl().desativar((getItemSelected();
+									getControl().desativar(getItemSelected());
 									Messagebox.show(
 											"Cargo deletado com sucesso!",
 											"Sucess", Messagebox.OK,
@@ -117,9 +117,9 @@ public class CargoViewModel extends GenericViewModel<Cargo, CargoController> {
 	@NotifyChange("lstCargo")
 	public void ListarTodos() {
 		if (getBusca() == null || getBusca().equals("") || getBusca() == "") {
-			setLstCargo(getControl().getLstEntities());
+			setLstCargo(getControl().getLstEntities(busca));
 		} else {
-//			setLstCargo(getControl().getLstCriteria((getBusca());
+	//		setLstCargo(getControl().getLstCriteria((getBusca());
 		}
 
 	}
@@ -145,12 +145,13 @@ public class CargoViewModel extends GenericViewModel<Cargo, CargoController> {
 	public void cancel() {
 		Executions.sendRedirect("/paginas/initial_page.zul");
 	}
+	
 
-	public List<Cargo> getLstCargo() {
+	public List<?> getLstCargo() {
 		return lstCargo;
 	}
 
-	public void setLstCargo(List<Cargo> lstCargo) {
+	public void setLstCargo(List<?> lstCargo) {
 		this.lstCargo = lstCargo;
 	}
 
@@ -163,7 +164,7 @@ public class CargoViewModel extends GenericViewModel<Cargo, CargoController> {
 	}
 
 	public Cargo getObject() {
-		return new Cargo(cargoSelectedIndex, aux, aux, aux);
+		return new Cargo();
 	}
 
 	public CargoController getControl() {

@@ -5,7 +5,7 @@ import br.com.ueg.pids.Annotations.Campo;
 
 
 @Table(nome="cargo")
-public class Cargo extends GenericModel<Integer> implements Cloneable{
+public class Cargo extends GenericModel<Integer>{
 
 	@Campo(nome="idcargo", pk=true)
 	private int idcargo;
@@ -18,14 +18,18 @@ public class Cargo extends GenericModel<Integer> implements Cloneable{
 	
 	@Campo(nome="departamento",obrigatorio=true)
 	private String departamento;
+	
+	@Campo(nome="ativo",obrigatorio=true)
+	private boolean ativo;
 
 	public Cargo() {
 	}
-	public Cargo(int idcargo, String nome, String departamento, String descricao) {
+	public Cargo(int idcargo, String nome, String departamento, String descricao, Boolean ativo) {
 		this.idcargo = idcargo;
 		this.nome= nome;
-		this.descricao = departamento;
+		this.departamento = departamento;
 		this.descricao = descricao;
+		this.ativo = ativo;
 	}
 
 	
@@ -85,4 +89,13 @@ public class Cargo extends GenericModel<Integer> implements Cloneable{
 	public String getVariaveisPesquisarNome() {
 		return "nome";
 	}
+	public boolean getAtivo() {
+		return ativo;
+	}
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
+	}
+	
+	
 }
+

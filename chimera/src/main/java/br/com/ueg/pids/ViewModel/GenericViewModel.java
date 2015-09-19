@@ -18,6 +18,7 @@ public abstract class GenericViewModel<M extends GenericModel, C extends Generic
 	protected AnnotateDataBinder binder;
 	protected M itemSelected;
 	Session session;
+	protected String keyword;
 	
 
 	public abstract M getObject();
@@ -66,6 +67,14 @@ public abstract class GenericViewModel<M extends GenericModel, C extends Generic
 	public void setSession(Session session) {
 		this.session = session;
 	}
-	
 
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+	
+	
 }

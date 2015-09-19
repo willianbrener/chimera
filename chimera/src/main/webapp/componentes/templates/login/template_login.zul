@@ -10,7 +10,7 @@
 	    	<include src="/componentes/templates/login/header_login.zul"/>
 	    </north>
 	    
-	    <center vflex="min"  border="none" class="center" style="overflow: auto;  background-color: #afc6e6; background-position: bottom right; background-repeat: no-repeat; background-attachment: scroll;" autoscroll="true" >
+	    <center vflex="min"  border="none" class="center" style="overflow: auto;  background-color: white; background-position: bottom right; background-repeat: no-repeat; background-attachment: scroll;" autoscroll="true" >
 			 <div class="center" xmlns:w='client' self="@insert(content)" height="100%" width="100%" style="overflow: auto;"></div>
 	    </center>
 
@@ -19,3 +19,4 @@
 	    </south>
 	</borderlayout>
 </zk>
+

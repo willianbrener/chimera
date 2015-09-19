@@ -29,7 +29,7 @@
 		pack="center" spacing="20px">
 		<vlayout>
 			<window id="loginWin" apply="br.com.ueg.pids.Control.LoginController"
-				title="Login de Usuário" border="normal" hflex="min">
+				title="Login de Usuário" border="normal" mode="modal" hflex="min">
 				<vbox hflex="min" align="center">
 					<grid hflex="min" sclass="fgrid">
 						<columns>
