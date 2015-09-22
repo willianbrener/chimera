@@ -1,6 +1,5 @@
 package br.com.ueg.pids.ViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.zkoss.bind.annotation.Command;
@@ -17,8 +16,9 @@ import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 import br.com.ueg.pids.Control.CargoController;
-import br.com.ueg.pids.Enum.Departamento;
+import br.com.ueg.pids.Control.DepartamentoController;
 import br.com.ueg.pids.Model.Cargo;
+import br.com.ueg.pids.Model.Departamento;
 import br.com.ueg.pids.Utils.Return;
 
 @SuppressWarnings("serial")
@@ -33,7 +33,7 @@ public class CargoUpdateViewModel extends
 	private Window win;
 	private String recordMode;
 	private Departamento departamentoSelecionado;
-	private List<Departamento> departamentoList = new ArrayList<Departamento>();
+	private List<Departamento> departamentoList;
 	private List<Cargo> lstCargo;
 
 	@Init
@@ -60,8 +60,7 @@ public class CargoUpdateViewModel extends
 		if (departamentoSelecionado == null) {
 			ret = getControl().alterar(getItemSelected());
 		} else {
-			getItemSelected().setDepartamento(
-					getDepartamentoSelecionado().getDescricao());
+			getItemSelected().setDepartamento(departamentoSelecionado);
 			
 			ret = getControl().alterar(getItemSelected());
 		}
@@ -101,18 +100,18 @@ public class CargoUpdateViewModel extends
 		this.departamentoSelecionado = departamentoSelecionado;
 	}
 
-	@NotifyChange("departamentoList")
-	public List<Departamento> getDepartamentoList() {
-		for (Departamento depart : Departamento.values()) {
-			departamentoList.add(depart);
-		}
-		return departamentoList;
-	}
-
+	
 	public void setDepartamentoList(List<Departamento> departamentoList) {
 		this.departamentoList = departamentoList;
 	}
-
+	
+	@NotifyChange("departamentoList")
+	public List<Departamento> getDepartamentoList() {
+		DepartamentoController departamentoController = new DepartamentoController();
+		departamentoList = departamentoController.getLstEntities();
+		return departamentoList;
+	}
+	
 	public List<Cargo> getLstCargo() {
 		return lstCargo;
 	}

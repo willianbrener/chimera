@@ -17,7 +17,7 @@ public class Recurso extends GenericModel<Integer>{
 	private String descricao;
 	
 	@Campo(nome="iddepartamento",obrigatorio=true)
-	private Departamento iddepartamento;
+	private Departamento departamento;
 	
 	@Campo(nome="ativo",obrigatorio=true)
 	private boolean ativo;
@@ -26,11 +26,11 @@ public class Recurso extends GenericModel<Integer>{
 		
 	}
 
-	public Recurso(int idrecurso, String nome, String descricao, Departamento iddepartamento,Boolean ativo) {
+	public Recurso(int idrecurso, String nome, String descricao, Departamento departamento,Boolean ativo) {
 		this.idrecurso = idrecurso;
 		this.nome= nome;
 		this.descricao = descricao;
-		this.iddepartamento = iddepartamento;
+		this.departamento = departamento;
 		this.ativo = ativo;
 	}
 	
@@ -59,12 +59,12 @@ public class Recurso extends GenericModel<Integer>{
 		this.descricao = descricao;
 	}
 
-	public Departamento getIddepartamento() {
-		return iddepartamento;
+	public Departamento getDepartamento() {
+		return departamento;
 	}
 
-	public void setIddepartamento(Departamento iddepartamento) {
-		this.iddepartamento = iddepartamento;
+	public void setDepartamento(Departamento departamento) {
+		this.departamento = departamento;
 	}
 
 	public boolean isAtivo() {

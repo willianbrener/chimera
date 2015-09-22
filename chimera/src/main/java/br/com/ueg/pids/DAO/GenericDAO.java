@@ -213,16 +213,45 @@ public class GenericDAO {
 		System.out.println("O " + entidade.getTableName() + "Não Foi Excluido problema no DAOUsuario.excluir.Connect.getConexão");
 		return new Return(false);
 	}
+	/*FUNÇÃO QUE PESQUISA TODOS OS DADOS DE UM OBJETO X
+	 * 
+	 * */
+
+	public ArrayList<HashMap<String,Object>> listarTodos(IModel<?> entidade) throws SQLException{
+		String sql = null;
+		
+			String sqlAll = "select "+ entidade.getTableColumnNames()+" from " + entidade.getTableName() + " ";
+			sqlAll = sqlAll + " where ativo = true";
+			sql = sqlAll;
+			System.out.println("sql:"+sql);
+		if(Connect.getConexao()){
+			
+			ArrayList<HashMap<String,Object>> result = new ArrayList<HashMap<String,Object>>();
+			
+		ResultSet rs =  Connect.setResultSet(sql);
+		int colCount = rs.getMetaData().getColumnCount();
+		while(rs.next()){
+				HashMap<String,Object> record = new HashMap<String, Object>();
+				for(int i=1;i<=colCount;i++){
+					record.put(rs.getMetaData().getColumnName(i), rs.getString(i));
+				}
+				result.add(record);
+		}
+		Connect.close();
+		return result;
+		}
+		System.out.println("O " + entidade.getTableName() + " Não Foi pesquisado problema no DAOUsuario pesquisarusuario(String) Connect.getConexão");
+		return null;
+	}
+	
 	/*
 	 * função pesquisarUsuario pode ser chamada por uma string onde pesquisa qualquer 
 	 * parte da palavra do titulo, diretor ou genero
 	 * ou por um inteiro onde se pesquisa pelo id do filme..
 	 */
-
-	
 	public ArrayList<HashMap<String,Object>>  pesquisarNome(IModel<?> entidade, String nome) throws SQLException{
 		String sql = null;
-		if(nome != null ){
+
 			String sqlPorNome = "select "+ entidade.getTableColumnNames()+" from " + entidade.getTableName() + " ";
 			sqlPorNome = sqlPorNome + " where ativo = true and ";
 			
@@ -238,14 +267,6 @@ public class GenericDAO {
 			sqlPorNome = sqlPorNome + " ;";
 			System.out.println("sql:"+sqlPorNome);
 			sql = sqlPorNome;
-		
-		}else{
-			String sqlAll = "select "+ entidade.getTableColumnNames()+" from " + entidade.getTableName() + " ";
-			sqlAll = sqlAll + " where ativo = true";
-			sql = sqlAll;
-		}
-		
-				
 	 
 	//	System.out.println("sql:"+sql);
 		if(Connect.getConexao()){
@@ -267,6 +288,8 @@ public class GenericDAO {
 		System.out.println("O " + entidade.getTableName() + " Não Foi pesquisado problema no DAOUsuario pesquisarusuario(String) Connect.getConexão");
 		return null;
 	}
+	
+	
 	
 public ArrayList<HashMap<String,Object>>  pesquisarNomeAtivo(IModel<?> entidade, String nome) throws SQLException{
 		

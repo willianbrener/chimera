@@ -4,7 +4,9 @@ package br.com.ueg.pids.Colections;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import br.com.ueg.pids.Control.DepartamentoController;
 import br.com.ueg.pids.Model.Cargo;
+import br.com.ueg.pids.Model.Departamento;
 
 
 public class ColecaoCargo {
@@ -15,12 +17,14 @@ public class ColecaoCargo {
     }
 	
 	public  void setAll(ArrayList<HashMap<String,Object>> result) {
+		DepartamentoController departamentoController = new DepartamentoController();
+		Departamento departamento = null;
 		if(result != null){
 			for (HashMap<String, Object> hashMap : result) {
-				
+				departamento = departamentoController.getEntity((String) hashMap.get("iddepartamento"));
 				Cargo cargo = new Cargo(	Integer.parseInt((String) hashMap.get("idcargo")),
 												(String) hashMap.get("nome"),
-												(String) hashMap.get("departamento"),
+												departamento,
 												(String) hashMap.get("descricao"),
 												(hashMap.get("ativo").equals("t")));
 				listaCargos.add(cargo);
@@ -28,7 +32,7 @@ public class ColecaoCargo {
 		}
     }
 
-	public br.com.ueg.pids.Model.Cargo getIndice(int indice) {
+	public Cargo getIndice(int indice) {
 		if(listaCargos.isEmpty()){
 			return null;
 		}

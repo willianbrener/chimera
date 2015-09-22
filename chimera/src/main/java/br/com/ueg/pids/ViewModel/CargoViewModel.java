@@ -15,19 +15,20 @@ import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 import br.com.ueg.pids.Control.CargoController;
-import br.com.ueg.pids.Enum.Departamento;
+import br.com.ueg.pids.Control.DepartamentoController;
 import br.com.ueg.pids.Model.Cargo;
+import br.com.ueg.pids.Model.Departamento;
 import br.com.ueg.pids.Utils.Return;
 
+@SuppressWarnings("serial")
 public class CargoViewModel extends GenericViewModel<Cargo, CargoController> {
 
 	
-	private static final long serialVersionUID = -5364229695993402589L;
 	
 	
 	@Wire("#CustomerCRUD")
 	private Window win;
-	private List<Departamento> departamentoList = new ArrayList<Departamento>();
+	private List<Departamento> departamentoList;
 	private Departamento departamentoSelecionado;
 	private List<?> lstCargo;
 	String aux;
@@ -39,31 +40,18 @@ public class CargoViewModel extends GenericViewModel<Cargo, CargoController> {
 		super.init();
 	}
 
-	@SuppressWarnings({})
 	@Command
 	public Return salvar() {
 		Return ret = new Return(true);
-
-		if (getItemSelected() != null) {
-
-			ret = getControl().alterar(getItemSelected());
-		} else {
-
-			if (departamentoSelecionado == null) {
-				getEntity().setDepartamento(null);
-			} else {
-				getEntity().setDepartamento(
-						getDepartamentoSelecionado().getDescricao());
-			}
-			getEntity().setAtivo(true);
-			ret = getControl().salvar(getEntity());
+					getEntity().setAtivo(true);
+					getEntity().setDepartamento(departamentoSelecionado);
+					ret = getControl().salvar(getEntity());
 			if (ret.isValid()) {
 				Messagebox.show("Cadastro realizado com sucesso!","Sucess",
 						Messagebox.OK, Messagebox.INFORMATION);
 				Executions
 						.sendRedirect("/paginas/cadastros_base/cargo/pesquisar.zul");
-			}
-
+		
 		}
 
 		return null;
@@ -117,7 +105,7 @@ public class CargoViewModel extends GenericViewModel<Cargo, CargoController> {
 		if (getBusca() == null || getBusca().equals("") || getBusca() == "") {
 			setLstCargo(getControl().getLstEntities(busca));
 		} else {
-	//		setLstCargo(getControl().getLstCriteria((getBusca());
+			setLstCargo(getControl().getLstEntities(busca));
 		}
 
 	}
@@ -171,11 +159,11 @@ public class CargoViewModel extends GenericViewModel<Cargo, CargoController> {
 
 	@NotifyChange("departamentoList")
 	public List<Departamento> getDepartamentoList() {
-		for (Departamento depart : Departamento.values()) {
-			departamentoList.add(depart);
-		}
+		DepartamentoController departamentoController = new DepartamentoController();
+		departamentoList = departamentoController.getLstEntities();
 		return departamentoList;
 	}
+	
 
 	public Departamento getDepartamentoSelecionado() {
 		return departamentoSelecionado;

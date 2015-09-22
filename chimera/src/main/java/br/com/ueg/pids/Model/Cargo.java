@@ -16,15 +16,15 @@ public class Cargo extends GenericModel<Integer>{
 	@Campo(nome="descricao",obrigatorio=true)
 	private String descricao;
 	
-	@Campo(nome="departamento",obrigatorio=true)
-	private String departamento;
+	@Campo(nome="iddepartamento",obrigatorio=true)
+	private Departamento departamento;
 	
 	@Campo(nome="ativo",obrigatorio=true)
 	private boolean ativo;
 
 	public Cargo() {
 	}
-	public Cargo(int idcargo, String nome, String departamento, String descricao, Boolean ativo) {
+	public Cargo(int idcargo, String nome, Departamento departamento, String descricao, Boolean ativo) {
 		this.idcargo = idcargo;
 		this.nome= nome;
 		this.departamento = departamento;
@@ -62,25 +62,17 @@ public class Cargo extends GenericModel<Integer>{
 	}
 
 
-
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-
-
-
-	public String getDepartamento() {
+	
+	
+	public Departamento getDepartamento() {
 		return departamento;
 	}
-
-
-
-	public void setDepartamento(String departamento) {
+	public void setDepartamento(Departamento departamento) {
 		this.departamento = departamento;
 	}
-
-
-
 	public String getOrdenacao() {
 		return "nome";
 	}

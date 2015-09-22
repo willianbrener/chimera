@@ -23,7 +23,7 @@ public abstract class GenericController<Entity> implements IController{
 	public abstract Return validarItemUnico(IModel<?> imodel);
 	
 	public Return salvar(IModel<?> imodel) {
-		Return res = validar(imodel);
+		Return res = validarSolicitacao(imodel);
 		if (res.isValid()) {
 			return dao.inserir(imodel);
 		}
@@ -31,7 +31,7 @@ public abstract class GenericController<Entity> implements IController{
 	}
 
 	public Return alterar(IModel<?> imodel) {
-		Return res = validar(imodel);
+		Return res = validarSolicitacao(imodel);
 		if (res.isValid()) {
 			return dao.alterar(imodel);
 		}
@@ -50,7 +50,11 @@ public abstract class GenericController<Entity> implements IController{
 		return null;
 	}
 	
-	
+	public Return validarSolicitacao(IModel<?> imodel) {
+		Return ret = new Return(true);
+		ret.setValid(true);
+		return ret;
+	}
 	public List<Entity> getLstEntities() {
 		return lstEntities;
 	}

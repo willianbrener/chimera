@@ -3,25 +3,60 @@ package br.com.ueg.pids.Model;
 import java.io.Serializable;
 import java.util.Date;
 
+import br.com.ueg.pids.Annotations.Campo;
 import br.com.ueg.pids.Annotations.Table;
+import br.com.ueg.pids.Enum.Permissao;
 
 
 @Table(nome="usuario")
-public class Usuario implements Serializable,Cloneable {
+public class Usuario extends GenericModel<Integer> implements Serializable,Cloneable {
 	private static final long serialVersionUID = 1L;
+	
+	@Campo(nome="idusuario",pk=true)
+	int idusuario;
+	
+	@Campo(nome="account",obrigatorio=true)
 	String account;
+	
+	@Campo(nome="fullName",obrigatorio=true)
 	String fullName;
+	
+	@Campo(nome="password",obrigatorio=true)
 	String password;
+	
+	@Campo(nome="email",obrigatorio=true)
 	String email;
-	Date birthday;
-	String country;
-	String bio;
+	
+	@Campo(nome="permissao",obrigatorio=true)
+	private String permissao;
 
+	@Campo(nome="idcargo",obrigatorio=true)
+	private Cargo cargo;
+	
+	@Campo(nome="ativo",obrigatorio=true)
+	private boolean ativo;
+	
+	public Usuario(int idusuario, String account,  String fullName, String password, 
+			String email, String permissao, Cargo cargo, boolean ativo){
+		this.idusuario = idusuario;
+		this.account = account;
+		this.fullName = fullName;
+		this.password = password;
+		this.email = email;
+		this.permissao = permissao;
+		this.cargo = cargo;
+		this.ativo = ativo;
+		
+	}
+	
 	public Usuario(String account, String password, String fullName,String email) {
 		this.account = account;
 		this.password = password;
 		this.fullName = fullName;
 		this.email = email;
+	}
+
+	public Usuario() {
 	}
 
 	public String getAccount() {
@@ -44,30 +79,6 @@ public class Usuario implements Serializable,Cloneable {
 		this.email = email;
 	}
 
-	public Date getBirthday() {
-		return birthday;
-	}
-
-	public void setBirthday(Date birthday) {
-		this.birthday = birthday;
-	}
-
-	public String getCountry() {
-		return country;
-	}
-
-	public void setCountry(String country) {
-		this.country = country;
-	}
-
-	public String getBio() {
-		return bio;
-	}
-
-	public void setBio(String bio) {
-		this.bio = bio;
-	}
-
 	public String getPassword() {
 		return password;
 	}
@@ -82,6 +93,45 @@ public class Usuario implements Serializable,Cloneable {
 		int result = 1;
 		result = prime * result + ((account == null) ? 0 : account.hashCode());
 		return result;
+	}
+	
+	
+	
+
+	public int getIdusuario() {
+		return idusuario;
+	}
+
+	public void setIdusuario(int idusuario) {
+		this.idusuario = idusuario;
+	}
+
+	public String getPermissao() {
+		return permissao;
+	}
+
+	public void setPermissao(String permissao) {
+		this.permissao = permissao;
+	}
+
+	public Cargo getCargo() {
+		return cargo;
+	}
+
+	public void setCargo(Cargo cargo) {
+		this.cargo = cargo;
+	}
+
+	public boolean isAtivo() {
+		return ativo;
+	}
+
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
+	}
+
+	public void setAccount(String account) {
+		this.account = account;
 	}
 
 	@Override
@@ -108,5 +158,14 @@ public class Usuario implements Serializable,Cloneable {
 			
 		}
 		return null;
+	}
+
+	public String getOrdenacao() {
+		return "fullName";
+	}
+
+	@Override
+	public String getVariaveisPesquisarNome() {
+		return "fullName";
 	}
 }

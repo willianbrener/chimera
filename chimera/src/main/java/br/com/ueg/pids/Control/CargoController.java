@@ -11,10 +11,13 @@ import org.zkoss.zul.Messagebox;
 
 
 
+
 import br.com.ueg.pids.Utils.MessageBoxx;
 import br.com.ueg.pids.Utils.Return;
 import br.com.ueg.pids.Colections.ColecaoCargo;
+import br.com.ueg.pids.Colections.ColecaoDepartamento;
 import br.com.ueg.pids.Model.Cargo;
+import br.com.ueg.pids.Model.Departamento;
 import br.com.ueg.pids.Model.IModel;
 
 public class CargoController extends GenericController<Cargo> {
@@ -63,6 +66,19 @@ public class CargoController extends GenericController<Cargo> {
 			e.printStackTrace();
 		}
 		return listaCargo.getAll();
+	}
+	
+	public Cargo getEntity(String id) {
+		Cargo cargo = new Cargo();
+		cargo.setIdcargo(Integer.parseInt(id));
+		ColecaoCargo listaCargo = new ColecaoCargo();
+		try {
+			listaCargo.setAll(dao.pesquisarID(cargo));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		cargo = ((ColecaoCargo) listaCargo).getIndice(0);
+		return cargo;
 	}
 	
 	@Override

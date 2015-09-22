@@ -4,12 +4,13 @@ import java.util.Date;
 
 import br.com.ueg.pids.Annotations.Campo;
 import br.com.ueg.pids.Annotations.Table;
+import br.com.ueg.pids.Enum.Permissao;
 
 
-@Table(nome="gerenciar_solicitacoes")
+@Table(nome="solicitacoes")
 public class GerenciarSolicitacoes extends GenericModel<Integer>{
 
-	@Campo(nome="idgerenciar_solicitacoes", pk=true)
+	@Campo(nome="idsolicitacoes", pk=true)
 	private int idgerenciar_solicitacoes;
 	
 	@Campo(nome="titulo",obrigatorio=true)
@@ -17,6 +18,9 @@ public class GerenciarSolicitacoes extends GenericModel<Integer>{
 	
 	@Campo(nome="descricao",obrigatorio=true)
 	private String descricao;
+
+	@Campo(nome="permissao",obrigatorio=true)
+	private Permissao permissao;
 	
 	@Campo(nome="data", obrigatorio=true)
 	private Date data;
@@ -25,10 +29,10 @@ public class GerenciarSolicitacoes extends GenericModel<Integer>{
 	private String hora;
 	
 	@Campo(nome="idusuario",obrigatorio=true)
-	private Usuario idusuario;
+	private Usuario usuario;
 	
-	@Campo(nome="recurso", obrigatorio=true)
-	private Recurso idrecurso;
+	@Campo(nome="idrecurso", obrigatorio=true)
+	private Recurso recurso;
 	
 	@Campo(nome="ativo",obrigatorio=true)
 	private boolean ativo;
@@ -38,15 +42,16 @@ public class GerenciarSolicitacoes extends GenericModel<Integer>{
 	}
 	
 	public GerenciarSolicitacoes(int idgerenciar_solicitacoes, String titulo, String descricao,
-			Date data, String hora,
-			Usuario idusuario, Recurso idrecurso ,Boolean ativo) {
+			Permissao permissao,Date data, String hora,
+			Usuario usuario, Recurso recurso ,Boolean ativo) {
 		this.idgerenciar_solicitacoes = idgerenciar_solicitacoes;
 		this.titulo = titulo;
 		this.descricao = descricao;
+		this.permissao = permissao;
 		this.data = data;
 		this.hora = hora;
-		this.idusuario = idusuario;
-		this.idrecurso = idrecurso;
+		this.usuario = usuario;
+		this.recurso = recurso;
 		this.ativo = ativo;
 	}
 	
@@ -75,6 +80,14 @@ public class GerenciarSolicitacoes extends GenericModel<Integer>{
 		this.descricao = descricao;
 	}
 
+	public Permissao getPermissao() {
+		return permissao;
+	}
+
+	public void setPermissao(Permissao permissao) {
+		this.permissao = permissao;
+	}
+
 	public Date getData() {
 		return data;
 	}
@@ -91,23 +104,25 @@ public class GerenciarSolicitacoes extends GenericModel<Integer>{
 		this.hora = hora;
 	}
 
-	public Usuario getIdusuario() {
-		return idusuario;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setIdusuario(Usuario idusuario) {
-		this.idusuario = idusuario;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
-	public Recurso getIdrecurso() {
-		return idrecurso;
+	public Recurso getRecurso() {
+		return recurso;
 	}
 
-	public void setIdrecurso(Recurso idrecurso) {
-		this.idrecurso = idrecurso;
+	public void setRecurso(Recurso recurso) {
+		this.recurso = recurso;
 	}
 
-	public boolean isAtivo() {
+	
+
+	public boolean getAtivo() {
 		return ativo;
 	}
 

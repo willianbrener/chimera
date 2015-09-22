@@ -22,7 +22,7 @@
             <listitem>
                 <listcell  label="@bind(each.nome)" sclass="highlightcell"></listcell>
                 <listcell label="@bind(each.descricao)"></listcell>
-                <listcell  label="@bind(each.departamento)"></listcell>
+                <listcell  label="@bind(each.iddepartamento.nome)"></listcell>
                 <listcell  label="@bind(each.ativo)"></listcell>
             </listitem>
             

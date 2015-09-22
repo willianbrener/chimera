@@ -77,11 +77,13 @@ public abstract class GenericModel<TipoPK> implements IModel<TipoPK>{
 		return null;
 	}
 
-	public boolean getAtivo() {
+	public boolean isAtivo() {
 		return ativo;
 	}
 
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
 	}
+
+	
 }

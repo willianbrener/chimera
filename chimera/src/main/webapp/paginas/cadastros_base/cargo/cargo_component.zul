@@ -29,11 +29,11 @@
 							<flabel value="Departamento:" />
 							<combobox width="180px" model="@load(vm.departamentoList)"
 								selectedItem="@bind(vm.departamentoSelecionado)"
-								value="@load(vm.itemSelected.departamento)"
+								value="@load(vm.itemSelected.departamento.nome)"
 								>
 								
 								<template name="model">
-									<comboitem 		label="@load(each.descricao)" />
+									<comboitem 		label="@load(each.nome)" />
 								</template>
 							</combobox>
 						</row>
