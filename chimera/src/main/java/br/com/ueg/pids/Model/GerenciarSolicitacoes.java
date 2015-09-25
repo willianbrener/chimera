@@ -20,7 +20,7 @@ public class GerenciarSolicitacoes extends GenericModel<Integer>{
 	private String descricao;
 
 	@Campo(nome="permissao",obrigatorio=true)
-	private Permissao permissao;
+	private String permissao;
 	
 	@Campo(nome="data", obrigatorio=true)
 	private Date data;
@@ -42,7 +42,7 @@ public class GerenciarSolicitacoes extends GenericModel<Integer>{
 	}
 	
 	public GerenciarSolicitacoes(int idgerenciar_solicitacoes, String titulo, String descricao,
-			Permissao permissao,Date data, String hora,
+			String permissao,Date data, String hora,
 			Usuario usuario, Recurso recurso ,Boolean ativo) {
 		this.idgerenciar_solicitacoes = idgerenciar_solicitacoes;
 		this.titulo = titulo;
@@ -55,7 +55,7 @@ public class GerenciarSolicitacoes extends GenericModel<Integer>{
 		this.ativo = ativo;
 	}
 	
-	
+
 	public int getIdgerenciar_solicitacoes() {
 		return idgerenciar_solicitacoes;
 	}
@@ -80,11 +80,13 @@ public class GerenciarSolicitacoes extends GenericModel<Integer>{
 		this.descricao = descricao;
 	}
 
-	public Permissao getPermissao() {
+
+
+	public String getPermissao() {
 		return permissao;
 	}
 
-	public void setPermissao(Permissao permissao) {
+	public void setPermissao(String permissao) {
 		this.permissao = permissao;
 	}
 

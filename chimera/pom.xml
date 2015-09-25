@@ -11,7 +11,7 @@
 		<zkcharts.version>1.2.0-Eval</zkcharts.version>
 		<maven.build.timestamp.format>yyyy-MM-dd</maven.build.timestamp.format>
 	</properties>
-	
+
 	<repositories>
 		<repository>
 			<id>zk repository</id>
@@ -34,7 +34,7 @@
 			<artifactId>velocity</artifactId>
 			<version>1.6</version>
 		</dependency>
-	    <!-- CE requirements -->      
+		<!-- CE requirements -->
 		<dependency>
 			<groupId>org.zkoss.zk</groupId>
 			<artifactId>zk</artifactId>
@@ -75,7 +75,7 @@
 			<artifactId>zkbind</artifactId>
 			<version>${zk.version}</version>
 		</dependency>
-		
+
 		<!-- PE & EE requirements -->
 		<dependency>
 			<groupId>org.zkoss.zk</groupId>
@@ -93,13 +93,13 @@
 			<version>${zk.version}</version>
 		</dependency>
 
-		<!-- ZK Charts-->
+		<!-- ZK Charts -->
 		<dependency>
 			<groupId>org.zkoss.chart</groupId>
 			<artifactId>zkcharts</artifactId>
 			<version>${zkcharts.version}</version>
 		</dependency>
-		
+
 		<!-- ZK Graphics -->
 		<dependency>
 			<groupId>org.zkoss.graphics</groupId>
@@ -137,7 +137,7 @@
 		<dependency>
 			<groupId>org.zkoss.pivot</groupId>
 			<artifactId>pivottable</artifactId>
- 			<version>2.2.0-Eval</version>
+			<version>2.2.0-Eval</version>
 		</dependency>
 
 		<!-- Themes -->
@@ -241,32 +241,41 @@
 			<artifactId>filters</artifactId>
 			<version>2.0.235</version>
 		</dependency>
-		
+
 		<!-- PostGres -->
-		
+
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>9.3-1100-jdbc4</version>
 		</dependency>
-		
-		 <!-- Spring Security -->
-      <dependency>
-          <groupId>org.springframework.security</groupId>
-         <artifactId>spring-security-core</artifactId>
-           <version>3.0.5.RELEASE</version>
-        </dependency>
-     <dependency>
-          <groupId>org.springframework.security</groupId>
-         <artifactId>spring-security-web</artifactId>
-            <version>3.0.5.RELEASE</version>
-        </dependency>
-     <dependency>
-          <groupId>org.springframework.security</groupId>
-         <artifactId>spring-security-config</artifactId>
-         <version>3.0.5.RELEASE</version>
-        </dependency>
- 
+
+		<!-- Spring Security -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>3.0.5.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>3.0.5.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>3.0.5.RELEASE</version>
+		</dependency>
+
+		<!-- EMAIL DEPENDENCIES -->
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-email</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+
 	</dependencies>
 
 </project>

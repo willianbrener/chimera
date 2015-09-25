@@ -3,6 +3,7 @@ package br.com.ueg.pids.Control;
 import java.sql.SQLException;
 import java.util.List;
 
+import br.com.ueg.pids.Colections.ColecaoGerenciarSolicitacoes;
 import br.com.ueg.pids.Colections.ColecaoSolicitacoes;
 import br.com.ueg.pids.Colections.ColecaoUsuario;
 import br.com.ueg.pids.Model.GerenciarSolicitacoes;
@@ -24,11 +25,11 @@ public class GerenciarSolicitacoesController extends GenericController<Gerenciar
 		return colecaoUsuario.getAll();
 	}
 	@Override
-	public List<?> getLstEntities(String keyword) {
+	public List<GerenciarSolicitacoes> getLstEntities() {
 		IModel<?> solicitacoes = (IModel<?>) new GerenciarSolicitacoes();
-		ColecaoSolicitacoes colecaoSolicitacoes = new ColecaoSolicitacoes();
+		ColecaoGerenciarSolicitacoes colecaoSolicitacoes = new ColecaoGerenciarSolicitacoes();
 		try {
-			colecaoSolicitacoes.setAll(dao.pesquisarNome(solicitacoes, keyword));
+			colecaoSolicitacoes.setAll(dao.listarTodos(solicitacoes));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

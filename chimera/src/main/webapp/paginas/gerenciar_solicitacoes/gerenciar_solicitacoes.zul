@@ -29,24 +29,24 @@
 				</row>
 			</rows>
 		</fgrid>
-		<listbox sclass="mylist" id="list" 
+		<listbox sclass="mylist" id="list"  model="@bind(vm.lstSolicitacoes)"
 			emptyMessage="Nenhuma solicitação selecionada." width="790px"
 			style="margin-top:10px" mold="paging" pageSize="4">
 
  
 			<listhead sizable="false">
 				<listheader label="Data" align="center"
-					sort="auto(name)" />
+					sort="auto(data)" />
 				<listheader label="Usuário" align="center"
-					sort="auto(descricao)" />
+					sort="auto(usuario)" />
 				<listheader label="Descrição" align="center"
-					sort="auto(departamento)" />
+					sort="auto(descricao)" />
 			</listhead>
 			<template name="model">5
 				<listitem>
-					<listcell label="@bind" sclass="highlightcell"></listcell>
-					<listcell label="@bind"></listcell>
-					<listcell label="@bind"></listcell>
+					<listcell label="@bind(each.data)" sclass="highlightcell"></listcell>
+					<listcell label="@bind(each.usuario.nome)"></listcell>
+					<listcell label="@bind(each.descricao)"></listcell>
 					<listcell>
 
 						<button image="/imagens/remove-icon.png"

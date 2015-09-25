@@ -35,6 +35,7 @@ public class GerenciarSolicitacoesViewModel extends GenericViewModel<GerenciarSo
 */
 	private Cargo cargoSelected = new Cargo();
 	private Permissao permissaoSelecionada;
+	private List<GerenciarSolicitacoes> lstSolicitacoes = new ArrayList<GerenciarSolicitacoes>();
 	private List<Permissao> permissaoList = new ArrayList<Permissao>();
 	Session sess = Sessions.getCurrent();
 	UserCredential user = new UserCredential();
@@ -54,6 +55,7 @@ public class GerenciarSolicitacoesViewModel extends GenericViewModel<GerenciarSo
 		}else{
 			System.out.println("Entidade nula.");
 		}
+	
 		
 	}
 	
@@ -73,7 +75,7 @@ public class GerenciarSolicitacoesViewModel extends GenericViewModel<GerenciarSo
 	public Return salvar() {
 		Return ret = new Return(true);
 					getEntity().setAtivo(true);
-					getEntity().setPermissao(permissaoSelecionada);
+					getEntity().setPermissao(permissaoSelecionada.getNome());
 					ret = getControl().salvar(getEntity());
 			if (ret.isValid()) {
 				Messagebox.show("Solicitação realizada com sucesso!","Sucess",
@@ -109,6 +111,13 @@ public class GerenciarSolicitacoesViewModel extends GenericViewModel<GerenciarSo
 		RecursoController recursoController = new RecursoController();
 		lstRecurso = recursoController.getLstEntities();
 		return lstRecurso;
+	}
+	
+	@NotifyChange("lstSolicitacoes")
+	public List<GerenciarSolicitacoes> getSolicitacoesList() {
+		GerenciarSolicitacoesController solicitacoesController = new GerenciarSolicitacoesController();
+		lstSolicitacoes = solicitacoesController.getLstEntities();
+		return lstSolicitacoes;
 	}
 	public Permissao getPermissaoSelecionada() {
 		return permissaoSelecionada;
@@ -160,6 +169,14 @@ public class GerenciarSolicitacoesViewModel extends GenericViewModel<GerenciarSo
 
 	public void setLstUsuarios(List<?> lstUsuarios) {
 		this.lstUsuarios = lstUsuarios;
+	}
+
+	public List<GerenciarSolicitacoes> getLstSolicitacoes() {
+		return lstSolicitacoes;
+	}
+
+	public void setLstSolicitacoes(List<GerenciarSolicitacoes> lstSolicitacoes) {
+		this.lstSolicitacoes = lstSolicitacoes;
 	}
 	
 	
