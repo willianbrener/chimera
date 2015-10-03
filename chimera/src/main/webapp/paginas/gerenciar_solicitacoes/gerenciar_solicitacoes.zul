@@ -30,7 +30,7 @@
 			</rows>
 		</fgrid>
 		<listbox sclass="mylist" id="list"  model="@bind(vm.lstSolicitacoes)"
-			emptyMessage="Nenhuma solicitação selecionada." width="790px"
+			emptyMessage="Nenhuma solicitação selecionada." width="750px"
 			style="margin-top:10px" mold="paging" pageSize="4">
 
  
@@ -41,17 +41,18 @@
 					sort="auto(usuario)" />
 				<listheader label="Descrição" align="center"
 					sort="auto(descricao)" />
+					<listheader label="" align="center" />
 			</listhead>
-			<template name="model">5
+			<template name="model">
 				<listitem>
 					<listcell label="@bind(each.data)" sclass="highlightcell"></listcell>
-					<listcell label="@bind(each.usuario.nome)"></listcell>
+					<listcell label="@bind(each.usuario.account)"></listcell>
 					<listcell label="@bind(each.descricao)"></listcell>
 					<listcell>
 
 						<button image="/imagens/remove-icon.png"
 							onClick="@command('desativar') @global-command('refresh')" />
-						<button image="/imagens/edit.png"
+						<button image="/imagens/edit-icon.png"
 							onClick="@command('telaAlterar') @global-command('refresh')" />
 					</listcell>
 

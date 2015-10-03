@@ -1,6 +1,7 @@
 package br.com.ueg.pids.ViewModel;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.zkoss.bind.annotation.Command;
@@ -14,6 +15,7 @@ import org.zkoss.zul.Messagebox;
 import br.com.ueg.pids.Control.DepartamentoController;
 import br.com.ueg.pids.Control.GerenciarSolicitacoesController;
 import br.com.ueg.pids.Control.RecursoController;
+import br.com.ueg.pids.Converter.DateUtils;
 import br.com.ueg.pids.Enum.Permissao;
 import br.com.ueg.pids.Model.Cargo;
 import br.com.ueg.pids.Model.Departamento;
@@ -43,6 +45,8 @@ public class GerenciarSolicitacoesViewModel extends GenericViewModel<GerenciarSo
 	private List<?> lstUsuarios;
 	private List<Recurso> lstRecurso;
 	private int aux = 0;
+	private Date data = new Date();
+	
 	@Init
 	public void init() {		
 		user = (UserCredential)sess.getAttribute("userCredential");
@@ -55,7 +59,12 @@ public class GerenciarSolicitacoesViewModel extends GenericViewModel<GerenciarSo
 		}else{
 			System.out.println("Entidade nula.");
 		}
-	
+		
+		if(lstSolicitacoes == null || lstSolicitacoes.size()== 0){
+			getSolicitacoesList();
+		}
+		
+			
 		
 	}
 	
@@ -74,8 +83,12 @@ public class GerenciarSolicitacoesViewModel extends GenericViewModel<GerenciarSo
 	@Command
 	public Return salvar() {
 		Return ret = new Return(true);
+		DateUtils dateUtils = new DateUtils();
+		
+		String newDate = dateUtils.DateToString(getData());
 					getEntity().setAtivo(true);
 					getEntity().setPermissao(permissaoSelecionada.getNome());
+					getEntity().setData(newDate);
 					ret = getControl().salvar(getEntity());
 			if (ret.isValid()) {
 				Messagebox.show("Solicitação realizada com sucesso!","Sucess",
@@ -177,6 +190,14 @@ public class GerenciarSolicitacoesViewModel extends GenericViewModel<GerenciarSo
 
 	public void setLstSolicitacoes(List<GerenciarSolicitacoes> lstSolicitacoes) {
 		this.lstSolicitacoes = lstSolicitacoes;
+	}
+
+	public Date getData() {
+		return data;
+	}
+
+	public void setData(Date data) {
+		this.data = data;
 	}
 	
 	

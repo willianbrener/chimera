@@ -1,10 +1,8 @@
 package br.com.ueg.pids.Model;
 
-import java.util.Date;
 
 import br.com.ueg.pids.Annotations.Campo;
 import br.com.ueg.pids.Annotations.Table;
-import br.com.ueg.pids.Enum.Permissao;
 
 
 @Table(nome="solicitacoes")
@@ -23,7 +21,7 @@ public class GerenciarSolicitacoes extends GenericModel<Integer>{
 	private String permissao;
 	
 	@Campo(nome="data", obrigatorio=true)
-	private Date data;
+	private String data;
 	
 	@Campo(nome="hora", obrigatorio=true)
 	private String hora;
@@ -42,7 +40,7 @@ public class GerenciarSolicitacoes extends GenericModel<Integer>{
 	}
 	
 	public GerenciarSolicitacoes(int idgerenciar_solicitacoes, String titulo, String descricao,
-			String permissao,Date data, String hora,
+			String permissao,String data, String hora,
 			Usuario usuario, Recurso recurso ,Boolean ativo) {
 		this.idgerenciar_solicitacoes = idgerenciar_solicitacoes;
 		this.titulo = titulo;
@@ -81,7 +79,6 @@ public class GerenciarSolicitacoes extends GenericModel<Integer>{
 	}
 
 
-
 	public String getPermissao() {
 		return permissao;
 	}
@@ -90,11 +87,11 @@ public class GerenciarSolicitacoes extends GenericModel<Integer>{
 		this.permissao = permissao;
 	}
 
-	public Date getData() {
+	public String getData() {
 		return data;
 	}
 
-	public void setData(Date data) {
+	public void setData(String data) {
 		this.data = data;
 	}
 

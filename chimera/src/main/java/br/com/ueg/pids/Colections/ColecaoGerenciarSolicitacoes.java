@@ -30,11 +30,11 @@ private ArrayList<GerenciarSolicitacoes> listaSolicitacoes = new ArrayList<Geren
 			for (HashMap<String, Object> hashMap : result) {
 				usuario = usuarioController.getEntity((String) hashMap.get("idusuario"));
 				recurso = recursoController.getEntity((String) hashMap.get("idrecurso"));
-				GerenciarSolicitacoes solicitacoes = new GerenciarSolicitacoes(	Integer.parseInt((String) hashMap.get("idgerenciar_solicitacoes")),
+				GerenciarSolicitacoes solicitacoes = new GerenciarSolicitacoes(	Integer.parseInt((String) hashMap.get("idsolicitacoes")),
 												(String) hashMap.get("titulo"),
 												(String) hashMap.get("descricao"),
 												(String) hashMap.get("permissao"),
-												(Date) hashMap.get("data"),
+												(String) hashMap.get("data"),
 												(String) hashMap.get("hora"),
 												usuario,		
 												recurso,
