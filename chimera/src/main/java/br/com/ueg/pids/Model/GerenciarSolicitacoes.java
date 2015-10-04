@@ -9,22 +9,22 @@ import br.com.ueg.pids.Annotations.Table;
 public class GerenciarSolicitacoes extends GenericModel<Integer>{
 
 	@Campo(nome="idsolicitacoes", pk=true)
-	private int idgerenciar_solicitacoes;
+	private int idsolicitacoes;
 	
 	@Campo(nome="titulo",obrigatorio=true)
 	private String titulo;
 	
 	@Campo(nome="descricao",obrigatorio=true)
 	private String descricao;
-
-	@Campo(nome="permissao",obrigatorio=true)
-	private String permissao;
 	
 	@Campo(nome="data", obrigatorio=true)
 	private String data;
 	
 	@Campo(nome="hora", obrigatorio=true)
 	private String hora;
+	
+	@Campo(nome="situacao", obrigatorio=true)
+	private String situacao;
 	
 	@Campo(nome="idusuario",obrigatorio=true)
 	private Usuario usuario;
@@ -39,27 +39,26 @@ public class GerenciarSolicitacoes extends GenericModel<Integer>{
 		
 	}
 	
-	public GerenciarSolicitacoes(int idgerenciar_solicitacoes, String titulo, String descricao,
-			String permissao,String data, String hora,
+	public GerenciarSolicitacoes(int idsolicitacoes, String titulo, String descricao,
+			String data, String hora, String situacao,
 			Usuario usuario, Recurso recurso ,Boolean ativo) {
-		this.idgerenciar_solicitacoes = idgerenciar_solicitacoes;
+		this.idsolicitacoes = idsolicitacoes;
 		this.titulo = titulo;
 		this.descricao = descricao;
-		this.permissao = permissao;
 		this.data = data;
 		this.hora = hora;
+		this.situacao = situacao;
 		this.usuario = usuario;
 		this.recurso = recurso;
 		this.ativo = ativo;
 	}
 	
-
-	public int getIdgerenciar_solicitacoes() {
-		return idgerenciar_solicitacoes;
+	public int getIdsolicitacoes() {
+		return idsolicitacoes;
 	}
 
-	public void setIdgerenciar_solicitacoes(int idgerenciar_solicitacoes) {
-		this.idgerenciar_solicitacoes = idgerenciar_solicitacoes;
+	public void setIdsolicitacoes(int idsolicitacoes) {
+		this.idsolicitacoes = idsolicitacoes;
 	}
 
 	public String getTitulo() {
@@ -78,15 +77,6 @@ public class GerenciarSolicitacoes extends GenericModel<Integer>{
 		this.descricao = descricao;
 	}
 
-
-	public String getPermissao() {
-		return permissao;
-	}
-
-	public void setPermissao(String permissao) {
-		this.permissao = permissao;
-	}
-
 	public String getData() {
 		return data;
 	}
@@ -101,6 +91,14 @@ public class GerenciarSolicitacoes extends GenericModel<Integer>{
 
 	public void setHora(String hora) {
 		this.hora = hora;
+	}
+
+	public String getSituacao() {
+		return situacao;
+	}
+
+	public void setSituacao(String situacao) {
+		this.situacao = situacao;
 	}
 
 	public Usuario getUsuario() {

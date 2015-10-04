@@ -52,7 +52,8 @@ public class CargoUpdateViewModel extends
 	public void closeThis() {
 		win.detach();
 	}
-
+	
+	@NotifyChange("entity")
 	@Command
 	public Return update() {
 		Return ret = new Return(true);

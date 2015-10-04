@@ -43,7 +43,7 @@ Session sess = Sessions.getCurrent();
 		if(cre.isUser()){
 			Executions.sendRedirect("/paginas/initial_page_user.zul");
 		}else if(cre.isAdmin()){
-			Executions.sendRedirect("/paginas/initial_page.zul");
+			Executions.sendRedirect("/paginas/initial_page_approver.zul");
 		}else if(cre.isExecutioner()){
 			Executions.sendRedirect("/paginas/initial_page_executioner.zul");
 		}

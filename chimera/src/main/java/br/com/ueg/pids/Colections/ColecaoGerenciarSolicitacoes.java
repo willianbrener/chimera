@@ -33,9 +33,9 @@ private ArrayList<GerenciarSolicitacoes> listaSolicitacoes = new ArrayList<Geren
 				GerenciarSolicitacoes solicitacoes = new GerenciarSolicitacoes(	Integer.parseInt((String) hashMap.get("idsolicitacoes")),
 												(String) hashMap.get("titulo"),
 												(String) hashMap.get("descricao"),
-												(String) hashMap.get("permissao"),
 												(String) hashMap.get("data"),
 												(String) hashMap.get("hora"),
+												(String) hashMap.get("situacao"),
 												usuario,		
 												recurso,
 												(hashMap.get("ativo").equals("t")));

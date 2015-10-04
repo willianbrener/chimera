@@ -9,7 +9,7 @@ import br.com.ueg.pids.Utils.Reflection;
 
 public abstract class GenericModel<TipoPK> implements IModel<TipoPK>{
 
-	private boolean ativo;
+
 	
 	public String getPKName(){
 		return Reflection.getPkName(this);
@@ -75,14 +75,6 @@ public abstract class GenericModel<TipoPK> implements IModel<TipoPK>{
 
 	public String getCriterio() {
 		return null;
-	}
-
-	public boolean isAtivo() {
-		return ativo;
-	}
-
-	public void setAtivo(boolean ativo) {
-		this.ativo = ativo;
 	}
 
 	

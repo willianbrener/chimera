@@ -3,7 +3,7 @@
 <?page title="Página Inicial"?>
 <?init class="org.zkoss.zk.ui.util.Composition" arg0="/componentes/templates/inicial/template_inicial.zul"?>
 <zk>
-	<vlayout self="@define(content)" width="100%" height="100%" style="overflow: auto;">
+	<vlayout self="@define(content)"  style="overflow: auto;">
 		
 	</vlayout>
 </zk>

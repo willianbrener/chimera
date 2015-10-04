@@ -10,6 +10,7 @@ import java.util.HashMap;
 import br.com.ueg.pids.Annotations.Campo;
 import br.com.ueg.pids.Enum.TypeMessage;
 import br.com.ueg.pids.Model.IModel;
+import br.com.ueg.pids.Model.Usuario;
 import br.com.ueg.pids.Utils.Connect;
 import br.com.ueg.pids.Utils.Mensagem;
 import br.com.ueg.pids.Utils.Reflection;
@@ -242,6 +243,113 @@ public class GenericDAO {
 		}
 		System.out.println("O " + entidade.getTableName() + " Não Foi pesquisado problema no DAOUsuario pesquisarusuario(String) Connect.getConexão");
 		return null;
+	}
+	
+
+/*------------SQL SOLICITANTE-------------------
+select * 										|
+from 	solicitacoes as s,						|
+	usuario as u								|
+where	s.idusuario = u.idusuario				|
+and	u.idusuario='VARIAVEL PARA VERIFICAR ID'|	|
+------------SQL EXECUTOR----------------------- 
+												|
+												|
+select * 										|
+from 	solicitacoes							|
+where	situacao='APROVADA						|
+---------------------------------------------*/
+	
+	public ArrayList<HashMap<String,Object>> listarSolicitacoes(IModel<?> entidade,Usuario usuario ,String string) throws SQLException{
+		String sql = null;
+		if(string.equals("APROVADOR")){
+			
+			
+			String sqlAll = "select "+ entidade.getTableColumnNames()+" from " + entidade.getTableName() + " ";
+			sqlAll = sqlAll + " where ativo = true";
+			sql = sqlAll;
+		}else if(string.equals("SOLICITANTE")){
+			String sqlAll = "select * "
+					  + "from "+entidade.getTableName() + " as s ,"
+					  + "usuario as u ";
+		sqlAll = sqlAll + "where s.idusuario = u.idusuario "
+						+ "and u.idusuario='"+usuario.getIdusuario()+"' "
+						+ "and s.ativo = true";
+		sql = sqlAll;
+		}else if(string.equals("EXECUTOR")){
+			String sqlAll = "select "+ entidade.getTableColumnNames()+" from " + entidade.getTableName() + " ";
+			sqlAll = sqlAll + " where situacao='APROVADA' "
+							+ "and ativo = true";
+			sql = sqlAll;
+		}
+			
+			
+			
+			System.out.println("sql:"+sql);
+		if(Connect.getConexao()){
+			
+			ArrayList<HashMap<String,Object>> result = new ArrayList<HashMap<String,Object>>();
+			
+		ResultSet rs =  Connect.setResultSet(sql);
+		int colCount = rs.getMetaData().getColumnCount();
+		while(rs.next()){
+				HashMap<String,Object> record = new HashMap<String, Object>();
+				for(int i=1;i<=colCount;i++){
+					record.put(rs.getMetaData().getColumnName(i), rs.getString(i));
+				}
+				result.add(record);
+		}
+		Connect.close();
+		return result;
+		}
+		System.out.println("O " + entidade.getTableName() + " Não Foi pesquisado problema no DAOUsuario pesquisarusuario(String) Connect.getConexão");
+		return null;
+	}
+	
+	public Return updateSolicitacao(IModel<?> entidade, String string){
+		String auxFields="";
+		Class<?> cls = entidade.getClass();	
+		Field[] fld = cls.getDeclaredFields();
+		
+		try {
+			for(int i = 0; i < fld.length; i++){
+				Campo cmp = fld[i].getAnnotation(Campo.class);				
+				if(cmp!=null){
+					if(Reflection.getFieldValue(entidade, fld[i].getName())!=null){
+						String str = "";
+						if(Reflection.getFieldValue(entidade, fld[i].getName()) instanceof IModel<?>){
+							str = "" + (((IModel<?>) Reflection.getFieldValue(entidade, fld[i].getName())).getPK());
+						}else{
+							str = "" + Reflection.getFieldValue(entidade, fld[i].getName());
+						}
+						auxFields=auxFields+","+cmp.nome()+"= '" + str + "'";
+					}
+				}				
+			}
+		}catch (Throwable e) {
+			System.err.println(e);
+			
+		}		
+		
+		String sql = "update " + entidade.getTableName() + " " ;		
+		   sql = sql + "set situacao='"+string+"' ";
+		   sql = sql + " where " + entidade.getPKName() + "='" + String.valueOf(entidade.getPK()) + "'";
+		
+		if(Connect.getConexao()){
+			System.out.println("sql = "+sql);
+			int i = Connect.runSQL(sql);
+			if (i == 1){
+				Connect.close();
+				return new Return(true, entidade.getTableName()+ " Alterado com sucesso!", TypeMessage.SUCESSO);
+				
+			}else{
+				System.out.println("O " + entidade.getTableName() + "Não Foi Alterado problema no DAO.Alterar");  
+				Connect.close();
+				return  new Return(false, "Não Foi Alterado", TypeMessage.ERROR);
+			}
+		}
+		System.out.println("O "+ entidade.getTableName() +" Não Foi Alterado problema no DAO.alterar.Connect.getConexão");
+		return new Return(false);
 	}
 	
 	/*

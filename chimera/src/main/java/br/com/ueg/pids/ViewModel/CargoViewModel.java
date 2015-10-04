@@ -1,6 +1,5 @@
 package br.com.ueg.pids.ViewModel;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -23,9 +22,6 @@ import br.com.ueg.pids.Utils.Return;
 @SuppressWarnings("serial")
 public class CargoViewModel extends GenericViewModel<Cargo, CargoController> {
 
-	
-	
-	
 	@Wire("#CustomerCRUD")
 	private Window win;
 	private List<Departamento> departamentoList;
@@ -40,6 +36,7 @@ public class CargoViewModel extends GenericViewModel<Cargo, CargoController> {
 		super.init();
 	}
 
+	@NotifyChange("entity")
 	@Command
 	public Return salvar() {
 		Return ret = new Return(true);

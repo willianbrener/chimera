@@ -5,53 +5,54 @@
 
 				<row>
 					<label value="Usuário:" />
-					<textbox id="fldUser" width="100%" />
+					<textbox id="fldUser" readonly="true" value="@bind(vm.entity.usuario.account)" width="100%" />
 
 					<label value="Departamento:" />
-					<textbox id="fldDepartament" width="100%" />
+					<textbox id="fldDepartament" readonly="true" value="@bind(vm.entity.usuario.cargo.departamento.nome)"  width="100%" />
 
 
 				</row>
 				<row>
 					<label value="Cargo:" />
-					<textbox id="fldCargo" width="100%" />
+					<textbox id="fldCargo" readonly="true" value="@bind(vm.entity.usuario.cargo.nome)" width="100%" />
 
 					<label value="Permissão:" />
-					<textbox id="fldPermission" width="100%" />
+					<textbox id="fldPermission" readonly="true" value="@bind(vm.entity.usuario.permissao)"  width="100%" />
 				</row>
 				
 				<row>
 					<label value="Recurso:" />
-					<combobox id="fldRecurso" width="100%" />
+					<textbox id="fldRecurso" readonly="true"  value="@bind(vm.entity.recurso.nome)" width="100%" />
 
 					<label value="Status:" />
-					<textbox id="fldStatus" width="60%" />
+					<textbox id="fldStatus" readonly="true" value="@bind(vm.entity.situacao)" width="60%" />
 				</row>
 			</rows>
 		</fgrid>
-		<listbox sclass="mylist" id="list" 
-			emptyMessage="Nenhuma solicitação selecionada." width="790px"
-			style="margin-top:10px" mold="paging" pageSize="4">
+		<listbox sclass="mylist" id="list"  model="@bind(vm.lstSolicitacoes)"
+			emptyMessage="Nenhuma solicitação selecionada." width="750px"
+			style="margin-top:10px" mold="paging" pageSize="5" selectedItem="@bind(vm.itemSelected)" >
 
  
-			<listhead sizable="false">
-				<listheader label="Data" align="center"
-					sort="auto(name)" />
-				<listheader label="Usuário" align="center"
+			<listhead sizable="true">
+				<listheader label="Data" align="center" 
+					sort="auto(data)" />
+				<listheader label="Usuário" align="center" 
+					sort="auto(usuario)" />
+				<listheader label="Descrição" align="center" 
 					sort="auto(descricao)" />
-				<listheader label="Descrição" align="center"
-					sort="auto(departamento)" />
+					<listheader label="" align="center" />
 			</listhead>
-			<template name="model">5
-				<listitem>
-					<listcell label="@bind" sclass="highlightcell"></listcell>
-					<listcell label="@bind"></listcell>
-					<listcell label="@bind"></listcell>
-					<listcell>
-
+			<template name="model">
+				<listitem >
+					<listcell  label="@bind(each.data)" sclass="highlightcell" onClick="@command('setaValores')"></listcell>
+					<listcell  label="@bind(each.usuario.account)" onClick="@command('setaValores')"></listcell>
+					<listcell  label="@bind(each.descricao)" onClick="@command('setaValores')"></listcell>
+					<listcell >
+						
 						<button image="/imagens/remove-icon.png"
 							onClick="@command('desativar') @global-command('refresh')" />
-						<button image="/imagens/edit.png"
+						<button image="/imagens/edit-icon.png"
 							onClick="@command('telaAlterar') @global-command('refresh')" />
 					</listcell>
 
@@ -60,8 +61,6 @@
 		</listbox>
 		<auxhead>
 			<auxheader class="topic">
-				<fbutton label="Salvar" onClick="@command('salvar')" />
-				<fbutton label="Rejeitar" onClick="@command('cancelar')" />
 				<fbutton label="Limpar" onClick="@command('limpar')" />
 			</auxheader>
 		</auxhead>

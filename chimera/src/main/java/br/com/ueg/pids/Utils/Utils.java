@@ -1,5 +1,7 @@
 package br.com.ueg.pids.Utils;
 
+import org.zkoss.zk.ui.Executions;
+
 public class Utils {
 	/**
 	 * Método que retorna string com a primeira letra em maiúscula, o restante permanece o mesmo.
@@ -36,5 +38,21 @@ public class Utils {
 			resposta = string.substring((tamanho-5), tamanho);
 		}
 		return Utils.totalLowerCase(resposta);
+	}
+	
+	public String verificaPaginaSolicitacoes(String string) {
+		String retorno = null;
+		String criar = "cadastrar";
+		String listar = "pesquisar";
+		boolean resultado1, resultado2;
+		resultado1 = string.contains(criar);
+		resultado2 = string.contains(listar);
+		if (resultado1 == true && resultado2 == false) {
+			retorno = "criar";
+		} else if (resultado1 == false && resultado2 == true) {
+			retorno = "listar";
+		}
+		return retorno;
+
 	}
 }

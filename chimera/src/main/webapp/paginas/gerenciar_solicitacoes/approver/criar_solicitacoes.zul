@@ -1,11 +1,11 @@
 <?init class="br.com.ueg.pids.Login.AuthenticationInit"?>
 <zk>
-		<grid width="940px" height="230px" sclass="nostyle">
+		<grid width="940px" sclass="nostyle">
 		<rows>
 			
 			<row>
 				<label value="Usuário:"/>
-				<textbox id="fldUser"  value="@bind(vm.entity.usuario.fullName)" width="150px" readonly="true"/>
+				<textbox id="fldUser"  value="@bind(vm.entity.usuario.account)" width="150px" readonly="true"/>
 				
 				<label value="Departamento:"/>
 				<textbox id="fldDepartament" value="@bind(vm.entity.usuario.cargo.departamento.nome)"  width="150px"  readonly="true"/>
@@ -17,11 +17,8 @@
 				<label value="Cargo:"/>
 				 <textbox id="fldCargo" value="@bind(vm.entity.usuario.cargo.nome)"  width="150px"  readonly="true"/>
 				
-				<label value="Permissão:" />
-				<combobox model="@load(vm.permissaoList)" width="150px"
-			      selectedItem="@save(vm.permissaoSelecionada)">
-							<comboitem label="@load(each.nome)" />
-                  </combobox>
+				<label value="Permissao:"/>
+				 <textbox id="fldPermissao" value="@bind(vm.entity.usuario.permissao)"  width="150px"  readonly="true"/>
 				
 				<label value="Hora:" tooltiptext="Hora"/>
 				<textbox id="fldHour" value="@bind(vm.entity.hora)"  placeholder="HH:MM"  width="75px" />

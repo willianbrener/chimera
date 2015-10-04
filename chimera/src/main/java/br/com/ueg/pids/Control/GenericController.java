@@ -3,7 +3,9 @@ package br.com.ueg.pids.Control;
 import java.util.List;
 
 import br.com.ueg.pids.DAO.GenericDAO;
+import br.com.ueg.pids.Model.GerenciarSolicitacoes;
 import br.com.ueg.pids.Model.IModel;
+import br.com.ueg.pids.Model.Usuario;
 import br.com.ueg.pids.Utils.Return;
 
 
@@ -85,6 +87,11 @@ public abstract class GenericController<Entity> implements IController{
 
 	public void setLstCriteria(List<Entity> lstCriteria) {
 		this.lstCriteria = lstCriteria;
+	}
+
+	public List<Entity> getLstEntities(String string,
+			Usuario usuario) {
+		return lstEntities;
 	}
 
 

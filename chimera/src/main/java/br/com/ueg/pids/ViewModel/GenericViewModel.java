@@ -4,11 +4,13 @@ package br.com.ueg.pids.ViewModel;
 
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.zk.ui.Session;
+import org.zkoss.zk.ui.Sessions;
 import org.zkoss.zkplus.databind.AnnotateDataBinder;
 import org.zkoss.zul.Div;
 
 import br.com.ueg.pids.Control.GenericController;
 import br.com.ueg.pids.Model.GenericModel;
+import br.com.ueg.pids.Model.UserCredential;
 
 @SuppressWarnings({ "deprecation", "serial" })
 public abstract class GenericViewModel<M extends GenericModel, C extends GenericController<M>> extends Div{
@@ -17,7 +19,8 @@ public abstract class GenericViewModel<M extends GenericModel, C extends Generic
 	protected C controller;
 	protected AnnotateDataBinder binder;
 	protected M itemSelected;
-	Session session;
+	Session sess = Sessions.getCurrent();
+	UserCredential user = new UserCredential();
 	protected String keyword;
 	
 
@@ -27,7 +30,7 @@ public abstract class GenericViewModel<M extends GenericModel, C extends Generic
 
 	@Init
 	public void init() {
-
+		user = (UserCredential)sess.getAttribute("userCredential");
 		setEntity(getObject());
 		entity = getEntity();
 	}
@@ -60,13 +63,6 @@ public abstract class GenericViewModel<M extends GenericModel, C extends Generic
 		this.itemSelected = itemSelected;
 	}
 
-	public Session getSession() {
-		return session;
-	}
-
-	public void setSession(Session session) {
-		this.session = session;
-	}
 
 	public String getKeyword() {
 		return keyword;
