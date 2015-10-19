@@ -1,0 +1,32 @@
+<?init class="br.com.ueg.pids.Login.AuthenticationInit"?>
+<zk>
+		<fgrid hflex="min"><!-- style="border:1px solid white;"-->
+			<rows>
+				<row>
+					<flabel value="Nome:" />
+					<ftextbox id="fldName" value="@bind(fx.nome)"
+						width="180px" focus="true" style="color:black !important;"  />
+				</row>
+				
+				<row>
+					<flabel value="Responsavel:" />
+					<ftextbox id="fldResponsavel" value="@bind(fx.responsavel)"
+						width="180px" focus="true" style="color:black !important;"  />
+				</row>
+				
+				<row>
+					<flabel value="Nível:" />
+					<ftextbox id="fldNível" value="@bind(fx.nivel)"
+						width="180px" focus="true" style="color:black !important;"  />
+				</row>
+				
+				<row>
+					<fbutton label="Salvar"
+						onClick="@command('salvar')" />
+					<fbutton label="Cancelar"
+						onClick="@command('cancel')" />
+				</row>
+
+			</rows>
+		</fgrid>
+</zk>

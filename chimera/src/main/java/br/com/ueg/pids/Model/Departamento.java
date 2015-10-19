@@ -65,7 +65,7 @@ public class Departamento extends  GenericModel<Integer>{
 		this.nivel = nivel;
 	}
 
-	public boolean isAtivo() {
+	public boolean getAtivo() {
 		return ativo;
 	}
 

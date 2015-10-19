@@ -50,16 +50,16 @@
 		
 		<nav label="Manter Departamento" iconSclass="z-icon-star">
 			<navitem label="Cadastrar">
-			<attribute name="onClick"><![CDATA[
-
+				<attribute name="onClick"><![CDATA[
+				Executions.sendRedirect("/paginas/cadastros_base/departamento/cadastrar.zul");
 			]]></attribute>
 			</navitem>
 			
 			<navitem label="Pesquisar">
 				<attribute name="onClick"><![CDATA[
-
+				Executions.sendRedirect("/paginas/cadastros_base/departamento/pesquisar.zul");
 			]]></attribute>
-			</navitem>			
+			</navitem>		
 		</nav>
 		
 		<nav label="Manter Usuário" iconSclass="z-icon-group">

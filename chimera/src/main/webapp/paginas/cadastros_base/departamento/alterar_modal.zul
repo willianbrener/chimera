@@ -1,0 +1,6 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="Alterar Cargo" border="normal" mode="modal" position="center" closable="true">
+<include src="/paginas/cadastros_base/cargo/cargo_component.zul"/>	
+</window>
+</zk>

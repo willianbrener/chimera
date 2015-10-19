@@ -30,6 +30,34 @@ public class DepartamentoController extends GenericController<Departamento>{
 	}
 	
 	@Override
+	public List<?> getLstEntities(String keyword) {
+		Departamento departamento = new Departamento();
+		ColecaoDepartamento listaDepartamento = new ColecaoDepartamento();
+		try {
+			
+				listaDepartamento.setAll(dao.pesquisarNome(departamento, keyword));
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return listaDepartamento.getAll();
+	}
+	
+	public List<?> listarTodos(Departamento departamento) {
+		ColecaoDepartamento listaDepartamento = new ColecaoDepartamento();
+		try {
+				listaDepartamento.setAll(dao.listarTodos(departamento));
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return listaDepartamento.getAll();
+	}
+	
+	
+	
+	@Override
 	public Return validar(IModel<?> imodel) {
 		return null;
 	}

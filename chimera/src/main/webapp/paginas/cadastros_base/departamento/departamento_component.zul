@@ -1,0 +1,52 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+
+	<window title="Departamento Alterar" border="normal"
+		id="DepartamentoUpdate" width="430px" height="auto"
+		apply="org.zkoss.bind.BindComposer" sclass="mymodal"
+		minimizable="false" mode="modal" maximizable="false" closable="false"
+		position="center"
+		viewModel="@id('vm') @init('br.com.ueg.pids.ViewModel.DepartamentoUpdateViewModel')">
+		<separator />
+		<flabeltitle value="Departamento Informações" />
+		<separator />
+		<panel width="100%">
+			<panelchildren>
+				<separator />
+				<fgrid hflex="min"><!-- style="border:1px solid white;"-->
+					<rows>
+						<row>
+							<flabel value="Nome:" />
+							<ftextbox id="fldName"
+								value="@bind(vm.itemSelected.nome)" width="180px" focus="true"
+								style="color:black !important;" />
+						</row>
+
+						<row>
+							<flabel value="Responsavel:" />
+							<ftextbox id="fldResponsavel"
+								value="@bind(vm.itemSelected.responsavel)" width="180px"
+								focus="true" style="color:black !important;" />
+						</row>
+
+						<row>
+							<flabel value="Nível:" />
+							<ftextbox id="fldNível"
+								value="@bind(vm.itemSelected.nivel)" width="180px" focus="true"
+								style="color:black !important;" />
+						</row>
+
+					</rows>
+				</fgrid>
+			</panelchildren>
+		</panel>
+		<separator />
+		<div align="center">
+			<fbutton id="submit" label="Submit"
+				onClick="@command('update')" />
+			<fbutton id="cancel" label="Cancel"
+				onClick="@command('closeThis')" />
+		</div>
+		<separator />
+	</window>
+</zk>

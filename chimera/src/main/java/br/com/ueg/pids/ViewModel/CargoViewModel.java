@@ -107,6 +107,7 @@ public class CargoViewModel extends GenericViewModel<Cargo, CargoController> {
 
 	}
 
+
 	@Command
 	public Return telaAlterar() {
 		Return ret = new Return(true);

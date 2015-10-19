@@ -1,0 +1,42 @@
+<?init class="br.com.ueg.pids.Login.AuthenticationInit"?>
+<zk>  
+
+  	<hbox align="center" sclass="searchform">
+        <textbox value="@bind(vm.keyword)"  sclass="searchfield"/>
+        <Addbutton label="Pesquisar" image="" onClick="@command('ListarTodos')" />
+    </hbox>
+
+    <listbox sclass="mylist" id="list" model="@bind(vm.lstDepartamento)" emptyMessage="Nenhuma departamento selecionado." width="600px"
+     style="margin-top:10px"  selectedItem="@bind(vm.itemSelected)"  mold="paging" pageSize="8">
+        	
+
+        	<listhead sizable="true">
+            	<listheader label="Nome" align="center" sort="auto(nome)" />
+            	<listheader label="Nível" align="center" sort="auto(descricao)" />
+            	<listheader label="Responsavel" align="center" sort="auto(departamento)" />
+            	<listheader label="Status" align="center" sort="auto(ativo)" />
+        	</listhead>
+        <template name="model">
+      
+        
+            <listitem>
+                <listcell  label="@bind(each.nome)" sclass="highlightcell"></listcell>
+                <listcell label="@bind(each.nivel)"></listcell>
+                <listcell  label="@bind(each.responsavel)"></listcell>
+                <listcell  label="@bind(each.ativo)"></listcell>
+            </listitem>
+            
+        </template>
+   	 </listbox>
+
+   		 	<auxhead>
+        		<auxheader colspan="4" class="topic">
+        			<fbutton label="Alterar" onClick="@command('telaAlterar')" />
+        			<fbutton label="Deletar" onClick="@command('deletar')" />
+        			<label
+        				value="Para alterar ou desativar selecione um item"
+        				style="color: blue; font-size:8pt" />
+        		</auxheader>
+        	</auxhead>
+    </zk>
+    
