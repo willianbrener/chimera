@@ -1,7 +1,7 @@
 <?init class="br.com.ueg.pids.Login.AuthenticationInit"?>
 <?link rel="stylesheet" type="text/css" href="/style.css"?>
 <?page title="Página Inicial"?>
-<?init class="org.zkoss.zk.ui.util.Composition" arg0="/componentes/templates/inicial/template_inicial.zul"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/componentes/templates/approver/template_approver.zul"?>
 <zk>
 	<vlayout self="@define(content)"  style="overflow: auto;">
 		

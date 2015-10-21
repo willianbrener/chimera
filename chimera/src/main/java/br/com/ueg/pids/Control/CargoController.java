@@ -53,13 +53,11 @@ public class CargoController extends GenericController<Cargo> {
 		return ret;
 	}
 	
-	@Override
-	public List<?> getLstEntities(String keyword) {
-		Cargo cargo = new Cargo();
+	public List<?> getListarTodos(Cargo cargo) {
 		ColecaoCargo listaCargo = new ColecaoCargo();
 		try {
 			
-				listaCargo.setAll(dao.pesquisarNome(cargo, keyword));
+				listaCargo.setAll(dao.listarTodos(cargo));
 			
 			
 		} catch (SQLException e) {

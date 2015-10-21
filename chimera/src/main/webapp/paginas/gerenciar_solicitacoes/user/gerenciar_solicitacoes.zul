@@ -30,7 +30,7 @@
 			</rows>
 		</fgrid>
 		<listbox sclass="mylist" id="list"  model="@bind(vm.lstSolicitacoes)"
-			emptyMessage="Nenhuma solicitação selecionada." width="750px"
+			emptyMessage="Nenhuma solicitação selecionada." width="700px"
 			style="margin-top:10px" mold="paging" pageSize="5" selectedItem="@bind(vm.itemSelected)" >
 
  

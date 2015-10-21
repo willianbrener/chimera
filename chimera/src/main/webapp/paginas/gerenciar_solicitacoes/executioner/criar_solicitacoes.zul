@@ -1,31 +1,42 @@
 <?init class="br.com.ueg.pids.Login.AuthenticationInit"?>
 <zk>
-		<grid width="940px" height="230px" sclass="nostyle">
+		<grid sclass="nostyle">
+		<columns>
+			<column width="60px"></column>
+			<column width="60px"></column>
+			<column width="60px"></column>
+			<column width="95px"></column>
+			<column width="60px"></column>
+			<column width="65px"></column>
+			<column width="60px"></column>
+			<column width="65px"></column>
+			<column width="95px"></column>
+		</columns>
 		<rows>
 			
-			<row>
+			<row spans="1,2,1,2,1,2">
 				<label value="Usuário:"/>
-				<textbox id="fldUser"  value="@bind(vm.entity.usuario.account)" width="150px" readonly="true"/>
+				<textbox id="fldUser"  value="@bind(vm.entity.usuario.account)" width="100px" readonly="true"/>
 				
 				<label value="Departamento:"/>
-				<textbox id="fldDepartament" value="@bind(vm.entity.usuario.cargo.departamento.nome)"  width="150px"  readonly="true"/>
+				<textbox id="fldDepartament" value="@bind(vm.entity.usuario.cargo.departamento.nome)"  width="100px"  readonly="true"/>
 								
 				<label value="Data:" tooltiptext="Data"/>
-				<datebox id="fldDate"  value="@bind(vm.data)" format="dd/MM/yyyy" locale="pt_BR" placeholder="DD/MM/YYYY" width="150px"  />
+				<datebox id="fldDate"  value="@bind(vm.data)" format="dd/MM/yyyy" locale="pt_BR" placeholder="DD/MM/YYYY" width="100px"  />
 			</row>
-			<row>
+			<row spans="1,2,1,2,1,2">
 				<label value="Cargo:"/>
-				 <textbox id="fldCargo" value="@bind(vm.entity.usuario.cargo.nome)"  width="150px"  readonly="true"/>
+				 <textbox id="fldCargo" value="@bind(vm.entity.usuario.cargo.nome)"  width="100px"  readonly="true"/>
 				
 				<label value="Permissao:"/>
-				 <textbox id="fldPermissao" value="@bind(vm.entity.usuario.permissao)"  width="150px"  readonly="true"/>
+				 <textbox id="fldPermissao" value="@bind(vm.entity.usuario.permissao)"  width="100px"  readonly="true"/>
 				
 				<label value="Hora:" tooltiptext="Hora"/>
-				<textbox id="fldHour" value="@bind(vm.entity.hora)"  placeholder="HH:MM"  width="75px" />
+				<textbox id="fldHour" value="@bind(vm.entity.hora)"  placeholder="HH:MM"  width="100px" />
 			</row>
-			<row spans="1,3">
+			<row spans="1,5,1,2">
 				<label value="Título:"/>
-				<textbox id="fldTittle"  value="@bind(vm.entity.titulo)" width="450px" />
+				<textbox id="fldTittle"  value="@bind(vm.entity.titulo)" width="330px" />
 				
 				<label value="Recurso:"/>
 				<combobox width="150px" readonly="true"
@@ -36,11 +47,11 @@
 						</template>
 				</combobox>
 			</row>
-			<row spans="1,5">
+			<row spans="1,8">
 			<label value="Descrição:" />
 					<ftextbox id="fldDescription"
 					rows="4"
-					width="775px" tabindex="11" value="@bind(vm.entity.descricao)"/>
+					width="550px" tabindex="11" value="@bind(vm.entity.descricao)"/>
 			</row>
 			</rows>		
 	</grid>

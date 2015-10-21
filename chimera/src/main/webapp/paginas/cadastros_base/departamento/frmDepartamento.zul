@@ -11,13 +11,13 @@
 				<row>
 					<flabel value="Responsavel:" />
 					<ftextbox id="fldResponsavel" value="@bind(fx.responsavel)"
-						width="180px" focus="true" style="color:black !important;"  />
+						width="180px" focus="false" style="color:black !important;"  />
 				</row>
 				
 				<row>
 					<flabel value="Nível:" />
 					<ftextbox id="fldNível" value="@bind(fx.nivel)"
-						width="180px" focus="true" style="color:black !important;"  />
+						width="180px" focus="false" style="color:black !important;"  />
 				</row>
 				
 				<row>

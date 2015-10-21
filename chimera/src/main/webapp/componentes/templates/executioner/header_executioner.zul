@@ -15,7 +15,7 @@
 					</hbox>
 					
 					<hbox width="70px" pack="end" style="margin-right:5px;">
-						<a href="/paginas/initial_page.zul">
+						<a href="/paginas/initial_page_executioner.zul">
 							<image src="/imagens/homealt.png"/>
 						</a>
 						

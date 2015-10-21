@@ -100,7 +100,7 @@ public class CargoViewModel extends GenericViewModel<Cargo, CargoController> {
 	@NotifyChange("lstCargo")
 	public void ListarTodos() {
 		if (getBusca() == null || getBusca().equals("") || getBusca() == "") {
-			setLstCargo(getControl().getLstEntities(busca));
+			setLstCargo(getControl().getListarTodos(getObject()));
 		} else {
 			setLstCargo(getControl().getLstEntities(busca));
 		}
