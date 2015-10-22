@@ -1,0 +1,60 @@
+<?init class="br.com.ueg.pids.Login.AuthenticationInit"?>
+<zk>
+		<fgrid hflex="min"><!-- style="border:1px solid white;"-->
+			<rows>
+				<row>
+					<flabel value="Nome:" />
+					<ftextbox id="fldName" value="@bind(fx.nome)"
+						width="180px" focus="true" style="color:black !important;"  />
+				</row>
+				
+				<row>
+					<flabel value="Account:" />
+					<ftextbox id="fldAccount" value="@bind(fx.account)"
+						width="180px" focus="false" style="color:black !important;"  />
+				</row>
+				
+				<row>
+					<flabel value="Password:" />
+					<ftextbox id="fldPassword" value="@bind(fx.password)"
+						width="180px" focus="false" style="color:black !important;"  />
+				</row>
+				
+				<row>
+					<flabel value="Email:" />
+					<ftextbox id="fldEmail" value="@bind(fx.email)"
+						width="180px" focus="false" style="color:black !important;"  />
+				</row>
+				
+				<row>
+					<flabel value="Permissao:" />
+					<combobox width="180px" readonly="true"
+						model="@load(vm.permissaoList)"
+						selectedItem="@bind(vm.permissaoSelecionada)" >
+						<template name="model">
+							<comboitem label="@load(each.nome)" />
+						</template>
+					</combobox>
+				</row>
+				
+				<row>
+					<flabel value="Cargo:" />
+					<combobox width="180px" readonly="true"
+						model="@load(vm.cargoList)"
+						selectedItem="@bind(vm.cargoSelecionado)" >
+						<template name="model">
+							<comboitem label="@load(each.nome)" />
+						</template>
+					</combobox>
+				</row>
+			
+				<row>
+					<fbutton label="Salvar"
+						onClick="@command('salvar')" />
+					<fbutton label="Cancelar"
+						onClick="@command('cancel')" />
+				</row>
+
+			</rows>
+		</fgrid>
+</zk>

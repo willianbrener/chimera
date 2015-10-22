@@ -40,11 +40,11 @@ public class GerenciarSolicitacoesViewModel
 	@Init
 	public void init() {
 		super.init();
-		usuario.setFullName(user.getName());
+		usuario.setNome(user.getName());
 		if (getEntity() != null && verificaComponent().equals("criar")) {
 			populaDadosUsuario();
 		} else if (verificaComponent().equals("listar")) {
-			setLstUsuarios(getControl().getLstUsuarioDados(usuario.getFullName()));
+			setLstUsuarios(getControl().getLstUsuarioDados(usuario.getNome()));
 			setUsuario((Usuario) getLstUsuarios().get(0));
 		}
 
@@ -67,7 +67,7 @@ public class GerenciarSolicitacoesViewModel
 
 	public Return populaDadosUsuario() {
 		Return ret = new Return(true);
-		setLstUsuarios(getControl().getLstUsuarioDados(usuario.getFullName()));
+		setLstUsuarios(getControl().getLstUsuarioDados(usuario.getNome()));
 		if (getLstUsuarios() != null && getLstUsuarios().size() == 1) {
 			getEntity().setUsuario((Usuario) getLstUsuarios().get(0));
 		} else {

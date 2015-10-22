@@ -81,12 +81,6 @@ public class CargoViewModel extends GenericViewModel<Cargo, CargoController> {
 											"Sucess", Messagebox.OK,
 											Messagebox.INFORMATION);
 									setItemSelected(null);
-									// AnnotateDataBinder binder =
-									// (AnnotateDataBinder)
-									// Page.getAttribute("binder");
-									// binder.loadAll();
-
-//									setLstCargo(getControl().ListarTodos());
 								}
 							}
 						}

@@ -2,9 +2,9 @@ package br.com.ueg.pids.Enum;
 
 public enum Permissao {
 
-	SOLICITANTE(1, "Solicitante"), 
-	APROVADOR(2, "Aprovador"), 
-	EXECUTOR(3,"Executor");
+	SOLICITANTE(1, "SOLICITANTE"), 
+	APROVADOR(2, "APROVADOR"), 
+	EXECUTOR(3,"EXECUTOR");
 	
 	private Integer id;
 	private String nome;

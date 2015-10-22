@@ -1,0 +1,76 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+
+	<window title="Cargo Usuario" border="normal" id="UsuarioUpdate"
+		width="430px" height="auto" apply="org.zkoss.bind.BindComposer"
+		sclass="mymodal" minimizable="false" mode="modal" maximizable="false"
+		closable="false" position="center"
+		viewModel="@id('vm') @init('br.com.ueg.pids.ViewModel.UsuarioUpdateViewModel')">
+		<separator />
+		<flabeltitle value="Usuario Informações" />
+		<separator />
+		<panel width="100%">
+			<panelchildren>
+				<separator />
+				<grid width="99.5%">
+					<rows>
+				<row>
+					<flabel value="Nome:" />
+					<ftextbox id="fldName" value="@bind(vm.itemSelected.nome)"
+						width="180px" focus="true" style="color:black !important;"  />
+				</row>
+				
+				<row>
+					<flabel value="Account:" />
+					<ftextbox id="fldAccount" value="@bind(vm.itemSelected.account)"
+						width="180px" focus="false" style="color:black !important;"  />
+				</row>
+				
+				<row>
+					<flabel value="Password:" />
+					<ftextbox id="fldPassword" value="@bind(vm.itemSelected.password)"
+						width="180px" focus="false" style="color:black !important;"  />
+				</row>
+				
+				<row>
+					<flabel value="Email:" />
+					<ftextbox id="fldEmail" value="@bind(vm.itemSelected.email)"
+						width="180px" focus="false" style="color:black !important;"  />
+				</row>
+				
+				<row>
+					<flabel value="Permissao:" />
+					<combobox width="180px" readonly="true"
+						model="@load(vm.permissaoList)"
+						selectedItem="@bind(vm.permissaoSelecionada)" value="@load(vm.itemSelected.permissao)">
+						<template name="model">
+							<comboitem label="@load(each.nome)" />
+						</template>
+					</combobox>
+				</row>
+				
+				<row>
+					<flabel value="Cargo:" />
+					<combobox width="180px" readonly="true"
+						model="@load(vm.cargoList)"
+						selectedItem="@bind(vm.itemSelected.cargo)" value="@load(vm.itemSelected.cargo.nome)">
+						<template name="model">
+							<comboitem label="@load(each.nome)" />
+						</template>
+					</combobox>
+				</row>
+
+			</rows>
+				</grid>
+			</panelchildren>
+		</panel>
+		<separator />
+		<div align="center">
+			<fbutton id="submit" label="Submit"
+				onClick="@command('update')" />
+			<fbutton id="cancel" label="Cancel"
+				onClick="@command('closeThis')" />
+		</div>
+		<separator />
+	</window>
+</zk>

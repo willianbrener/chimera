@@ -65,13 +65,13 @@
 		<nav label="Manter Usuário" iconSclass="z-icon-group">
 			<navitem label="Cadastrar">
 			<attribute name="onClick"><![CDATA[
-
+				Executions.sendRedirect("/paginas/cadastros_base/usuario/cadastrar.zul");
 			]]></attribute>
 			</navitem>
 			
 			<navitem label="Pesquisar">
 				<attribute name="onClick"><![CDATA[
-
+				Executions.sendRedirect("/paginas/cadastros_base/usuario/pesquisar.zul");
 			]]></attribute>
 			</navitem>			
 		</nav>

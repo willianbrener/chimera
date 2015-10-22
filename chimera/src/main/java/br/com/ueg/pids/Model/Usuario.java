@@ -1,11 +1,9 @@
 package br.com.ueg.pids.Model;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import br.com.ueg.pids.Annotations.Campo;
 import br.com.ueg.pids.Annotations.Table;
-import br.com.ueg.pids.Enum.Permissao;
 
 
 @Table(nome="usuario")
@@ -15,11 +13,11 @@ public class Usuario extends GenericModel<Integer> implements Serializable,Clone
 	@Campo(nome="idusuario",pk=true)
 	int idusuario;
 	
+	@Campo(nome="nome",obrigatorio=true)
+	String nome;
+	
 	@Campo(nome="account",obrigatorio=true)
 	String account;
-	
-	@Campo(nome="fullName",obrigatorio=true)
-	String fullName;
 	
 	@Campo(nome="password",obrigatorio=true)
 	String password;
@@ -36,11 +34,11 @@ public class Usuario extends GenericModel<Integer> implements Serializable,Clone
 	@Campo(nome="ativo",obrigatorio=true)
 	private boolean ativo;
 	
-	public Usuario(int idusuario, String account,  String fullName, String password, 
+	public Usuario(int idusuario, String nome,String account,  String fullName, String password, 
 			String email, String permissao, Cargo cargo, boolean ativo){
 		this.idusuario = idusuario;
+		this.nome = nome;
 		this.account = account;
-		this.fullName = fullName;
 		this.password = password;
 		this.email = email;
 		this.permissao = permissao;
@@ -49,10 +47,10 @@ public class Usuario extends GenericModel<Integer> implements Serializable,Clone
 		
 	}
 	
-	public Usuario(String account, String password, String fullName,String email) {
+	public Usuario(String account, String password, String nome,String email) {
 		this.account = account;
 		this.password = password;
-		this.fullName = fullName;
+		this.nome = nome;
 		this.email = email;
 	}
 
@@ -63,12 +61,12 @@ public class Usuario extends GenericModel<Integer> implements Serializable,Clone
 		return account;
 	}
 
-	public String getFullName() {
-		return fullName;
+	public String getNome() {
+		return nome;
 	}
 
-	public void setFullName(String fullName) {
-		this.fullName = fullName;
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
 
 	public String getEmail() {
@@ -95,8 +93,6 @@ public class Usuario extends GenericModel<Integer> implements Serializable,Clone
 		return result;
 	}
 	
-	
-	
 
 	public int getIdusuario() {
 		return idusuario;
@@ -122,7 +118,7 @@ public class Usuario extends GenericModel<Integer> implements Serializable,Clone
 		this.cargo = cargo;
 	}
 
-	public boolean isAtivo() {
+	public boolean getAtivo() {
 		return ativo;
 	}
 

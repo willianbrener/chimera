@@ -5,9 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import br.com.ueg.pids.Control.CargoController;
-import br.com.ueg.pids.Control.DepartamentoController;
 import br.com.ueg.pids.Model.Cargo;
-import br.com.ueg.pids.Model.Departamento;
 import br.com.ueg.pids.Model.Usuario;
 
 
@@ -27,6 +25,7 @@ public class ColecaoUsuario {
 				cargo = cargoController.getEntity((String) hashMap.get("idcargo"));
 				
 				Usuario usuario = new Usuario(	Integer.parseInt((String) hashMap.get("idusuario")),
+												(String) hashMap.get("nome"),
 												(String) hashMap.get("account"),
 												(String) hashMap.get("fullName"),
 												(String) hashMap.get("password"),
