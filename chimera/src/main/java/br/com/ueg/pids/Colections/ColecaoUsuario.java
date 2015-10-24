@@ -27,7 +27,6 @@ public class ColecaoUsuario {
 				Usuario usuario = new Usuario(	Integer.parseInt((String) hashMap.get("idusuario")),
 												(String) hashMap.get("nome"),
 												(String) hashMap.get("account"),
-												(String) hashMap.get("fullName"),
 												(String) hashMap.get("password"),
 												(String) hashMap.get("email"),
 												(String) hashMap.get("permissao"),

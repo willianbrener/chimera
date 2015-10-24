@@ -40,11 +40,11 @@ Session sess = Sessions.getCurrent();
 		}
 		UserCredential cre= authService.getUserCredential();
 		
-		if(cre.isUser()){
+		if(cre.isSolicitante()){
 			Executions.sendRedirect("/paginas/initial_page_user.zul");
-		}else if(cre.isAdmin()){
+		}else if(cre.isAprovador()){
 			Executions.sendRedirect("/paginas/initial_page_approver.zul");
-		}else if(cre.isExecutioner()){
+		}else if(cre.isExecutor()){
 			Executions.sendRedirect("/paginas/initial_page_executioner.zul");
 		}
 		message.setValue("Bem vindo, " + cre.getName());

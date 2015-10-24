@@ -161,6 +161,22 @@ public class GerenciarSolicitacoesViewModel
 		return ret;
 	}
 	
+	@NotifyChange("entity")
+	@Command
+	public Return executar(){
+		Return ret = new Return(false);
+		if(getItemSelected()!= null && getItemSelected().getSituacao().equals("APROVADA")){
+			ret = getControl().alterarSolicitacao(getItemSelected(),"EXECUTADA");
+		}else if(getItemSelected()== null){
+			Messagebox.show("Selecione uma solicitação!", "AVISO",
+					Messagebox.OK, Messagebox.EXCLAMATION);
+		}
+		if(ret.isValid()){
+			getSolicitacoesList(getUsuario().getPermissao(),getUsuario());
+		}
+		return ret;
+	}
+	
 	
 	@Override
 	public GerenciarSolicitacoes getObject() {

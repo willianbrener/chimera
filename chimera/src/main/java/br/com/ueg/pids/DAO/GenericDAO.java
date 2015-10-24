@@ -462,10 +462,10 @@ public ArrayList<HashMap<String,Object>>  pesquisarNomeAtivo(IModel<?> entidade,
 	}
 	
 	
-public ArrayList<HashMap<String,Object>>  pesquisarCriterio(IModel<?> entidade, int criterio) throws SQLException{
+public ArrayList<HashMap<String,Object>>  pesquisarCriterio(IModel<?> entidade, String coluna,String criterio) throws SQLException{
 		
 		String sql = "select "+ entidade.getTableColumnNames()+" from " + entidade.getTableName() + " ";
-		sql = sql + " where ativo = 'true' and " + entidade.getCriterio() +" = " +criterio+ " order by " + entidade.getOrdenacao() + " ;";
+		sql = sql + " where ativo = 'true' and " +coluna+" = '"+criterio+ "' order by " + entidade.getOrdenacao() + " ;";
 		
 		
 		System.out.println("sql pesquisarCriterio :"+sql);

@@ -34,7 +34,7 @@ public class Usuario extends GenericModel<Integer> implements Serializable,Clone
 	@Campo(nome="ativo",obrigatorio=true)
 	private boolean ativo;
 	
-	public Usuario(int idusuario, String nome,String account,  String fullName, String password, 
+	public Usuario(int idusuario, String nome,String account, String password, 
 			String email, String permissao, Cargo cargo, boolean ativo){
 		this.idusuario = idusuario;
 		this.nome = nome;
@@ -157,11 +157,11 @@ public class Usuario extends GenericModel<Integer> implements Serializable,Clone
 	}
 
 	public String getOrdenacao() {
-		return "fullName";
+		return "nome";
 	}
 
 	@Override
 	public String getVariaveisPesquisarNome() {
-		return "fullName";
+		return "nome";
 	}
 }

@@ -11,36 +11,39 @@ public class UserCredential implements Serializable{
 	
 	String account;
 	String name;
+	String permission;
 	
 	Set<String> roles = new HashSet<String>();
 
-	public UserCredential(String account, String name) {
+	public UserCredential(String account, String name,String permission) {
 		this.account = account;
 		this.name = name;
+		this.permission = permission;
 	}
 
 	public UserCredential() {
 		this.account = "anonymous";
 		this.name = "Anonymous";
+		this.permission= "Anonymous";
 		roles.add("anonymous");
 	}
 
 	public boolean isAnonymous() {
-		return hasRole("anonymous") || "anonymous".equals(account);
+		return hasRole("anonymous") || "anonymous".equals(permission);
 	}
 	
-	public boolean isUser(){
-		return hasRole("user") || "user".equals(account);
+	public boolean isSolicitante(){
+		return hasRole("SOLICITANTE") || "SOLICITANTE".equals(permission);
 		
 	}
 	
-	public boolean isAdmin(){
-		return hasRole("admin") || "admin".equals(account);
+	public boolean isAprovador(){
+		return hasRole("APROVADOR") || "APROVADOR".equals(permission);
 		
 	}
 	
-	public boolean isExecutioner(){
-		return hasRole("executioner") || "executioner".equals(account);
+	public boolean isExecutor(){
+		return hasRole("EXECUTOR") || "EXECUTOR".equals(permission);
 		
 	}
 	public String getAccount() {
@@ -65,6 +68,14 @@ public class UserCredential implements Serializable{
 	
 	public void addRole(String role){
 		roles.add(role);
+	}
+
+	public String getPermission() {
+		return permission;
+	}
+
+	public void setPermission(String permission) {
+		this.permission = permission;
 	}
 
 }

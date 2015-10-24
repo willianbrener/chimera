@@ -62,7 +62,7 @@
 		<auxhead>
 			<auxheader class="topic">
 				<fbutton label="Rejeitar" onClick="@command('rejeitar')" />
-				<fbutton label="Executar" onClick="@command('Executar')" />
+				<fbutton label="Executar" onClick="@command('executar')" />
 				<fbutton label="Limpar" onClick="@command('limpar')" />
 			</auxheader>
 		</auxhead>
