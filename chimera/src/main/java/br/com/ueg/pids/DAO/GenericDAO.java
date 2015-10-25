@@ -281,6 +281,10 @@ where	situacao='APROVADA						|
 			sqlAll = sqlAll + " where situacao='APROVADA' "
 							+ "and ativo = true";
 			sql = sqlAll;
+		}else if(string.equals("TOTAL")){
+			String sqlAll = "select "+ entidade.getTableColumnNames()+" from " + entidade.getTableName() + " ";
+			sqlAll = sqlAll + " where ativo = true";
+			sql = sqlAll;
 		}
 			
 			
