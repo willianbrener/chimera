@@ -83,13 +83,13 @@
 			<navitem label="Solicitações">
 				<attribute name="onClick"><![CDATA[
 	Executions
-			.sendRedirect("/paginas/gerenciar_solicitacoes/approver/pesquisar.zul");
+			.sendRedirect("/paginas/gerenciar_solicitacoes/administrator/pesquisar.zul");
 ]]></attribute>
 			</navitem>
 			<navitem label="Criar Solicitação">
 				<attribute name="onClick"><![CDATA[
 	Executions
-			.sendRedirect("/paginas/gerenciar_solicitacoes/approver/cadastrar.zul");
+			.sendRedirect("/paginas/gerenciar_solicitacoes/administrator/cadastrar.zul");
 ]]></attribute>
 			</navitem>
 		</nav>

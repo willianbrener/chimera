@@ -3,14 +3,19 @@
 <?page title="Gráfico Solicitações" contentType="text/html;charset=UTF-8"?>
 <zk>
 
-	<window self="@define(content)" width="90%"
-		apply="br.com.ueg.pids.reporting.GraficoDePizza">
-		<div align="center">
-			<charts id="chart" type="pie"
-				title="Gráfico de nº de Solicitações" />
-		</div>
-	</window>
-	
+	<vlayout apply="org.zkoss.bind.BindComposer" self="@define(content)"
+		viewModel="@id('vm') @init('br.com.ueg.pids.reporting.GraficoDePizza')">
+		<chart id="mychart" title="Pie Chart Demo" width="550"
+			height="400" paneColor="#ffffff" fgAlpha="192" type="pie"
+			threeD="@bind(vm.threeD)" model="@bind(vm.model)"
+			engine="@bind(vm.engine)"
+			onClick="@command('showMessage',msg=event.areaComponent.tooltiptext)" />
+		<hlayout visible="@bind(not empty vm.message)">
+			You clicked on :
+			<label value="@bind(vm.message)" />
+		</hlayout>
+	</vlayout>
+
 </zk>
 
 
