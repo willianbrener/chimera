@@ -1,0 +1,25 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/componentes/templates/master/template_master.zul"?>
+<zk>
+	<div self="@define(content)" apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm')@init('br.com.ueg.pids.ViewModel.RelatorioViewModel')"
+		form="@id('fx') @load(vm.entity) @save(vm.entity, before='salvar')"
+		align="center" width="100%" style="margin-top:50px">
+		<hbox>
+
+			<datebox id="in" onChange="cal.value = in.value" />
+			<calendar id="cal" onChange="in.value = cal.value" />
+		
+		</hbox>
+		<separator spacing="10px" />
+		<hbox>
+
+			<datebox id="in2" onChange="cal2.value = in2.value" />
+			<calendar id="cal2" onChange="in2.value = cal2.value" />
+		
+		</hbox>
+		<separator spacing="20px" />
+		<button label="Gerar Relatório" />
+
+	</div>
+</zk>

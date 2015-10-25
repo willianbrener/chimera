@@ -77,6 +77,7 @@
 ]]></attribute>
 			</navitem>
 		</nav>
+
 		<nav label="Generenciar Solicitações"
 			iconSclass="z-icon-group">
 			<navitem label="Solicitações">
@@ -92,13 +93,15 @@
 ]]></attribute>
 			</navitem>
 		</nav>
+
 		<nav label="Gerar Relatórios Solicitações"
 			iconSclass="z-icon-group">
 			<navitem label="Relatórios">
 				<attribute name="onClick"><![CDATA[
-			Executions.sendRedirect("/paginas/relatorios/relatorio.zul");
-			]]></attribute>
+	Executions.sendRedirect("/paginas/relatorios/relatorio.zul");
+]]></attribute>
 			</navitem>
 		</nav>
+
 	</navbar>
 </zk>

@@ -1,0 +1,18 @@
+<?init class="br.com.ueg.pids.Login.AuthenticationInit"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/componentes/templates/master/template_master.zul"?>
+<?page title="Gráfico Solicitações" contentType="text/html;charset=UTF-8"?>
+<zk>
+
+	<window self="@define(content)" width="90%"
+		apply="br.com.ueg.pids.reporting.GraficoDePizza">
+		<div align="center">
+			<charts id="chart" type="pie"
+				title="Gráfico de nº de Solicitações" />
+		</div>
+	</window>
+	
+</zk>
+
+
+
+

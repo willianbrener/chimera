@@ -1,21 +1,19 @@
 package br.com.ueg.pids.Model;
 
-
-
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-public class UserCredential implements Serializable{
+public class UserCredential implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	String account;
 	String name;
 	String permission;
-	
+
 	Set<String> roles = new HashSet<String>();
 
-	public UserCredential(String account, String name,String permission) {
+	public UserCredential(String account, String name, String permission) {
 		this.account = account;
 		this.name = name;
 		this.permission = permission;
@@ -24,28 +22,33 @@ public class UserCredential implements Serializable{
 	public UserCredential() {
 		this.account = "anonymous";
 		this.name = "Anonymous";
-		this.permission= "Anonymous";
+		this.permission = "Anonymous";
 		roles.add("anonymous");
 	}
 
 	public boolean isAnonymous() {
 		return hasRole("anonymous") || "anonymous".equals(permission);
 	}
-	
-	public boolean isSolicitante(){
+
+	public boolean isSolicitante() {
 		return hasRole("SOLICITANTE") || "SOLICITANTE".equals(permission);
-		
+
 	}
-	
-	public boolean isAprovador(){
+
+	public boolean isAprovador() {
 		return hasRole("APROVADOR") || "APROVADOR".equals(permission);
-		
+
 	}
-	
-	public boolean isExecutor(){
+
+	public boolean isExecutor() {
 		return hasRole("EXECUTOR") || "EXECUTOR".equals(permission);
-		
+
 	}
+
+	public boolean isAdmin() {
+		return hasRole("TOTAL") || "TOTAL".equals(permission);
+	}
+
 	public String getAccount() {
 		return account;
 	}
@@ -61,12 +64,12 @@ public class UserCredential implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
-	
-	public boolean hasRole(String role){
+
+	public boolean hasRole(String role) {
 		return roles.contains(role);
 	}
-	
-	public void addRole(String role){
+
+	public void addRole(String role) {
 		roles.add(role);
 	}
 

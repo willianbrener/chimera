@@ -19,21 +19,6 @@
 	</div>
 	<navbar orient="vertical" sclass="sidebar">
 
-		
-		<nav label="Manter Perfil de Usuário" iconSclass="z-icon-group">
-			<navitem label="Cadastrar">
-			<attribute name="onClick"><![CDATA[
-
-			]]></attribute>
-			</navitem>
-			
-			<navitem label="Pesquisar">
-				<attribute name="onClick"><![CDATA[
-
-			]]></attribute>
-			</navitem>			
-		</nav>
-
 		<nav label="Generenciar Solicitações" iconSclass="z-icon-group">
 		<navitem label="Solicitações">
 			<attribute name="onClick"><![CDATA[

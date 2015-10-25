@@ -1,0 +1,21 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+<vbox align="center">
+
+		<separator spacing="20px"/>
+		<separator spacing="30px"/>
+	
+		<button href="/paginas/relatorios/relatorioPorData.zul" width="120px" 
+		label="Relatório por Data"/>
+		
+		<separator width="120px" spacing="10px" bar="true"/>
+
+		<button href="/paginas/relatorios/relatorioPorDepartamento.zul" width="200px" 
+		label="Relatório por Departamento"/>
+		
+		<separator width="120px" spacing="10px" bar="true"/>
+
+		<button href="/paginas/relatorios/grafico.zul" width="200px" 
+		label="Gráfico Solicitações"/>
+	</vbox>
+</zk>
