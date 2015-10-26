@@ -104,7 +104,16 @@ public class GerenciarSolicitacoesViewModel
 		if (ret.isValid()) {
 			Messagebox.show("Solicitação realizada com sucesso!", "Sucess",
 					Messagebox.OK, Messagebox.INFORMATION);
-			Executions.sendRedirect("/paginas/gerenciar_solicitacoes/approver/pesquisar.zul");
+			if(getEntity().getUsuario().getPermissao().equals("TOTAL")){
+				Executions.sendRedirect("/paginas/gerenciar_solicitacoes/administrator/pesquisar.zul");
+			}else if(getEntity().getUsuario().getPermissao().equals("APROVADOR")){
+				Executions.sendRedirect("/paginas/gerenciar_solicitacoes/approver/pesquisar.zul");
+			}else if(getEntity().getUsuario().getPermissao().equals("SOLICITANTE")){
+				Executions.sendRedirect("/paginas/gerenciar_solicitacoes/user/pesquisar.zul");
+			}else if(getEntity().getUsuario().getPermissao().equals("EXECUTOR")){
+				Executions.sendRedirect("/paginas/gerenciar_solicitacoes/executioner/pesquisar.zul");
+			}
+			
 		}
 
 		return null;
@@ -156,6 +165,22 @@ public class GerenciarSolicitacoesViewModel
 		}
 		if(ret.isValid()){
 			limpar();
+			getSolicitacoesList(getUsuario().getPermissao(),getUsuario());
+		}
+		return ret;
+	}
+	
+	@NotifyChange("entity")
+	@Command
+	public Return executar(){
+		Return ret = new Return(false);
+		if(getItemSelected()!= null && getItemSelected().getSituacao().equals("APROVADA")){
+			ret = getControl().alterarSolicitacao(getItemSelected(),"EXECUTADA");
+		}else if(getItemSelected()== null){
+			Messagebox.show("Selecione uma solicitação!", "AVISO",
+					Messagebox.OK, Messagebox.EXCLAMATION);
+		}
+		if(ret.isValid()){
 			getSolicitacoesList(getUsuario().getPermissao(),getUsuario());
 		}
 		return ret;

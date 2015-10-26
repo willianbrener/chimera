@@ -10,7 +10,6 @@ import br.com.ueg.pids.Model.Departamento;
 public class ColecaoDepartamento {
 
 	
-	//categoria = categoriaController.getEntity((String) hashMap.get("idcategoria"));
 private ArrayList<Departamento> listaDepartamentos = new ArrayList<Departamento>();
 	
 	public  ArrayList<Departamento> getAll() {

@@ -1,0 +1,69 @@
+<?init class="br.com.ueg.pids.Login.AuthenticationInit"?>
+<zk>
+		<fgrid hflex="min" sclass="nostyle">
+			<rows>
+
+				<row>
+					<label value="Usuário:" />
+					<textbox id="fldUser" readonly="true" value="@bind(vm.entity.usuario.account)" width="100%" />
+
+					<label value="Departamento:" />
+					<textbox id="fldDepartament" readonly="true" value="@bind(vm.entity.usuario.cargo.departamento.nome)"  width="100%" />
+
+
+				</row>
+				<row>
+					<label value="Cargo:" />
+					<textbox id="fldCargo" readonly="true" value="@bind(vm.entity.usuario.cargo.nome)" width="100%" />
+
+					<label value="Permissão:" />
+					<textbox id="fldPermission" readonly="true" value="@bind(vm.entity.usuario.permissao)"  width="100%" />
+				</row>
+				
+				<row>
+					<label value="Recurso:" />
+					<textbox id="fldRecurso" readonly="true"  value="@bind(vm.entity.recurso.nome)" width="100%" />
+
+					<label value="Status:" />
+					<textbox id="fldStatus" readonly="true" value="@bind(vm.entity.situacao)" width="60%" />
+				</row>
+			</rows>
+		</fgrid>
+		<listbox sclass="mylist" id="list"  model="@bind(vm.lstSolicitacoes)"
+			emptyMessage="Nenhuma solicitação selecionada." width="700px"
+			style="margin-top:10px" mold="paging" pageSize="5" selectedItem="@bind(vm.itemSelected)" >
+
+ 
+			<listhead sizable="true">
+				<listheader label="Data" align="center" 
+					sort="auto(data)" />
+				<listheader label="Usuário" align="center" 
+					sort="auto(usuario)" />
+				<listheader label="Descrição" align="center" 
+					sort="auto(descricao)" />
+					<listheader label="" align="center" />
+			</listhead>
+			<template name="model">
+				<listitem >
+					<listcell  label="@bind(each.data)" sclass="highlightcell" onClick="@command('setaValores')"></listcell>
+					<listcell  label="@bind(each.usuario.account)" onClick="@command('setaValores')"></listcell>
+					<listcell  label="@bind(each.descricao)" onClick="@command('setaValores')"></listcell>
+					<listcell >
+						
+						<button image="/imagens/remove-icon.png"
+							onClick="@command('desativar') @global-command('refresh')" />
+						<button image="/imagens/edit-icon.png"
+							onClick="@command('telaAlterar') @global-command('refresh')" />
+					</listcell>
+
+				</listitem>
+			</template>
+		</listbox>
+		<auxhead>
+			<auxheader class="topic">
+				<fbutton label="Rejeitar" onClick="@command('rejeitar')" />
+				<fbutton label="Aprovar" onClick="@command('aprovar')" />
+				<fbutton label="Limpar" onClick="@command('limpar')" />
+			</auxheader>
+		</auxhead>
+</zk>

@@ -1,0 +1,10 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<chart id="mychart" title="Gráfico de Solicitacoes" width="550"
+		height="400" paneColor="#ffffff" 
+		fgAlpha="192" type="pie"
+		threeD="@bind(vm.threeD)"
+		model="@bind(vm.model)"
+		engine="@bind(vm.engine)"
+		onClick="@command('showMessage',msg=event.areaComponent.tooltiptext)" />
+</zk>

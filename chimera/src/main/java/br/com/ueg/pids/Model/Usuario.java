@@ -8,10 +8,9 @@ import br.com.ueg.pids.Annotations.Table;
 
 @Table(nome="usuario")
 public class Usuario extends GenericModel<Integer> implements Serializable,Cloneable {
-	private static final long serialVersionUID = 1L;
 	
 	@Campo(nome="idusuario",pk=true)
-	int idusuario;
+	private int idusuario;
 	
 	@Campo(nome="nome",obrigatorio=true)
 	String nome;
@@ -34,7 +33,7 @@ public class Usuario extends GenericModel<Integer> implements Serializable,Clone
 	@Campo(nome="ativo",obrigatorio=true)
 	private boolean ativo;
 	
-	public Usuario(int idusuario, String nome,String account,  String fullName, String password, 
+	public Usuario(int idusuario, String nome,String account, String password, 
 			String email, String permissao, Cargo cargo, boolean ativo){
 		this.idusuario = idusuario;
 		this.nome = nome;
@@ -85,13 +84,13 @@ public class Usuario extends GenericModel<Integer> implements Serializable,Clone
 		this.password = password;
 	}
 
-	@Override
+/*	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((account == null) ? 0 : account.hashCode());
 		return result;
-	}
+	}*/
 	
 
 	public int getIdusuario() {
@@ -157,11 +156,11 @@ public class Usuario extends GenericModel<Integer> implements Serializable,Clone
 	}
 
 	public String getOrdenacao() {
-		return "fullName";
+		return "nome";
 	}
 
 	@Override
 	public String getVariaveisPesquisarNome() {
-		return "fullName";
+		return "nome";
 	}
 }

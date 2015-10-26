@@ -1,0 +1,13 @@
+<?page title="Gerenciar Solicitações" contentType="text/html;charset=UTF-8"?>
+<?init class="br.com.ueg.pids.Login.AuthenticationInit"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/componentes/templates/master/template_master.zul"?>
+<zk>
+	
+	 <div self="@define(content)"
+        apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('br.com.ueg.pids.ViewModel.GerenciarSolicitacoesViewModel')"
+           align="center"  width="100%" style="margin-top:50px">
+           
+		<include src="gerenciar_solicitacoes.zul"/>
+	</div>
+</zk>

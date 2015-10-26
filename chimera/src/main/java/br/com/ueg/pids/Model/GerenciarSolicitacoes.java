@@ -128,7 +128,7 @@ public class GerenciarSolicitacoes extends GenericModel<Integer>{
 	}
 
 	public String getOrdenacao() {
-		return null;
+		return "titulo";
 	}
 
 	@Override

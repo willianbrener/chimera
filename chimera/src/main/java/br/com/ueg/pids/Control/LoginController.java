@@ -34,18 +34,21 @@ Session sess = Sessions.getCurrent();
 		String nm = account.getValue();
 		String pd = password.getValue();
 		
+		
 		if (!authService.login(nm, pd)) {
 			message.setValue("account ou password incorretos.");
 			return;
 		}
 		UserCredential cre= authService.getUserCredential();
 		
-		if(cre.isUser()){
+		if(cre.isSolicitante()){
 			Executions.sendRedirect("/paginas/initial_page_user.zul");
-		}else if(cre.isAdmin()){
+		}else if(cre.isAprovador()){
 			Executions.sendRedirect("/paginas/initial_page_approver.zul");
-		}else if(cre.isExecutioner()){
+		}else if(cre.isExecutor()){
 			Executions.sendRedirect("/paginas/initial_page_executioner.zul");
+		}else if(cre.isAdmin()){
+			Executions.sendRedirect("/paginas/initial_page_master.zul");
 		}
 		message.setValue("Bem vindo, " + cre.getName());
 		message.setSclass("");

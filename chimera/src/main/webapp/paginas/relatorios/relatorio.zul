@@ -1,0 +1,8 @@
+<?init class="br.com.ueg.pids.Login.AuthenticationInit"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/componentes/templates/master/template_master.zul"?>
+<?page title="Relatórios" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<div self="@define(content)" align="center">
+		<include src="relatorioMenu.zul"/>
+	</div>
+</zk>

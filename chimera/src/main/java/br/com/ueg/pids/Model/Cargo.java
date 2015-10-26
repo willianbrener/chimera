@@ -38,41 +38,34 @@ public class Cargo extends GenericModel<Integer>{
 		return idcargo;
 	}
 
-
-
 	public void setIdcargo(int idcargo) {
 		this.idcargo = idcargo;
 	}
-
 
 	public String getNome() {
 		return nome;
 	}
 
-
-
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-
-
 
 	public String getDescricao() {
 		return descricao;
 	}
 
-
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
 	
-	
 	public Departamento getDepartamento() {
 		return departamento;
 	}
+	
 	public void setDepartamento(Departamento departamento) {
 		this.departamento = departamento;
 	}
+	
 	public String getOrdenacao() {
 		return "nome";
 	}

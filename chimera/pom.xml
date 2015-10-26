@@ -210,9 +210,9 @@
 
 		<!-- Jasperreports -->
 		<dependency>
-			<groupId>net.sf.jasperreports</groupId>
-			<artifactId>jasperreports</artifactId>
-			<version>4.0.1</version>
+            <groupId>net.sf.jasperreports</groupId>
+            <artifactId>jasperreports</artifactId>
+            <version>5.6.0</version>
 		</dependency>
 
 		<!-- JFreeChart -->

@@ -281,6 +281,10 @@ where	situacao='APROVADA						|
 			sqlAll = sqlAll + " where situacao='APROVADA' "
 							+ "and ativo = true";
 			sql = sqlAll;
+		}else if(string.equals("TOTAL")){
+			String sqlAll = "select "+ entidade.getTableColumnNames()+" from " + entidade.getTableName() + " ";
+			sqlAll = sqlAll + " where ativo = true";
+			sql = sqlAll;
 		}
 			
 			
@@ -462,10 +466,10 @@ public ArrayList<HashMap<String,Object>>  pesquisarNomeAtivo(IModel<?> entidade,
 	}
 	
 	
-public ArrayList<HashMap<String,Object>>  pesquisarCriterio(IModel<?> entidade, int criterio) throws SQLException{
+public ArrayList<HashMap<String,Object>>  pesquisarCriterio(IModel<?> entidade, String coluna,String criterio) throws SQLException{
 		
 		String sql = "select "+ entidade.getTableColumnNames()+" from " + entidade.getTableName() + " ";
-		sql = sql + " where ativo = 'true' and " + entidade.getCriterio() +" = " +criterio+ " order by " + entidade.getOrdenacao() + " ;";
+		sql = sql + " where ativo = 'true' and " +coluna+" = '"+criterio+ "' order by " + entidade.getOrdenacao() + " ;";
 		
 		
 		System.out.println("sql pesquisarCriterio :"+sql);
@@ -488,6 +492,33 @@ public ArrayList<HashMap<String,Object>>  pesquisarCriterio(IModel<?> entidade, 
 		System.out.println("O " + entidade.getTableName() + " Não Foi pesquisado problema no DAOUsuario pesquisarusuario(String) Connect.getConexão");
 		return null;
 	}
+
+public ArrayList<HashMap<String,Object>>  pesquisarCriteriosData(IModel<?> entidade, String coluna,String criterio1, String criterio2) throws SQLException{
+	
+	String sql = "select "+ entidade.getTableColumnNames()+" from " + entidade.getTableName() + " ";
+	sql = sql + " where ativo = 'true' and " +coluna+" BEETWEN '"+criterio1+ "' and '"+criterio2+"' order by " + entidade.getOrdenacao() + " ;";
+	
+	
+	System.out.println("sql pesquisarCriterio :"+sql);
+	if(Connect.getConexao()){
+		
+		ArrayList<HashMap<String,Object>> result = new ArrayList<HashMap<String,Object>>();
+		
+	ResultSet rs =  Connect.setResultSet(sql);
+	int colCount = rs.getMetaData().getColumnCount();
+	while(rs.next()){
+			HashMap<String,Object> record = new HashMap<String, Object>();
+			for(int i=1;i<=colCount;i++){
+				record.put(rs.getMetaData().getColumnName(i), rs.getString(i));
+			}
+			result.add(record);
+	}
+	Connect.close();
+	return result;
+	}
+	System.out.println("O " + entidade.getTableName() + " Não Foi pesquisado problema no DAOUsuario pesquisarusuario(String) Connect.getConexão");
+	return null;
+}
 
 public ArrayList<HashMap<String,Object>>  pesquisarPorCategoriaOuNome(IModel<?> entidade, String nome, int idSupCategoria) throws SQLException{
 	
@@ -546,6 +577,32 @@ public Return validarItemUnico(IModel<?> entidade, String[] valores, String[]nom
 	}else{
 		return  new Return(false, "Erro de conexão com o banco na validação de item único...", TypeMessage.ERROR);
 	}
+}
+
+public ArrayList<HashMap<String,Object>>  pesquisarQuantidade(IModel<?> entidade, String condicional, String colunaConta, String parametro) throws SQLException{
+	
+	String sql = "select COUNT("+colunaConta+") from " + entidade.getTableName() + " ";
+	sql = sql + " where  ativo = 'true' and "+condicional+"='"+parametro+"'";
+	
+	System.out.println("sql:"+sql);
+	if(Connect.getConexao()){
+		
+		ArrayList<HashMap<String,Object>> result = new ArrayList<HashMap<String,Object>>();
+		
+	ResultSet rs =  Connect.setResultSet(sql);
+	int colCount = rs.getMetaData().getColumnCount();
+	while(rs.next()){
+			HashMap<String,Object> record = new HashMap<String, Object>();
+			for(int i=1;i<=colCount;i++){
+				record.put(rs.getMetaData().getColumnName(i), rs.getString(i));
+			}
+			result.add(record);
+	}
+	Connect.close();
+	return result;
+	}
+	System.out.println("O " + entidade.getTableName() + " Não Foi pesquisado problema no DAOUsuario pesquisarusuario(String) Connect.getConexão");
+	return null;
 }
 
 

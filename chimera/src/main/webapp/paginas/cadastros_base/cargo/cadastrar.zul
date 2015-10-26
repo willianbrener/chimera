@@ -5,7 +5,7 @@
 	 <div self="@define(content)" apply="org.zkoss.bind.BindComposer"
        
 		viewModel="@id('vm')@init('br.com.ueg.pids.ViewModel.CargoViewModel')"
-		form="@id('fx') @load(vm.entity) @save(vm.entity, before='salvar')" align="center" width="100%"
+		form="@id('fx') @load(vm.entity) @save(vm.entity, before='salvar')" align="center" 
 		style="margin-top:50px">
 
 		<include src="frmCargo.zul"/>

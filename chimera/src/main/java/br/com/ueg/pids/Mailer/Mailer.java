@@ -7,7 +7,7 @@ import org.apache.commons.mail.EmailAttachment;
 import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.HtmlEmail;
 
-public class Mail {
+public class Mailer {
 
 	public void enviarEmailAnexo(String assunto,  String caminho, String emailSolicitacao, String nomeArquivo, String nome){
     

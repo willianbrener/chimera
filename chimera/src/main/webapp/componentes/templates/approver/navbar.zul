@@ -1,16 +1,16 @@
 <zk>
-<?component name="button" extends="button" width="44px" height="44px"?>
-<?link rel="stylesheet" type="text/css"	href="/bootstrap/css/bootstrap.css" ?>
-<?link rel="stylesheet" type="text/css" href="/css/index.css.dsp" ?>
-<?link rel="stylesheet" type="text/css"
+	<?component name="button" extends="button" width="44px" height="44px"?>
+	<?link rel="stylesheet" type="text/css"	href="/bootstrap/css/bootstrap.css" ?>
+	<?link rel="stylesheet" type="text/css" href="/css/index.css.dsp" ?>
+	<?link rel="stylesheet" type="text/css"
 	href="/css/user-nav.css.dsp" ?>
-<?link rel="stylesheet" type="text/css"
+	<?link rel="stylesheet" type="text/css"
 	href="/css/sidebar.css.dsp" ?>
-<?link rel="stylesheet" type="text/css"
+	<?link rel="stylesheet" type="text/css"
 	href="/css/search.css.dsp" ?>
-<?link rel="stylesheet" type="text/css"
+	<?link rel="stylesheet" type="text/css"
 	href="/css/content-header.css.dsp" ?>
-<?link id="theme" rel="stylesheet" type="text/css"
+	<?link id="theme" rel="stylesheet" type="text/css"
 	href="/css/grey.css.dsp"  if="${param.theme eq 'grey' or empty param.theme}"?>
 
 	<div self="@define(content)" apply="org.zkoss.bind.BindComposer"
@@ -19,89 +19,21 @@
 	</div>
 	<navbar orient="vertical" sclass="sidebar">
 
-		<nav label="Manter Cargo" iconSclass="z-icon-star" >
-			
-			<navitem label="Cadastrar">
-				<attribute name="onClick"><![CDATA[
-				Executions.sendRedirect("/paginas/cadastros_base/cargo/cadastrar.zul");
-			]]></attribute>
-			</navitem>
-			
-			<navitem label="Pesquisar">
-				<attribute name="onClick"><![CDATA[
-				Executions.sendRedirect("/paginas/cadastros_base/cargo/pesquisar.zul");
-			]]></attribute>
-			</navitem>
-			
-		</nav>
-		<nav label="Manter Recurso" iconSclass="z-icon-star">
-			<navitem label="Cadastrar">
-			<attribute name="onClick"><![CDATA[
 
-			]]></attribute>
-			</navitem>
-			
-			<navitem label="Pesquisar">
+		<nav label="Generenciar Solicitações"
+			iconSclass="z-icon-group">
+			<navitem label="Solicitações">
 				<attribute name="onClick"><![CDATA[
-
-			]]></attribute>
-			</navitem>			
-		</nav>
-		
-		<nav label="Manter Departamento" iconSclass="z-icon-star">
-			<navitem label="Cadastrar">
-				<attribute name="onClick"><![CDATA[
-				Executions.sendRedirect("/paginas/cadastros_base/departamento/cadastrar.zul");
-			]]></attribute>
-			</navitem>
-			
-			<navitem label="Pesquisar">
-				<attribute name="onClick"><![CDATA[
-				Executions.sendRedirect("/paginas/cadastros_base/departamento/pesquisar.zul");
-			]]></attribute>
-			</navitem>		
-		</nav>
-		
-		<nav label="Manter Usuário" iconSclass="z-icon-group">
-			<navitem label="Cadastrar">
-			<attribute name="onClick"><![CDATA[
-				Executions.sendRedirect("/paginas/cadastros_base/usuario/cadastrar.zul");
-			]]></attribute>
-			</navitem>
-			
-			<navitem label="Pesquisar">
-				<attribute name="onClick"><![CDATA[
-				Executions.sendRedirect("/paginas/cadastros_base/usuario/pesquisar.zul");
-			]]></attribute>
-			</navitem>			
-		</nav>
-		
-		<nav label="Manter Perfil de Usuário" iconSclass="z-icon-group">
-			<navitem label="Cadastrar">
-			<attribute name="onClick"><![CDATA[
-
-			]]></attribute>
-			</navitem>
-			
-			<navitem label="Pesquisar">
-				<attribute name="onClick"><![CDATA[
-
-			]]></attribute>
-			</navitem>			
-		</nav>
-
-		<nav label="Generenciar Solicitações" iconSclass="z-icon-group">
-		<navitem label="Solicitações">
-			<attribute name="onClick"><![CDATA[
-			Executions.sendRedirect("/paginas/gerenciar_solicitacoes/approver/pesquisar.zul");
-			]]></attribute>
+	Executions
+			.sendRedirect("/paginas/gerenciar_solicitacoes/approver/pesquisar.zul");
+]]></attribute>
 			</navitem>
 			<navitem label="Criar Solicitação">
-			<attribute name="onClick"><![CDATA[
-			Executions.sendRedirect("/paginas/gerenciar_solicitacoes/approver/cadastrar.zul");
-			]]></attribute>
-			</navitem>		
+				<attribute name="onClick"><![CDATA[
+	Executions
+			.sendRedirect("/paginas/gerenciar_solicitacoes/approver/cadastrar.zul");
+]]></attribute>
+			</navitem>
 		</nav>
-		
 	</navbar>
 </zk>

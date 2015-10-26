@@ -9,7 +9,7 @@
 		<north vflex="min" border="none"
 			style=" width:100%; height:135px;">
 			<include
-				src="/componentes/templates/inicial/header_inicial.zul" />
+				src="/componentes/templates/master/header_master.zul" />
 		</north>
 
 		<center vflex="min" border="none" class="center"
@@ -23,11 +23,11 @@
 		<south border="none" class="footer"
 			style="background-color: #CDC9C9; text-align: center; bottom:0; height:20px;">
 			<include
-				src="/componentes/templates/inicial/footer_inicial.zul" />
+				src="/componentes/templates/master/footer_master.zul" />
 		</south>
 		
 		<west vflex="min" border="none" style="background-color: #e1e0e0; ">
-			<include src="/componentes/templates/inicial/navbar.zul" />
+			<include src="/componentes/templates/master/navbar.zul" />
 		</west>
 	</borderlayout>
 	<div if="${sessionScope.userCredential.anonymous}">

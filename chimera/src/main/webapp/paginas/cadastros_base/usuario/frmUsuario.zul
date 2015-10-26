@@ -1,5 +1,24 @@
 <?init class="br.com.ueg.pids.Login.AuthenticationInit"?>
-<zk>
+<zk xmlns:c="client">
+    <style>
+        .meter {
+            font-size: 1px;
+            height: 3px;
+        }
+        .meter-inner {
+            width: 0px;
+            height: 3px;
+        }
+        .meter-red .meter-inner{
+            background: red;
+        }
+        .meter-orange .meter-inner{
+            background: orange;
+        }
+        .meter-green .meter-inner{
+            background: green;
+        }
+    </style>
 		<fgrid hflex="min"><!-- style="border:1px solid white;"-->
 			<rows>
 				<row>
@@ -14,11 +33,20 @@
 						width="180px" focus="false" style="color:black !important;"  />
 				</row>
 				
-				<row>
-					<flabel value="Password:" />
-					<ftextbox id="fldPassword" value="@bind(fx.password)"
-						width="180px" focus="false" style="color:black !important;"  />
-				</row>
+				 <row>
+	                <flabel value="Password:" />
+	                <textbox id="pwd" width="180px" type="password" 
+	                c:onChanging="meterUpdate(event)" value="@bind(fx.password)" />
+	            </row>
+	            <row>
+	               <flabel value="Password Strength:" />
+	                <vlayout>
+	                    <div id="meter" sclass="meter" width="180px">
+	                        <div sclass="meter-inner"></div>
+	                    </div>
+	                    <label id="msg" />
+	                </vlayout>
+	            </row>
 				
 				<row>
 					<flabel value="Email:" />
@@ -57,4 +85,5 @@
 
 			</rows>
 		</fgrid>
+		<script src="/js/pwd_str.js" ></script>
 </zk>

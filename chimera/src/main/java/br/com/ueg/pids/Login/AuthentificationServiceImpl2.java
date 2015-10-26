@@ -23,7 +23,7 @@ public class AuthentificationServiceImpl2 extends AuthentificationServiceImpl1{
 		}
 		
 		Session sess = Sessions.getCurrent();
-		UserCredential cre = new UserCredential(user.getAccount(),user.getNome());
+		UserCredential cre = new UserCredential(user.getAccount(),user.getNome(), user.getPermissao());
 		
 		if(cre.isAnonymous()){
 			return false;
