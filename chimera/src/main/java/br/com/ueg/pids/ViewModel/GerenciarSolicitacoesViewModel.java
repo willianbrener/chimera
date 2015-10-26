@@ -104,7 +104,16 @@ public class GerenciarSolicitacoesViewModel
 		if (ret.isValid()) {
 			Messagebox.show("Solicitação realizada com sucesso!", "Sucess",
 					Messagebox.OK, Messagebox.INFORMATION);
-			Executions.sendRedirect("/paginas/gerenciar_solicitacoes/approver/pesquisar.zul");
+			if(getEntity().getUsuario().getPermissao().equals("TOTAL")){
+				Executions.sendRedirect("/paginas/gerenciar_solicitacoes/administrator/pesquisar.zul");
+			}else if(getEntity().getUsuario().getPermissao().equals("APROVADOR")){
+				Executions.sendRedirect("/paginas/gerenciar_solicitacoes/approver/pesquisar.zul");
+			}else if(getEntity().getUsuario().getPermissao().equals("SOLICITANTE")){
+				Executions.sendRedirect("/paginas/gerenciar_solicitacoes/user/pesquisar.zul");
+			}else if(getEntity().getUsuario().getPermissao().equals("EXECUTOR")){
+				Executions.sendRedirect("/paginas/gerenciar_solicitacoes/executioner/pesquisar.zul");
+			}
+			
 		}
 
 		return null;

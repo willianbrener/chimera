@@ -6,6 +6,7 @@ import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zul.PieModel;
+import org.zkoss.zul.SimplePieModel;
 
 import br.com.ueg.pids.Control.GraficoController;
 import br.com.ueg.pids.Model.Grafico;
@@ -21,17 +22,13 @@ public class GraficoViewModel extends GenericViewModel<Grafico, GraficoControlle
      
     @Init
     public void init() {
+    	super.init();
         engine = new MotorGrafico();
- 
-        model = Grafico.getModel();
+        model = getModel();
     }
  
     public MotorGrafico getEngine() {
         return engine;
-    }
- 
-    public PieModel getModel() {
-        return model;
     }
  
     public boolean isThreeD() {
@@ -41,6 +38,16 @@ public class GraficoViewModel extends GenericViewModel<Grafico, GraficoControlle
     public String getMessage(){
         return message;
     }
+    
+    public PieModel getModel(){
+        PieModel model = new SimplePieModel();
+        
+        
+        model.setValue("PENDENTES", new Double(getControl().listaQuantia("situacao", "situacao", "PENDENTE")));
+        model.setValue("APROVADAS", new Double(getControl().listaQuantia("situacao", "situacao", "APROVADA")));
+        model.setValue("EXECUTADAS", new Double(getControl().listaQuantia("situacao", "situacao", "EXECUTADA")));
+        return model;
+    }
      
     @Command("showMessage") 
     @NotifyChange("message")
@@ -49,30 +56,13 @@ public class GraficoViewModel extends GenericViewModel<Grafico, GraficoControlle
         this.message = message;
     }
      
-    @GlobalCommand("dataChanged") 
-    @NotifyChange("model")
-    public void onDataChanged(
-            @BindingParam("category")String category,
-            @BindingParam("num") Number num){
-        model.setValue(category, num);
-    }
-     
-    @GlobalCommand("configChanged") 
-    @NotifyChange({"threeD","engine"})
-    public void onConfigChanged(
-            @BindingParam("threeD") boolean threeD,
-            @BindingParam("exploded") boolean exploded){
-        this.threeD = threeD;
-        engine.setExplode(exploded);
-    }
-
 	@Override
 	public Grafico getObject() {
-		return null;
+		return new Grafico();
 	}
 
 	@Override
 	public GraficoController getControl() {
-		return null;
+		return new GraficoController();
 	}
 }

@@ -1,11 +1,20 @@
 package br.com.ueg.pids.ViewModel;
 
-
+import java.io.*;
+import java.io.File;
 import java.util.Arrays;
+import java.util.Date;
 
+import org.zkoss.bind.BindContext;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.ContextParam;
+import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zul.ListModelList;
+import org.zkoss.zul.Window;
 
 import br.com.ueg.pids.Control.RelatorioController;
 import br.com.ueg.pids.Model.Relatorio;
@@ -18,6 +27,7 @@ public class RelatorioViewModel extends GenericViewModel<Relatorio, RelatorioCon
 
 	ReportType reportType = null;
 	private ReportConfig reportConfig = null;
+	private Window windowRelatorio;
 	
 	private ListModelList<ReportType> reportTypesModel = new ListModelList<ReportType>(
 			Arrays.asList(
@@ -29,7 +39,6 @@ public class RelatorioViewModel extends GenericViewModel<Relatorio, RelatorioCon
 					new ReportType("CSV", "csv"), 
 					new ReportType("OpenOffice (ODT)", "odt")));
 
-
 	@Command("showReport")
 	@NotifyChange("reportConfig")
 	public void showReport() {
@@ -37,6 +46,24 @@ public class RelatorioViewModel extends GenericViewModel<Relatorio, RelatorioCon
 		reportConfig.setType(reportType);
 		reportConfig.setDataSource(new CustomDataSource());
 	}
+	@Command
+	@NotifyChange("reportConfig")
+	public void gerarRelatorio(BindContext ctx,
+			@ContextParam(ContextType.VIEW) Component view) {
+		Selectors.wireEventListeners(view, this);
+		setWindowRelatorio((Window) view.getFellow("windowRelatorio"));
+		getWindowRelatorio().setVisible(true);
+		getWindowRelatorio().doModal();
+	}
+	
+	@Command
+    public void close(BindContext ctx,
+			@ContextParam(ContextType.VIEW) Component view) {
+		Selectors.wireEventListeners(view, this);
+		setWindowRelatorio((Window) view.getFellow("windowRelatorio"));
+	    getWindowRelatorio().setVisible(false);
+
+    }
 	
 	public ListModelList<ReportType> getReportTypesModel() {
 		return reportTypesModel;
@@ -63,4 +90,13 @@ public class RelatorioViewModel extends GenericViewModel<Relatorio, RelatorioCon
 	public RelatorioController getControl() {
 		return new RelatorioController();
 	}
+
+	public Window getWindowRelatorio() {
+		return windowRelatorio;
+	}
+
+	public void setWindowRelatorio(Window windowRelatorio) {
+		this.windowRelatorio = windowRelatorio;
+	}
+	
 }

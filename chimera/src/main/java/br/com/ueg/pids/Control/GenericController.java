@@ -47,7 +47,6 @@ public abstract class GenericController<Entity> implements IController{
 		return  dao.ativar(imodel);
 	}
 	public Return listar(IModel<?> imodel) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 	

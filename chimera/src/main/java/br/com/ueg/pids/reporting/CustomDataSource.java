@@ -6,10 +6,6 @@ import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRField;
 
-/**
- * @author Teodor Danciu (teodord@users.sourceforge.net)
- * @version $Id: CustomDataSource.java 1229 2006-04-19 10:27:35Z teodord $
- */
 public class CustomDataSource implements JRDataSource {
 
 	private Object[][] data = {
@@ -67,8 +63,7 @@ public class CustomDataSource implements JRDataSource {
 			value = data[index][2];
 		} else if ("street".equals(fieldName)) {
 			value = data[index][3];
-		}
-		
+		} 
 		return value;
 	}
 }

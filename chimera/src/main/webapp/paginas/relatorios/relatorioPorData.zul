@@ -1,4 +1,4 @@
-<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<?page title="Relatórios" contentType="text/html;charset=UTF-8"?>
 <?init class="org.zkoss.zk.ui.util.Composition" arg0="/componentes/templates/master/template_master.zul"?>
 <zk>
 	<div self="@define(content)" apply="org.zkoss.bind.BindComposer"
@@ -7,19 +7,53 @@
 		align="center" width="100%" style="margin-top:50px">
 		<hbox>
 
-			<datebox id="in" onChange="cal.value = in.value" />
-			<calendar id="cal" onChange="in.value = cal.value" />
-		
+			<datebox id="in" onChange="cal.value = in.value"  value="@bind(vm.entity.dataInicial)"
+					format="dd/MM/yyyy" locale="pt_BR" placeholder="DD/MM/YYYY"/>
+					
+			<calendar id="cal" onChange="in.value = cal.value"  value="@bind(vm.entity.dataInicial)"
+					  />
+					
+
 		</hbox>
 		<separator spacing="10px" />
 		<hbox>
 
-			<datebox id="in2" onChange="cal2.value = in2.value" />
-			<calendar id="cal2" onChange="in2.value = cal2.value" />
-		
+			<datebox id="in2" onChange="cal2.value = in2.value"  value="@bind(vm.entity.dataFinal)"
+					format="dd/MM/yyyy" locale="pt_BR" placeholder="DD/MM/YYYY"/>
+					
+			<calendar id="cal2" onChange="in2.value = cal2.value"  value="@bind(vm.entity.dataFinal)"/>
+
 		</hbox>
 		<separator spacing="20px" />
-		<button label="Gerar Relatório" />
+		<button label="Gerar Relatório"
+			onClick="@command('gerarRelatorio')" />
+
+		<window autag="true" popup="true" border="normal"
+			id="windowRelatorio" visible="false" maximizable="false"
+			closable="true" position="center,center"
+			action="show: slideDown;hide: slideUp">
+			Escolha um tipo de arquivo :
+			<listbox id="format" mold="select"
+				model="@load(vm.reportTypesModel)"
+				selectedItem="@bind(vm.reportType)">
+				<template name="model">
+					<listitem value="@load(each)"
+						label="@load(each.label)">
+					</listitem>
+				</template>
+			</listbox>
+			<button label="Gerar" onClick="@command('showReport')" />
+			<button label="Fechar" onClick="@command('close')" />
+
+
+			<jasperreport id="report" height="500px"
+				src="@load(vm.reportConfig.source, after='showReport')"
+				parameters="@load(vm.reportConfig.parameters, after='showReport')"
+				type="@load(vm.reportConfig.type.value, after='showReport')"
+				datasource="@load(vm.reportConfig.dataSource, after='showReport')" />
+
+		</window>
 
 	</div>
+
 </zk>

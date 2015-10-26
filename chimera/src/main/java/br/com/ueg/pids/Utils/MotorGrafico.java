@@ -15,9 +15,6 @@ import org.zkoss.zul.Chart;
 
 import br.com.ueg.pids.Model.GraficoCor;
  
-/*
- * you are able to do many advanced chart customization by extending ChartEngine
- */
 public class MotorGrafico extends JFreeChartEngine {
      
     private boolean explode = false;
@@ -28,7 +25,6 @@ public class MotorGrafico extends JFreeChartEngine {
         PiePlot piePlot = (PiePlot) jfchart.getPlot();
         piePlot.setLabelBackgroundPaint(GraficoCor.COLOR_4);
  
-        //override some default colors
         Paint[] colors = new Paint[] {GraficoCor.COLOR_1, GraficoCor.COLOR_2, GraficoCor.COLOR_3, GraficoCor.COLOR_4};
         DefaultDrawingSupplier defaults = new DefaultDrawingSupplier();
         piePlot.setDrawingSupplier(new DefaultDrawingSupplier(colors, new Paint[]{defaults.getNextFillPaint()}, new Paint[]{defaults.getNextOutlinePaint()}, 
