@@ -1,0 +1,35 @@
+<?init class="br.com.ueg.pids.Login.AuthenticationInit"?>
+<zk>
+		<fgrid hflex="min"><!-- style="border:1px solid white;"-->
+			<rows>
+				<row>
+					<flabel value="Nome:" />
+					<ftextbox id="fldName" value="@bind(fx.nome)"
+						width="180px" focus="true" style="color:black !important;"  />
+				</row>
+				<row>
+					<flabel value="Departamento:" />
+					<combobox width="180px" readonly="true"
+						model="@load(vm.departamentoList)"
+						selectedItem="@bind(vm.departamentoSelecionado)" >
+						<template name="model">
+							<comboitem label="@load(each.nome)" />
+						</template>
+					</combobox>
+				</row>
+				<row>
+					<flabel value="Descrição:" />
+					<ftextbox id="fldDescription"
+					rows="6"
+						value="@bind(fx.descricao)" width="210px;" tabindex="11" />
+				</row>
+				<row>
+					<fbutton label="Salvar"
+						onClick="@command('salvar')" />
+					<fbutton label="Cancelar"
+						onClick="@command('cancel')" />
+				</row>
+
+			</rows>
+		</fgrid>
+</zk>

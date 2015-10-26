@@ -37,13 +37,13 @@
 		<nav label="Manter Recurso" iconSclass="z-icon-star">
 			<navitem label="Cadastrar">
 			<attribute name="onClick"><![CDATA[
-
+			Executions.sendRedirect("/paginas/cadastros_base/recurso/cadastrar.zul");
 			]]></attribute>
 			</navitem>
 			
 			<navitem label="Pesquisar">
 				<attribute name="onClick"><![CDATA[
-
+			Executions.sendRedirect("/paginas/cadastros_base/recurso/pesquisar.zul");
 			]]></attribute>
 			</navitem>			
 		</nav>

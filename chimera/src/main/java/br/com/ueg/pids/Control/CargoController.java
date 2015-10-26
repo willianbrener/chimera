@@ -5,25 +5,18 @@ import java.util.List;
 
 import org.zkoss.zul.Messagebox;
 
-
-
-
-
-
-
-
+import br.com.ueg.pids.Colections.ColecaoCargo;
+import br.com.ueg.pids.Model.Cargo;
+import br.com.ueg.pids.Model.IModel;
 import br.com.ueg.pids.Utils.MessageBoxx;
 import br.com.ueg.pids.Utils.Return;
-import br.com.ueg.pids.Colections.ColecaoCargo;
-import br.com.ueg.pids.Colections.ColecaoDepartamento;
-import br.com.ueg.pids.Model.Cargo;
-import br.com.ueg.pids.Model.Departamento;
-import br.com.ueg.pids.Model.IModel;
 
 public class CargoController extends GenericController<Cargo> {
 
 	private Cargo cargo = new Cargo();
+	
 	MessageBoxx msgbox = new MessageBoxx();
+	
 	private Cargo cargoSelecionado = new Cargo();
 	@Override
 	public Return validar(IModel<?> imodel) {
@@ -31,7 +24,7 @@ public class CargoController extends GenericController<Cargo> {
 		Return ret = new Return(true);
 		if (getCargo().getNome() == null || getCargo().getNome().equals("")) {
 
-			Messagebox.show("Nome em branco ou inválido!", "Error",
+			Messagebox.show("Nome em branco ou invï¿½lido!", "Error",
 					Messagebox.OK, Messagebox.ERROR);
 			ret.setValid(false);
 		}else  if (getCargo().getNome().length() < 3) {
@@ -41,7 +34,7 @@ public class CargoController extends GenericController<Cargo> {
 		}else if (getCargo().getDescricao() == null
 				|| getCargo().getDescricao().equals("")) {
 
-			Messagebox.show("Descrição em branco!", "Error", Messagebox.OK,
+			Messagebox.show("Descriï¿½ï¿½o em branco!", "Error", Messagebox.OK,
 					Messagebox.ERROR);
 			ret.setValid(false);
 		}else if (getCargo().getDepartamento() == null

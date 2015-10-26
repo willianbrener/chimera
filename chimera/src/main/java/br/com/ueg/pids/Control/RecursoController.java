@@ -4,8 +4,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 import br.com.ueg.pids.Colections.ColecaoRecurso;
-import br.com.ueg.pids.Colections.ColecaoRecurso;
-import br.com.ueg.pids.Model.Recurso;
 import br.com.ueg.pids.Model.IModel;
 import br.com.ueg.pids.Model.Recurso;
 import br.com.ueg.pids.Utils.Return;
@@ -20,7 +18,6 @@ public class RecursoController extends GenericController<Recurso>{
 		try {
 			
 			listaRecurso.setAll(dao.listarTodos(recurso));
-			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -49,5 +46,18 @@ public class RecursoController extends GenericController<Recurso>{
 		}
 		recurso = ((ColecaoRecurso) listaRecurso).getIndice(0);
 		return recurso;
+	}
+	
+	public List<?> getListarTodos(Recurso recurso) {
+		ColecaoRecurso listaRecurso = new ColecaoRecurso();
+		try {
+			
+				listaRecurso.setAll(dao.listarTodos(recurso));
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return listaRecurso.getAll();
 	}
 }
