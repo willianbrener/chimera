@@ -6,6 +6,7 @@ import br.com.ueg.pids.Annotations.Campo;
 import br.com.ueg.pids.Annotations.Table;
 
 
+@SuppressWarnings("serial")
 @Table(nome="usuario")
 public class Usuario extends GenericModel<Integer> implements Serializable,Cloneable {
 	

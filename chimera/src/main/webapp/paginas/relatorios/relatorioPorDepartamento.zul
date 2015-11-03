@@ -1,5 +1,25 @@
 <?init class="br.com.ueg.pids.Login.AuthenticationInit"?>
+<?page title="Relatórios" contentType="text/html;charset=UTF-8"?>
 <?init class="org.zkoss.zk.ui.util.Composition" arg0="/componentes/templates/master/template_master.zul"?>
 <zk>
+	<div self="@define(content)" apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm')@init('br.com.ueg.pids.ViewModel.RelatorioViewModel')"
+		form="@id('fx') @load(vm.entity) @save(vm.entity, before='salvar')"
+		align="center" width="100%" style="margin-top:50px">
+		 <listbox checkmark="true" multiple="true" sclass="mylist" id="list" model="@bind(vm.departamentoList)" emptyMessage="Nenhuma departamento selecionado." width="200px"
+     style="margin-top:10px"  selectedItems="@bind(vm.departamentosSelecionados)"  mold="paging" pageSize="8">
+        <template name="model">
+      
+        
+            <listitem>
+                <listcell  label="@bind(each.nome)" sclass="highlightcell"></listcell>
+            </listitem>
+        </template>
+   	 </listbox>
+		<separator spacing="20px" />
+		<button label="Gerar Relatório"
+			onClick="@command('gerarRelatorioDepartamento')" />
+
+	</div>
 
 </zk>

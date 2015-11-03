@@ -13,6 +13,7 @@ import br.com.ueg.pids.Model.IModel;
 
 
 public class Reflection {
+	@SuppressWarnings("rawtypes")
 	public static void printClassInfo(Class cls){
 		try {
 			

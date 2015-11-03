@@ -58,7 +58,7 @@
 					<flabel value="Permissao:" />
 					<combobox width="180px" readonly="true"
 						model="@load(vm.permissaoList)"
-						selectedItem="@bind(vm.permissaoSelecionada)" >
+						selectedItem="@bind(fx.permissao)" >
 						<template name="model">
 							<comboitem label="@load(each.nome)" />
 						</template>
@@ -69,7 +69,7 @@
 					<flabel value="Cargo:" />
 					<combobox width="180px" readonly="true"
 						model="@load(vm.cargoList)"
-						selectedItem="@bind(vm.cargoSelecionado)" >
+						selectedItem="@bind(vm.entity.cargo)" >
 						<template name="model">
 							<comboitem label="@load(each.nome)" />
 						</template>

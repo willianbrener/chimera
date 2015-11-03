@@ -15,6 +15,7 @@
 			autoscroll="true">
 			<div class="center" xmlns:w='client' self="@insert(content)"
 				height="100%" width="100%" style="overflow: auto;">
+				
 			</div>
 		</center>
 

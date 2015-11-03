@@ -1,14 +1,10 @@
 package br.com.ueg.pids.Colections;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 
-import br.com.ueg.pids.Control.DepartamentoController;
 import br.com.ueg.pids.Control.RecursoController;
 import br.com.ueg.pids.Control.UsuarioController;
-import br.com.ueg.pids.Model.Cargo;
-import br.com.ueg.pids.Model.Departamento;
 import br.com.ueg.pids.Model.GerenciarSolicitacoes;
 import br.com.ueg.pids.Model.Recurso;
 import br.com.ueg.pids.Model.Usuario;

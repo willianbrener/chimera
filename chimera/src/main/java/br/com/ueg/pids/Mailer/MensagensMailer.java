@@ -4,13 +4,19 @@ import br.com.ueg.pids.Model.Usuario;
 
 public class MensagensMailer {
 	
-	public String mensagemAprovador(Usuario usuario, String string){
+	public String mensagemAoAprovar(Usuario usuario, String string){
 		return "";
 	}
-	public String mensagemExecutor(){
+	public String mensagemAoExecutar(){
 		return "";
 	}
-	public String mensagemSolicitante(){
+	public String mensagemAoSolicitar(){
+		return "";
+	}
+	public String mensagemAoReprovar(){
+		return "";
+	}
+	public String mensagemAoCadastrar(){
 		return "";
 	}
 

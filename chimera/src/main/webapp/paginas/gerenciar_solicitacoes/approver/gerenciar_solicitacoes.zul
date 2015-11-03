@@ -51,7 +51,7 @@
 					<listcell >
 						
 						<button image="/imagens/remove-icon.png"
-							onClick="@command('desativar') @global-command('refresh')" />
+							onClick="@command('deletar') @global-command('refresh')" />
 						<button image="/imagens/edit-icon.png"
 							onClick="@command('telaAlterar') @global-command('refresh')" />
 					</listcell>

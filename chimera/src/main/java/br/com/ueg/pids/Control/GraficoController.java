@@ -2,9 +2,7 @@ package br.com.ueg.pids.Control;
 
 import java.sql.SQLException;
 
-import br.com.ueg.pids.Colections.ColecaoCargo;
 import br.com.ueg.pids.Colections.ColecaoUtils;
-import br.com.ueg.pids.Model.Cargo;
 import br.com.ueg.pids.Model.GerenciarSolicitacoes;
 import br.com.ueg.pids.Model.Grafico;
 import br.com.ueg.pids.Model.IModel;
@@ -30,11 +28,13 @@ public class GraficoController extends GenericController<Grafico>{
 		return resultado;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	@Override
 	public Return validar(IModel imodel) {
 		return null;
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public Return validarItemUnico(IModel imodel) {
 		return null;

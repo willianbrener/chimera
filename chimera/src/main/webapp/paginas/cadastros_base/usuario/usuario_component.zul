@@ -17,7 +17,7 @@
 				<row>
 					<flabel value="Nome:" />
 					<ftextbox id="fldName" value="@bind(vm.itemSelected.nome)"
-						width="180px" focus="true" style="color:black !important;"  />
+						width="180px" focus="false" style="color:black !important;"  />
 				</row>
 				
 				<row>

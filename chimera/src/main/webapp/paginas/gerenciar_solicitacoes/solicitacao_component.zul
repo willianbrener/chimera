@@ -1,0 +1,81 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+
+	<window title="Solicitacao Alterar" border="normal" id="SolicitacoesUpdate"
+		width="700px" height="auto" apply="org.zkoss.bind.BindComposer"
+		sclass="mymodal" minimizable="false" mode="modal" maximizable="false"
+		closable="false" position="center"
+		viewModel="@id('vm') @init('br.com.ueg.pids.ViewModel.GerenciarSolicitacoesUpdateViewModel')">
+		<separator />
+		<flabeltitle value="Solicitacao Informações" />
+		<separator />
+		<panel width="100%">
+			<panelchildren>
+				<separator />
+				<grid sclass="nostyle">
+		<columns>
+			<column width="60px"></column>
+			<column width="60px"></column>
+			<column width="60px"></column>
+			<column width="95px"></column>
+			<column width="60px"></column>
+			<column width="65px"></column>
+			<column width="60px"></column>
+			<column width="65px"></column>
+			<column width="95px"></column>
+		</columns>
+		<rows>
+			
+			<row spans="1,2,1,2,1,2">
+				<label value="Usuário:"/>
+				<textbox id="fldUser"  value="@bind(vm.itemSelected.usuario.account)" width="100px" readonly="true"/>
+				
+				<label value="Departamento:"/>
+				<textbox id="fldDepartament" value="@bind(vm.itemSelected.usuario.cargo.departamento.nome)"  width="100px"  readonly="true"/>
+								
+				<label value="Data:" tooltiptext="Data"/>
+				<datebox id="fldDate"  value="@bind(vm.data)" format="dd/MM/yyyy" locale="pt_BR" placeholder="DD/MM/YYYY" width="100px"  />
+			</row>
+			<row spans="1,2,1,2,1,2">
+				<label value="Cargo:"/>
+				 <textbox id="fldCargo" value="@bind(vm.itemSelected.usuario.cargo.nome)"  width="100px"  readonly="true"/>
+				
+				<label value="Permissao:"/>
+				 <textbox id="fldPermissao" value="@bind(vm.itemSelected.usuario.permissao)"  width="100px"  readonly="true"/>
+				
+				<label value="Hora:" tooltiptext="Hora"/>
+				<textbox id="fldHour" value="@bind(vm.itemSelected.hora)"  placeholder="HH:MM"  width="100px" />
+			</row>
+			<row spans="1,5,1,2">
+				<label value="Título:"/>
+				<textbox id="fldTittle"  value="@bind(vm.itemSelected.titulo)" width="330px" />
+				
+				<label value="Recurso:"/>
+				<combobox width="150px" readonly="true"
+						model="@load(vm.recursoList)" value="@bind(vm.itemSelected.recurso.nome)"
+						selectedItem="@bind(vm.itemSelected.recurso)" >
+						<template name="model">
+							<comboitem label="@load(each.nome)" />
+						</template>
+				</combobox>
+			</row>
+			<row spans="1,8">
+			<label value="Descrição:" />
+					<ftextbox id="fldDescription"
+					rows="4"
+					width="550px" tabindex="11" value="@bind(vm.itemSelected.descricao)"/>
+			</row>
+			</rows>		
+	</grid>
+			</panelchildren>
+		</panel>
+		<separator />
+		<div align="center">
+			<fbutton id="submit" label="Submit"
+				onClick="@command('update')" />
+			<fbutton id="cancel" label="Cancel"
+				onClick="@command('closeThis')" />
+		</div>
+		<separator />
+	</window>
+</zk>

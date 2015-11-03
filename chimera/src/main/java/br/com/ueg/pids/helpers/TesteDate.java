@@ -4,14 +4,13 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 public class TesteDate {
 
 	public static void main(String[] args) {
 		// Create an instance of SimpleDateFormat used for formatting 
 				// the string representation of date (month/day/year)
-				DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+				DateFormat df = new SimpleDateFormat("HH:mm");
 
 				// Get the date today using Calendar object.
 				Date today = Calendar.getInstance().getTime();        

@@ -1,13 +1,14 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
 
-	<window title="Cargo Alterar" border="normal" id="CargoUpdate"
+	<window title="Motivo Desativar" border="normal" id="Motivo"
 		width="430px" height="auto" apply="org.zkoss.bind.BindComposer"
+		form="@id('fx') @load(vm.entity) @save(vm.entity, before='salvar')"
 		sclass="mymodal" minimizable="false" mode="modal" maximizable="false"
 		closable="false" position="center"
-		viewModel="@id('vm') @init('br.com.ueg.pids.ViewModel.CargoUpdateViewModel')">
+		viewModel="@id('vm') @init('br.com.ueg.pids.ViewModel.MotivoViewModel')">
 		<separator />
-		<flabeltitle value="Cargo Informações" />
+		<flabeltitle value="Motivo Recusa" />
 		<separator />
 		<panel width="100%">
 			<panelchildren>
@@ -20,29 +21,10 @@
 					<rows>
 						<row>
 							<hbox>
-								<flabel value="Nome:" />
-							</hbox>
-							<ftextbox name="fldName"
-								value="@bind(vm.itemSelected.nome)" width="180px" focus="false" />
-						</row>
-						<row>
-							<flabel value="Departamento:" />
-							<combobox width="180px" model="@load(vm.departamentoList)"
-								selectedItem="@bind(vm.departamentoSelecionado)"
-								value="@load(vm.itemSelected.departamento.nome)"
-								>
-								
-								<template name="model">
-									<comboitem 		label="@load(each.nome)" />
-								</template>
-							</combobox>
-						</row>
-						<row>
-							<hbox>
 								<flabel value="Descrição:" />
 							</hbox>
 							<ftextbox name="fldDescricao"
-								value="@bind(vm.itemSelected.descricao)" width="210px;" 
+								value="@bind(vm.entity.descricao)" width="210px;" 
 								rows="6"
 								tabindex="11" inplace="true"  type="text"  />
 						</row>
@@ -54,7 +36,7 @@
 		<separator />
 		<div align="center">
 			<fbutton id="submit" label="Submit"
-				onClick="@command('update')" />
+				onClick="@command('salvar')" />
 			<fbutton id="cancel" label="Cancel"
 				onClick="@command('closeThis')" />
 		</div>

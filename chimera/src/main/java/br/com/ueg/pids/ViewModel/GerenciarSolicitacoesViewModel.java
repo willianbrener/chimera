@@ -2,12 +2,15 @@ package br.com.ueg.pids.ViewModel;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Executions;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zul.Messagebox;
 
 import br.com.ueg.pids.Control.GerenciarSolicitacoesController;
@@ -31,18 +34,20 @@ public class GerenciarSolicitacoesViewModel
 	private Permissao permissaoSelecionada;
 	private List<GerenciarSolicitacoes> lstSolicitacoes = new ArrayList<GerenciarSolicitacoes>();
 	private List<Permissao> permissaoList = new ArrayList<Permissao>();
-
+	private List<?> lstSolicitacao;
 	private Usuario usuario = new Usuario();
 	private List<?> lstUsuarios;
 	private List<Recurso> lstRecurso;
 	private Date data = new Date();
-
+	private Integer solicitacaoSelectedIndex;
+	private DateUtils dateUtils = new DateUtils();
 	@Init
 	public void init() {
 		super.init();
 		usuario.setNome(user.getName());
 		if (getEntity() != null && verificaComponent().equals("criar")) {
 			populaDadosUsuario();
+			getEntity().setHora(dateUtils.HourToString(new Date()));
 		} else if (verificaComponent().equals("listar")) {
 			setLstUsuarios(getControl().getLstUsuarioDados(usuario.getNome()));
 			setUsuario((Usuario) getLstUsuarios().get(0));
@@ -70,6 +75,7 @@ public class GerenciarSolicitacoesViewModel
 		setLstUsuarios(getControl().getLstUsuarioDados(usuario.getNome()));
 		if (getLstUsuarios() != null && getLstUsuarios().size() == 1) {
 			getEntity().setUsuario((Usuario) getLstUsuarios().get(0));
+			
 		} else {
 
 		}
@@ -94,7 +100,7 @@ public class GerenciarSolicitacoesViewModel
 	@Command
 	public Return salvar() {
 		Return ret = new Return(true);
-		DateUtils dateUtils = new DateUtils();
+		
 
 		String newDate = dateUtils.DateToString(getData());
 		getEntity().setAtivo(true);
@@ -118,6 +124,71 @@ public class GerenciarSolicitacoesViewModel
 
 		return null;
 	}
+	
+	@Command
+	public Return telaAlterar() {
+		Return ret = new Return(true);
+		if (itemSelected == null) {
+			Messagebox.show("Selecione algum item para alterar!", "Error",
+					Messagebox.OK, Messagebox.EXCLAMATION);
+		} else {
+			final HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("SolicitacaoObject", this.itemSelected);
+			map.put("recordMode", "EDIT");
+			setSolicitacaoSelectedIndex(lstSolicitacoes.indexOf(itemSelected));
+			Executions.createComponents("/paginas/gerenciar_solicitacoes/solicitacao_component.zul", null, map);
+			// setItemSelected(null);
+		}
+		return ret;
+	}
+	
+	@Command
+	public Return telaRecusar() {
+		Return ret = new Return(true);
+			final HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("SolicitacaoObject", this.itemSelected);
+			map.put("recordMode", "EDIT");
+			setSolicitacaoSelectedIndex(lstSolicitacoes.indexOf(itemSelected));
+			Executions.createComponents("/paginas/gerenciar_solicitacoes/motivo_component.zul", null, map);
+			// setItemSelected(null);
+		return ret;
+	}
+	
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Command
+	@NotifyChange("lstSolicitacoes")
+	public Return deletar() {
+
+		Return ret = new Return(true);
+		if (itemSelected == null) {
+			Messagebox.show("Selecione um item para ser deletado!", "Error",
+					Messagebox.OK, Messagebox.EXCLAMATION);
+		} else {
+			String str = "Deseja deletar a solicitacao \""
+					+ getItemSelected().getTitulo() + "\"?";
+			Messagebox.show(str, "Confirm", Messagebox.YES | Messagebox.NO,
+					Messagebox.QUESTION, new EventListener() {
+
+						public void onEvent(Event event) throws Exception {
+							if (event.getName().equals("onNo")) {
+								return;
+							} else {
+								if (event.getName().equals("onYes")) {
+
+									getControl().desativar(getItemSelected());
+									Messagebox.show(
+											"Solicitação deletada com sucesso!",
+											"Sucesso", Messagebox.OK,
+											Messagebox.INFORMATION);
+									setItemSelected(null);
+								}
+							}
+						}
+					});
+
+		}
+		return ret;
+	}
 	@NotifyChange("entity")
 	@Command
 	public Return limpar(){
@@ -135,6 +206,8 @@ public class GerenciarSolicitacoesViewModel
 		Return ret = new Return(false);
 		if(getItemSelected()!= null && getItemSelected().getSituacao().equals("PENDENTE")){
 			ret = getControl().alterarSolicitacao(getItemSelected(),"APROVADA");
+			Messagebox.show("Solicitacao Aprovada!", "Sucesso",
+					Messagebox.OK, Messagebox.INFORMATION);
 		}else if(getItemSelected()== null){
 			Messagebox.show("Selecione uma solicitação!", "AVISO",
 					Messagebox.OK, Messagebox.EXCLAMATION);
@@ -150,17 +223,17 @@ public class GerenciarSolicitacoesViewModel
 		return ret;
 	}
 	
-	@NotifyChange("entity")
+	@NotifyChange("lstSolicitacoes")
 	@Command
 	public Return rejeitar(){
 		Return ret = new Return(false);
 		if(getItemSelected()!= null && getItemSelected().getSituacao().equals("PENDENTE")){
-			ret = getControl().alterarSolicitacao(getItemSelected(),"APROVADA");
+			ret = getControl().alterarSolicitacao(getItemSelected(),"REPROVADA");
+			if(ret.isValid()){
+				ret = telaRecusar();
+			}
 		}else if(getItemSelected()== null){
 			Messagebox.show("Selecione uma solicitação!", "AVISO",
-					Messagebox.OK, Messagebox.EXCLAMATION);
-		}else if(getItemSelected().getSituacao().equals("APROVADA")){
-			Messagebox.show("Solicitação já aprovada!", "AVISO",
 					Messagebox.OK, Messagebox.EXCLAMATION);
 		}
 		if(ret.isValid()){
@@ -170,7 +243,7 @@ public class GerenciarSolicitacoesViewModel
 		return ret;
 	}
 	
-	@NotifyChange("entity")
+	@NotifyChange("lstSolicitacoes")
 	@Command
 	public Return executar(){
 		Return ret = new Return(false);
@@ -181,6 +254,7 @@ public class GerenciarSolicitacoesViewModel
 					Messagebox.OK, Messagebox.EXCLAMATION);
 		}
 		if(ret.isValid()){
+			limpar();
 			getSolicitacoesList(getUsuario().getPermissao(),getUsuario());
 		}
 		return ret;
@@ -285,6 +359,22 @@ public class GerenciarSolicitacoesViewModel
 
 	public void setData(Date data) {
 		this.data = data;
+	}
+
+	public List<?> getLstSolicitacao() {
+		return lstSolicitacao;
+	}
+
+	public void setLstSolicitacao(List<?> lstSolicitacao) {
+		this.lstSolicitacao = lstSolicitacao;
+	}
+
+	public Integer getSolicitacaoSelectedIndex() {
+		return solicitacaoSelectedIndex;
+	}
+
+	public void setSolicitacaoSelectedIndex(Integer solicitacaoSelectedIndex) {
+		this.solicitacaoSelectedIndex = solicitacaoSelectedIndex;
 	}
 
 }

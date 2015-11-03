@@ -25,10 +25,6 @@ import br.com.ueg.pids.Utils.Return;
 public class CargoUpdateViewModel extends
 		GenericViewModel<Cargo, CargoController> {
 
-	/**
-	 * 
-	 */
-	
 	@Wire("#CargoUpdate")
 	private Window win;
 	private String recordMode;
@@ -52,7 +48,7 @@ public class CargoUpdateViewModel extends
 	public void closeThis() {
 		win.detach();
 	}
-	
+
 	@NotifyChange("entity")
 	@Command
 	public Return update() {
@@ -62,15 +58,17 @@ public class CargoUpdateViewModel extends
 			ret = getControl().alterar(getItemSelected());
 		} else {
 			getItemSelected().setDepartamento(departamentoSelecionado);
-			
+
 			ret = getControl().alterar(getItemSelected());
 		}
-		
+
 		if (ret.isValid()) {
 			closeThis();
-			Messagebox.show("Cargo alterado com sucesso!", "Sucess",Messagebox.OK, Messagebox.INFORMATION);
-			
-			Executions.sendRedirect("/paginas/cadastros_base/cargo/pesquisar.zul");
+			Messagebox.show("Cargo alterado com sucesso!", "Sucess",
+					Messagebox.OK, Messagebox.INFORMATION);
+
+			Executions
+					.sendRedirect("/paginas/cadastros_base/cargo/pesquisar.zul");
 		}
 		return ret;
 	}
@@ -101,18 +99,17 @@ public class CargoUpdateViewModel extends
 		this.departamentoSelecionado = departamentoSelecionado;
 	}
 
-	
 	public void setDepartamentoList(List<Departamento> departamentoList) {
 		this.departamentoList = departamentoList;
 	}
-	
+
 	@NotifyChange("departamentoList")
 	public List<Departamento> getDepartamentoList() {
 		DepartamentoController departamentoController = new DepartamentoController();
 		departamentoList = departamentoController.getLstEntities();
 		return departamentoList;
 	}
-	
+
 	public List<Cargo> getLstCargo() {
 		return lstCargo;
 	}

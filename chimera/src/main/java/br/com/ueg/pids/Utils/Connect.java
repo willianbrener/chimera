@@ -19,23 +19,17 @@ public class Connect {
 	
 	public static boolean getConexao() {  
 	        try {  
-	            // Carregando o JDBC Driver padrão  
 	        	Class.forName("org.postgresql.Driver");
-	        	//System.out.println("JDBC driver carregado");
-	            // Configurando a nossa conexão com um banco de dados//  
-	        	//"jdbc:postgresql://localhost:5432/lan_manager","postgres","postgres"
 	            String url = "jdbc:postgresql://localhost:5432/chimera";  
 	            String username = "postgres";        //nome de um usuário de seu BD        
 	            String password = "postgres";      //sua senha de acesso  
 	            connection = DriverManager.getConnection(url, username, password);
 	            statement = (Statement) connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
-	            //System.out.println("Conectou");  
 	            return true;  
 	        }  catch (ClassNotFoundException e) {  //Driver não encontrado  
 	            System.out.println("O driver expecificado nao foi encontrado.");  
 	            return false;  
 	        } catch (SQLException e) {  
-	            //Não conseguindo se conectar ao banco  
 	            System.out.println("Nao foi possivel conectar ao Banco de Dados.");  
 	            return false;  
 	        }  
@@ -117,5 +111,22 @@ public class Connect {
 			erro.printStackTrace();
 		} 
 		return quant;
+	}
+	
+	public static Connection connectionSimple(){
+		try {
+			Class.forName("org.postgresql.Driver");
+			String url = "jdbc:postgresql://localhost:5432/chimera"; 
+			Connection conn = null;
+			conn = DriverManager.getConnection(url, "postgres", "postgres");
+			return conn;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+		
 	}
 }

@@ -1,5 +1,6 @@
 package br.com.ueg.pids.Model;
 
+@SuppressWarnings("rawtypes")
 public class Login extends GenericModel{
 
 	public String getOrdenacao() {

@@ -13,6 +13,7 @@ public abstract class GenericController<Entity> implements IController{
 	protected GenericDAO dao  = new GenericDAO();
 	private Entity entity;
 	protected List<Entity> lstEntities;
+	@SuppressWarnings("unused")
 	private List<Entity> list;
 	private List<Entity> lstCriteria;    
 
@@ -24,7 +25,7 @@ public abstract class GenericController<Entity> implements IController{
 	public abstract Return validarItemUnico(IModel<?> imodel);
 	
 	public Return salvar(IModel<?> imodel) {
-		Return res = validarSolicitacao(imodel);
+		Return res = validar(imodel);
 		if (res.isValid()) {
 			return dao.inserir(imodel);
 		}

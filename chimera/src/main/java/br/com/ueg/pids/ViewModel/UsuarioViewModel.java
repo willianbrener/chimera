@@ -27,13 +27,11 @@ public class UsuarioViewModel extends GenericViewModel<Usuario, UsuarioControlle
 	@Wire("#CustomerCRUD")
 	private Window win;
 	private List<?> cargoList;
-	private Cargo cargoSelecionado;
 	private List<?> lstUsuario;
 	String aux;
 	private Integer usuarioSelectedIndex;
 	private String busca;
 	private List<Permissao> permissaoList = new ArrayList<Permissao>();
-	private Permissao permissaoSelecionada;
 		
 	@Init
 	public void init() {
@@ -45,8 +43,6 @@ public class UsuarioViewModel extends GenericViewModel<Usuario, UsuarioControlle
 	public Return salvar() {
 		Return ret = new Return(true);
 					getEntity().setAtivo(true);
-					getEntity().setCargo(cargoSelecionado);
-					getEntity().setPermissao(permissaoSelecionada.getNome());
 					ret = getControl().salvar(getEntity());
 			if (ret.isValid()) {
 				Messagebox.show("Cadastro realizado com sucesso!","Sucess",
@@ -162,14 +158,6 @@ public class UsuarioViewModel extends GenericViewModel<Usuario, UsuarioControlle
 		this.cargoList = cargoList;
 	}
 
-	public Cargo getCargoSelecionado() {
-		return cargoSelecionado;
-	}
-
-	public void setCargoSelecionado(Cargo cargoSelecionado) {
-		this.cargoSelecionado = cargoSelecionado;
-	}
-
 	public String getAux() {
 		return aux;
 	}
@@ -205,15 +193,4 @@ public class UsuarioViewModel extends GenericViewModel<Usuario, UsuarioControlle
 	public void setPermissaoList(List<Permissao> permissaoList) {
 		this.permissaoList = permissaoList;
 	}
-
-	public Permissao getPermissaoSelecionada() {
-		return permissaoSelecionada;
-	}
-
-	public void setPermissaoSelecionada(Permissao permissaoSelecionada) {
-		this.permissaoSelecionada = permissaoSelecionada;
-	}
-
-
-
 }

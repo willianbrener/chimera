@@ -33,6 +33,7 @@ public class GenericDAO {
 			return genericDAO;
 		}
 	
+	@SuppressWarnings("unused")
 	public Return inserir(IModel<?> entidade){
 		Return res = null;
 		
@@ -604,6 +605,33 @@ public ArrayList<HashMap<String,Object>>  pesquisarQuantidade(IModel<?> entidade
 	System.out.println("O " + entidade.getTableName() + " Não Foi pesquisado problema no DAOUsuario pesquisarusuario(String) Connect.getConexão");
 	return null;
 }
+
+public ArrayList<HashMap<String,Object>>  pesquisarListaMotivo(IModel<?> entidade,int id) throws SQLException{
+	
+	String sql = "select * from 	motivo as m, solicitacoes as s, "
+			+ "usuario as u where 	m.idsolicitacoes = s.idsolicitacoes "
+			+ "and	s.idusuario = u.idusuario and s.idusuario =	"+id+"";
+	System.out.println("sql:"+sql);
+	if(Connect.getConexao()){
+		
+		ArrayList<HashMap<String,Object>> result = new ArrayList<HashMap<String,Object>>();
+		
+	ResultSet rs =  Connect.setResultSet(sql);
+	int colCount = rs.getMetaData().getColumnCount();
+	while(rs.next()){
+			HashMap<String,Object> record = new HashMap<String, Object>();
+			for(int i=1;i<=colCount;i++){
+				record.put(rs.getMetaData().getColumnName(i), rs.getString(i));
+			}
+			result.add(record);
+	}
+	Connect.close();
+	return result;
+	}
+	System.out.println("O " + entidade.getTableName() + " Não Foi pesquisado problema no DAOUsuario pesquisarusuario(String) Connect.getConexão");
+	return null;
+}
+
 
 
 }

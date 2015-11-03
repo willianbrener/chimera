@@ -9,17 +9,16 @@ import org.zkoss.bind.annotation.ExecutionArgParam;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 import br.com.ueg.pids.Control.DepartamentoController;
-import br.com.ueg.pids.Model.Cargo;
 import br.com.ueg.pids.Model.Departamento;
 import br.com.ueg.pids.Utils.Return;
 
+@SuppressWarnings("serial")
 public class DepartamentoUpdateViewModel extends GenericViewModel<Departamento, DepartamentoController>{
 
 	@Wire("#DepartamentoUpdate")

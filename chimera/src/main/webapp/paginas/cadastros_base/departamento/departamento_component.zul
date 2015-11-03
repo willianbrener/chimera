@@ -18,7 +18,7 @@
 						<row>
 							<flabel value="Nome:" />
 							<ftextbox id="fldName"
-								value="@bind(vm.itemSelected.nome)" width="180px" focus="true"
+								value="@bind(vm.itemSelected.nome)" width="180px" focus="false"
 								style="color:black !important;" />
 						</row>
 
@@ -26,13 +26,13 @@
 							<flabel value="Responsavel:" />
 							<ftextbox id="fldResponsavel"
 								value="@bind(vm.itemSelected.responsavel)" width="180px"
-								focus="true" style="color:black !important;" />
+								focus="false" style="color:black !important;" />
 						</row>
 
 						<row>
 							<flabel value="Nível:" />
 							<ftextbox id="fldNível"
-								value="@bind(vm.itemSelected.nivel)" width="180px" focus="true"
+								value="@bind(vm.itemSelected.nivel)" width="180px" focus="false"
 								style="color:black !important;" />
 						</row>
 
