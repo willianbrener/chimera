@@ -1,0 +1,36 @@
+<?init class="br.com.ueg.pids.Login.AuthenticationInit"?>
+<zk>
+	<div xmlns:n="native">
+
+		<div class="col-sm-4">
+			<n:h4>Nome:</n:h4>
+			<div class="input-group">
+				<textbox id="fldName" class="form-control"
+					value="@bind(fx.nome)" focus="true"
+					style="color:black !important;" />
+			</div>
+			<n:h4>Departamento:</n:h4>
+			<combobox class="form-control" readonly="true"
+				model="@load(vm.departamentoList)"
+				selectedItem="@bind(vm.entity.departamento)">
+				<template name="model">
+					<comboitem label="@load(each.nome)" />
+				</template>
+			</combobox>
+
+			<n:h4>Descrição:</n:h4>
+			<textbox id="fldDescription" class="form-control" rows="6"
+				value="@bind(fx.descricao)" width="100%" tabindex="11" />
+			<div class="btn-group">
+				<button label="Salvar" sclass="btn-success"
+					onClick="@command('salvar')" />
+			</div>
+			<div class="btn-group">
+				<button label="Cancelar" sclass="btn-danger"
+					onClick="@command('cancel')" />
+			</div>
+		</div>
+
+	</div>
+
+</zk>

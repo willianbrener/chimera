@@ -48,7 +48,7 @@ Session sess = Sessions.getCurrent();
 		}else if(cre.isExecutor()){
 			Executions.sendRedirect("/paginas/initial_page_executioner.zul");
 		}else if(cre.isAdmin()){
-			Executions.sendRedirect("/paginas/initial_page_master.zul");
+			Executions.sendRedirect("/teste/initial_page_master.zul");
 		}
 		message.setValue("Bem vindo, " + cre.getName());
 		message.setSclass("");

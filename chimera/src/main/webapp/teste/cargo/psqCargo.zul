@@ -1,0 +1,62 @@
+<?init class="br.com.ueg.pids.Login.AuthenticationInit"?>
+<zk>
+	<style>
+		div.z-listbox {
+		 border: 1px solid #B3B3B3; 
+		 background-color: #F5F5F5; 
+		 color: black; 
+		 } 		
+	</style>
+	<hbox align="center" sclass="searchform">
+		<textbox value="@bind(vm.keyword)" sclass="searchfield" />
+		<div class="btn-group">
+			<button label="Pesquisar" sclass="btn-warning" image=""
+				onClick="@command('ListarTodos')" />
+		</div>
+	</hbox>
+
+	<listbox id="lb" mold="paging" model="@bind(vm.lstCargo)"
+		emptyMessage="Nenhuma categoria selecionada." style="margin-top:10px"
+		selectedItem="@bind(vm.itemSelected)" pageSize="8"
+		xmlns:w="http://www.zkoss.org/2005/zk/client" checkmark="true">
+
+
+		<listhead>
+			<listheader label="Nome" align="center" sort="auto(nome)" />
+			<listheader label="Descricao" align="center"
+				sort="auto(descricao)" />
+			<listheader label="Departamento" align="center"
+				sort="auto(departamento)" />
+			<listheader label="Status" align="center"
+				sort="auto(ativo)" />
+		</listhead>
+		<template name="model">
+
+
+			<listitem>
+				<listcell label="@bind(each.nome)"
+					sclass="highlightcell">
+				</listcell>
+				<listcell label="@bind(each.descricao)"></listcell>
+				<listcell label="@bind(each.departamento.nome)"></listcell>
+				<listcell label="@bind(each.ativo)"></listcell>
+			</listitem>
+
+		</template>
+	</listbox>
+
+	<auxhead>
+		<auxheader colspan="4" class="topic">
+			<div class="btn-group">
+				<button label="Alterar" sclass="btn-success"
+					onClick="@command('telaAlterar')" />
+			</div>
+			<div class="btn-group">
+				<button label="Deletar" sclass="btn-danger"
+					onClick="@command('deletar')" />
+			</div>
+			<label value="Para alterar ou desativar selecione um item"
+				style="color: blue; font-size:8pt" />
+		</auxheader>
+	</auxhead>
+</zk>

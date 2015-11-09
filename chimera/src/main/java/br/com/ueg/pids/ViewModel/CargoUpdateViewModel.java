@@ -40,7 +40,7 @@ public class CargoUpdateViewModel extends
 		Selectors.wireComponents(view, this, false);
 		setRecordMode(recordMode);
 		if (recordMode.equals("EDIT")) {
-			itemSelected = c1;
+			setEntity(c1);
 		}
 	}
 
@@ -53,14 +53,7 @@ public class CargoUpdateViewModel extends
 	@Command
 	public Return update() {
 		Return ret = new Return(true);
-
-		if (departamentoSelecionado == null) {
-			ret = getControl().alterar(getItemSelected());
-		} else {
-			getItemSelected().setDepartamento(departamentoSelecionado);
-
-			ret = getControl().alterar(getItemSelected());
-		}
+		ret = getControl().alterar(getEntity());
 
 		if (ret.isValid()) {
 			closeThis();

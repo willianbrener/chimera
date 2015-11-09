@@ -41,7 +41,6 @@ public class CargoViewModel extends GenericViewModel<Cargo, CargoController> {
 	public Return salvar() {
 		Return ret = new Return(true);
 					getEntity().setAtivo(true);
-					getEntity().setDepartamento(departamentoSelecionado);
 					ret = getControl().salvar(getEntity());
 			if (ret.isValid()) {
 				Messagebox.show("Cadastro realizado com sucesso!","Sucess",

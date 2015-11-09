@@ -1,0 +1,46 @@
+<zk>
+<div sclass="navbar" apply="br.com.ueg.pids.ViewModel.NavbarComposer">
+	<!-- Brand Logo -->
+	<a label="Chimera " sclass="pull-left navbar-brand" image="/imagens/logo.png" />
+	<!-- Navbar -->
+	<hlayout sclass="nav-user pull-right" spacing="0">
+		<a id="anoti" iconSclass="z-icon-bell" popup="notipp, position=after_end, type=toggle" sclass="grey">
+			<label value="8" sclass="badge badge-important"/>
+		</a>
+		<!-- User menu -->
+		<menubar sclass="user-menu grey" >
+			<menu tooltiptext="Avatar" label="${sessionScope.userCredential.name}"  if="${not sessionScope.userCredential.anonymous}">
+				<menupopup>
+					<!-- <menuitem label="Settings" iconSclass="z-icon-cog"/>
+					<menuitem label="Profile" iconSclass="z-icon-user"/> -->
+					<menuseparator/>
+					<menuitem id="logout" label="Logout" iconSclass="z-icon-off"/>
+				</menupopup>
+			</menu>
+		</menubar>
+	</hlayout>
+	<!-- Popups of navbar -->
+	
+	<popup id="notipp" sclass="menu menu-white" width="240px">
+			<a label="8 Notifications" sclass="header" iconSclass="z-icon-exclamation-triangle"/>
+			<vlayout spacing="0">
+				<a iconSclass="btn btn-xs no-hover btn-pink z-icon-comment" href="#">
+					<label>New Comments</label>
+					<label value="+12" class="badge badge-info pull-right"/>
+				</a>
+				<a iconSclass="btn btn-xs no-hover btn-primary z-icon-user" href="#">
+					<label>Bob just signed up as an editor ...</label>
+				</a>
+				<a iconSclass="btn btn-xs no-hover btn-success z-icon-shopping-cart" href="#">
+					<label>New Orders</label>
+					<label value="+8" class="badge badge-info pull-right"/>
+				</a>
+				<a iconSclass="btn btn-xs no-hover btn-info z-icon-twitter" href="#">
+					<label>Followers</label>
+					<label value="+11" class="badge badge-info pull-right"/>
+				</a>
+				<a label="See all notifications" href="#"><span class="z-icon-arrow-right"/></a>
+		</vlayout>
+	</popup>
+</div>
+</zk>
