@@ -1,6 +1,9 @@
 <?page title="Criar Solicitações" contentType="text/html;charset=UTF-8"?>
 <?init class="br.com.ueg.pids.Login.AuthenticationInit"?>
-<?init class="org.zkoss.zk.ui.util.Composition" arg0="/componentes/templates/executioner/template_executioner.zul"?>
+<?link href="/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"?>
+<?link href="/css/fonts.css" rel="stylesheet" type="text/css"?>
+<?link href="/less/index.css.dsp" rel="stylesheet" type="text/css"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/componentes/templates/executioner/templateExecutioner.zul"?>
 <zk>
  <div self="@define(content)" apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('br.com.ueg.pids.ViewModel.GerenciarSolicitacoesViewModel')"

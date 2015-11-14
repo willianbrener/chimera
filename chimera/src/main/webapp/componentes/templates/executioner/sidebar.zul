@@ -1,0 +1,59 @@
+<zk>
+	<div id="sidebar" sclass="sidebar"
+		apply="br.com.ueg.pids.ViewModel.SidebarComposer">
+		<!-- Shortcuts Button-->
+		<div class="shortcuts">
+			<!-- Display when expanded -->
+			<div class="shortcuts-expanded">
+				<button type="button" class="btn-success"
+					iconSclass="z-icon-signal" />
+				<button type="button" class="btn-info"
+					iconSclass="z-icon-pencil" />
+				<button type="button" class="btn-warning"
+					iconSclass="z-icon-group" />
+				<button type="button" class="btn-danger"
+					iconSclass="z-icon-cogs" tooltiptext="Configuração" />
+			</div>
+			<!-- Display when collapsed -->
+			<div class="shortcuts-collapsed">
+				<button type="button" class="btn-success" />
+				<button type="button" class="btn-info" />
+				<button type="button" class="btn-warning" />
+				<button type="button" class="btn-danger" />
+			</div>
+		</div>
+		<!-- Navigation List -->
+		<navbar id="navbar" sclass="nav-list" orient="vertical">
+			<navitem label="Página Inicial"
+				iconSclass="z-icon-dashboard" selected="true">
+
+				<attribute name="onClick"><![CDATA[
+	Executions.sendRedirect("/paginas/initial_page_executioner.zul");
+]]></attribute>
+			</navitem>
+			<nav label="Generenciar Solicitações"
+				iconSclass="z-icon-group">
+				<navitem label="Solicitações">
+					<attribute name="onClick"><![CDATA[
+	Executions
+			.sendRedirect("/paginas/gerenciar_solicitacoes/executioner/pesquisar.zul");
+]]></attribute>
+				</navitem>
+				<!-- <navitem label="Criar Solicitação">
+					<attribute name="onClick"><![CDATA[
+					Executions.sendRedirect("/paginas/gerenciar_solicitacoes/executioner/cadastrar.zul");
+					]]></attribute>
+					</navitem>	 -->
+			</nav>
+			<!-- Toggler -->
+			<div sclass="sidebar-collapse">
+				<a id="toggler" iconSclass="z-icon-angle-double-left" />
+			</div>
+			<!-- Tooptip for Calender Navitem -->
+			<popup id="calpp" zclass="tooltip"
+				sclass="right tooltip-error cal">
+				<span zclass="tooltip-arrow" />
+				<label zclass="tooltip-inner" value="2 Important Event" />
+			</popup>
+	</div>
+</zk>

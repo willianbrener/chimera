@@ -3,7 +3,7 @@
 
   	<hbox align="center" sclass="searchform">
         <textbox value="@bind(vm.busca)"  sclass="searchfield"/>
-        <Addbutton label="Pesquisar" image="" onClick="@command('ListarTodos')" />
+        <button label="Pesquisar" image="" onClick="@command('ListarTodos')" />
     </hbox>
 
     <listbox sclass="mylist" id="list" model="@bind(vm.lstUsuario)" emptyMessage="Nenhum usuario listado." width="600px"
@@ -33,8 +33,8 @@
 
    		 	<auxhead>
         		<auxheader colspan="4" class="topic">
-        			<fbutton label="Alterar" onClick="@command('telaAlterar')" />
-        			<fbutton label="Deletar" onClick="@command('deletar')" />
+        			<button label="Alterar" onClick="@command('telaAlterar')" />
+        			<button label="Deletar" onClick="@command('deletar')" />
         			<label
         				value="Para alterar ou desativar selecione um item"
         				style="color: blue; font-size:8pt" />

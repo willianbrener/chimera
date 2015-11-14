@@ -1,89 +1,68 @@
 <?init class="br.com.ueg.pids.Login.AuthenticationInit"?>
 <zk xmlns:c="client">
-    <style>
-        .meter {
-            font-size: 1px;
-            height: 3px;
-        }
-        .meter-inner {
-            width: 0px;
-            height: 3px;
-        }
-        .meter-red .meter-inner{
-            background: red;
-        }
-        .meter-orange .meter-inner{
-            background: orange;
-        }
-        .meter-green .meter-inner{
-            background: green;
-        }
-    </style>
-		<fgrid hflex="min"><!-- style="border:1px solid white;"-->
-			<rows>
-				<row>
-					<flabel value="Nome:" />
-					<ftextbox id="fldName" value="@bind(fx.nome)"
-						width="180px" focus="true" style="color:black !important;"  />
-				</row>
-				
-				<row>
-					<flabel value="Account:" />
-					<ftextbox id="fldAccount" value="@bind(fx.account)"
-						width="180px" focus="false" style="color:black !important;"  />
-				</row>
-				
-				 <row>
-	                <flabel value="Password:" />
-	                <textbox id="pwd" width="180px" type="password" 
-	                c:onChanging="meterUpdate(event)" value="@bind(fx.password)" />
-	            </row>
-	            <row>
-	               <flabel value="Password Strength:" />
-	                <vlayout>
-	                    <div id="meter" sclass="meter" width="180px">
-	                        <div sclass="meter-inner"></div>
-	                    </div>
-	                    <label id="msg" />
-	                </vlayout>
-	            </row>
-				
-				<row>
-					<flabel value="Email:" />
-					<ftextbox id="fldEmail" value="@bind(fx.email)"
-						width="180px" focus="false" style="color:black !important;"  />
-				</row>
-				
-				<row>
-					<flabel value="Permissao:" />
-					<combobox width="180px" readonly="true"
-						model="@load(vm.permissaoList)"
-						selectedItem="@bind(fx.permissao)" >
-						<template name="model">
-							<comboitem label="@load(each.nome)" />
-						</template>
-					</combobox>
-				</row>
-				
-				<row>
-					<flabel value="Cargo:" />
-					<combobox width="180px" readonly="true"
-						model="@load(vm.cargoList)"
-						selectedItem="@bind(vm.entity.cargo)" >
-						<template name="model">
-							<comboitem label="@load(each.nome)" />
-						</template>
-					</combobox>
-				</row>
-			
-				<row>
-					<fbutton label="Salvar"
-						onClick="@command('salvar')" />
-					<fbutton label="Cancelar"
-						onClick="@command('cancel')" />
-				</row>
+	<style>
+		.meter { font-size: 1px; height: 3px; } .meter-inner { width:
+		0px; height: 3px; } .meter-red .meter-inner{ background: red; }
+		.meter-orange .meter-inner{ background: orange; } .meter-green
+		.meter-inner{ background: green; }
+	</style>
+	<div xmlns:n="native">
+		<div class="col-sm-4"></div>
+		<div class="col-sm-4">
+			<n:h4>Nome:</n:h4>
+			<textbox id="fldName" value="@bind(fx.nome)" class="form-control"
+				focus="true" style="color:black !important;" />
 
-			</rows>
-		</fgrid>
-		<script src="/js/pwd_str.js" ></script>
+			<n:h4>Usuário:</n:h4>
+			<textbox id="fldAccount" value="@bind(fx.account)"
+				class="form-control" focus="false" style="color:black !important;" />
+
+			<n:h4>Senha:</n:h4>
+			<textbox id="pwd"  type="password" class="form-control"
+				c:onChanging="meterUpdate(event)" value="@bind(fx.password)" />
+
+			<n:h4>Força da senha:</n:h4>
+			<vlayout>
+				<div id="meter" sclass="meter" >
+					<div sclass="meter-inner"></div>
+				</div>
+				<label id="msg" />
+			</vlayout>
+
+			<n:h4>E-mail:</n:h4>
+			<textbox id="fldEmail" value="@bind(fx.email)" class="form-control"
+				focus="false" style="color:black !important;" />
+
+			<n:h4>Permissão:</n:h4>
+		<div class="input-group">
+			<combobox  readonly="true" class="form-control"
+				model="@load(vm.permissaoList)"
+				selectedItem="@bind(fx.permissao)">
+				<template name="model">
+					<comboitem label="@load(each.nome)" />
+				</template>
+			</combobox>
+</div>
+			<n:h4>Cargo:</n:h4>
+	<div class="input-group">
+			<combobox  readonly="true" class="form-control"
+				model="@load(vm.cargoList)" selectedItem="@bind(vm.entity.cargo)">
+				<template name="model">
+					<comboitem label="@load(each.nome)" />
+				</template>
+			</combobox>
+	</div>
+	<separator > </separator>
+			<div class="btn-group">
+				<button label="Salvar" sclass="btn-success" onClick="@command('salvar')" />
+			</div>
+			
+			<div class="btn-group">
+				<button label="Cancelar" sclass="btn-danger" onClick="@command('cancel')" />
+			</div>
+		</div>
+		<div class="col-sm-4"></div>
+	</div>
+
+	<script src="/js/pwd_str.js"></script>
 </zk>

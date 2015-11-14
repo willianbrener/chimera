@@ -1,7 +1,9 @@
 <?init class="br.com.ueg.pids.Login.AuthenticationInit"?>
-<?link rel="stylesheet" type="text/css" href="/style.css"?>
-<?page title="Página Inicial Executor"?>
-<?init class="org.zkoss.zk.ui.util.Composition" arg0="/componentes/templates/executioner/template_executioner.zul"?>
+<?page title="Página Inicial"?>
+<?link href="/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"?>
+<?link href="/css/fonts.css" rel="stylesheet" type="text/css"?>
+<?link href="/less/index.css.dsp" rel="stylesheet" type="text/css"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/componentes/templates/executioner/templateExecutioner.zul"?>
 <zk>
 	<vlayout self="@define(content)" width="100%" height="100%" style="overflow: auto;">
 		

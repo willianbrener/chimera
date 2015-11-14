@@ -1,11 +1,14 @@
 <?init class="br.com.ueg.pids.Login.AuthenticationInit"?>
-<?init class="org.zkoss.zk.ui.util.Composition" arg0="/componentes/templates/master/template_master.zul"?>
+<?init class="org.zkoss.zk.ui.util.Composition" arg0="/componentes/templates/master/templateMaster.zul"?>
 <?page title="Cadastro Cargo" contentType="text/html;charset=UTF-8"?>
+<?link href="/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"?>
+<?link href="/css/fonts.css" rel="stylesheet" type="text/css"?>
+<?link href="/less/index.css.dsp" rel="stylesheet" type="text/css"?>
 <zk>
 	 <div self="@define(content)" apply="org.zkoss.bind.BindComposer"
        
 		viewModel="@id('vm')@init('br.com.ueg.pids.ViewModel.CargoViewModel')"
-		form="@id('fx') @load(vm.entity) @save(vm.entity, before='salvar')" align="center" 
+		form="@id('fx') @load(vm.entity) @save(vm.entity, before='salvar')" 
 		style="margin-top:50px">
 
 		<include src="frmCargo.zul"/>

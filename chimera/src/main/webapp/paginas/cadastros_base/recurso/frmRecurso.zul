@@ -1,35 +1,39 @@
 <?init class="br.com.ueg.pids.Login.AuthenticationInit"?>
 <zk>
-		<fgrid hflex="min"><!-- style="border:1px solid white;"-->
-			<rows>
-				<row>
-					<flabel value="Nome:" />
-					<ftextbox id="fldName" value="@bind(fx.nome)"
-						width="180px" focus="true" style="color:black !important;"  />
-				</row>
-				<row>
-					<flabel value="Departamento:" />
-					<combobox width="180px" readonly="true"
-						model="@load(vm.departamentoList)"
-						selectedItem="@bind(vm.departamentoSelecionado)" >
-						<template name="model">
-							<comboitem label="@load(each.nome)" />
-						</template>
-					</combobox>
-				</row>
-				<row>
-					<flabel value="Descrição:" />
-					<ftextbox id="fldDescription"
-					rows="6"
-						value="@bind(fx.descricao)" width="210px;" tabindex="11" />
-				</row>
-				<row>
-					<fbutton label="Salvar"
-						onClick="@command('salvar')" />
-					<fbutton label="Cancelar"
-						onClick="@command('cancel')" />
-				</row>
+	<div xmlns:n="native">
+		<div class="col-sm-3"></div>
+		<div class="col-sm-6">
 
-			</rows>
-		</fgrid>
+			<n:h4>Nome:</n:h4>
+
+			<textbox id="fldName" value="@bind(fx.nome)"
+				class="form-control" focus="true" />
+
+			<n:h4>Departamento:</n:h4>
+			<div class="input-group">
+				<combobox readonly="true" class="form-control"
+					model="@load(vm.departamentoList)"
+					selectedItem="@bind(vm.departamentoSelecionado)">
+					<template name="model">
+						<comboitem label="@load(each.nome)" />
+					</template>
+				</combobox>
+			</div>
+			<n:h4>Descrição:</n:h4>
+			<textbox id="fldDescription" rows="6" width="100%"
+				class="form-control" value="@bind(fx.descricao)" tabindex="11" />
+			
+			<separator > </separator>
+			<div class="btn btn-success btn-lg">
+				<button label="Salvar" 
+					onClick="@command('salvar')" />
+			</div>
+			<div class="btn btn-danger btn-lg">
+				<button label="Cancelar" sclass="btn-danger"
+					onClick="@command('cancel')" />
+			</div>
+
+		</div>
+		<div class="col-sm-3"></div>
+	</div>
 </zk>
