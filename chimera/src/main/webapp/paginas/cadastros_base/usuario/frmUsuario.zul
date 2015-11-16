@@ -56,7 +56,7 @@
 			<div class="btn-group">
 				<button label="Salvar" sclass="btn-success" onClick="@command('salvar')" />
 			</div>
-			
+			<space></space>
 			<div class="btn-group">
 				<button label="Cancelar" sclass="btn-danger" onClick="@command('cancel')" />
 			</div>

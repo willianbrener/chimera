@@ -1,6 +1,6 @@
 <?init class="br.com.ueg.pids.Login.AuthenticationInit"?>
 <zk>
-		<fgrid hflex="min" sclass="nostyle">
+		<grid hflex="min" sclass="nostyle">
 			<rows>
 
 				<row>
@@ -28,7 +28,7 @@
 					<textbox id="fldStatus" readonly="true" value="@bind(vm.entity.situacao)" width="60%" />
 				</row>
 			</rows>
-		</fgrid>
+		</grid>
 		<listbox sclass="mylist" id="list"  model="@bind(vm.lstSolicitacoes)"
 			emptyMessage="Nenhuma solicitação selecionada." width="700px"
 			style="margin-top:10px" mold="paging" pageSize="5" selectedItem="@bind(vm.itemSelected)" >
@@ -61,9 +61,9 @@
 		</listbox>
 		<auxhead>
 			<auxheader class="topic">
-				<fbutton label="Rejeitar" onClick="@command('rejeitar')" />
-				<fbutton label="Aprovar" onClick="@command('aprovar')" />
-				<fbutton label="Limpar" onClick="@command('limpar')" />
+				<button label="Rejeitar" onClick="@command('rejeitar')" />
+				<button label="Aprovar" onClick="@command('aprovar')" />
+				<button label="Limpar" onClick="@command('limpar')" />
 			</auxheader>
 		</auxhead>
 </zk>

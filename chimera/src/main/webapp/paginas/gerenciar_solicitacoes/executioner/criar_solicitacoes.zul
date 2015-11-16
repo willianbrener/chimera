@@ -49,7 +49,7 @@
 			</row>
 			<row spans="1,8">
 			<label value="Descrição:" />
-					<ftextbox id="fldDescription"
+					<textbox id="fldDescription"
 					rows="4"
 					width="550px" tabindex="11" value="@bind(vm.entity.descricao)"/>
 			</row>
@@ -58,9 +58,9 @@
 	
 		<auxhead>
     		<auxheader  class="topic">
-    			<fbutton label="Salvar" onClick="@command('salvar')" />
-    			<fbutton label="Cancelar" onClick="@command('cancelar')" />
-    			<fbutton label="Limpar" onClick="@command('limpar')" />	
+    			<button label="Salvar" onClick="@command('salvar')" />
+    			<button label="Cancelar" onClick="@command('cancelar')" />
+    			<button label="Limpar" onClick="@command('limpar')" />	
     		</auxheader>
     	</auxhead>
         	<script type="text/javascript">
