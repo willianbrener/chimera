@@ -11,6 +11,7 @@ import org.zkoss.zul.A;
 import org.zkoss.zul.Div;
 import org.zkoss.zul.Hlayout;
 
+@SuppressWarnings("serial")
 public class SidebarComposer extends SelectorComposer<Component> {
 	
 	@Wire

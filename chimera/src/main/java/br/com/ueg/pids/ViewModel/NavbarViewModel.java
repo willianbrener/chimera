@@ -15,6 +15,7 @@ import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.A;
+import org.zkoss.zul.Div;
 
 import br.com.ueg.pids.Control.GerenciarSolicitacoesController;
 import br.com.ueg.pids.Login.AuthentificationServiceImpl2;
@@ -25,7 +26,7 @@ import br.com.ueg.pids.Model.Usuario;
 import br.com.ueg.pids.Utils.Return;
 
 @SuppressWarnings("serial")
-public class NavbarViewModel extends SelectorComposer<Component> {
+public class NavbarViewModel extends Div {
 	
 	@Wire
 	A atask, anoti, amsg;

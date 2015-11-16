@@ -47,14 +47,5 @@
 			</nav>
 			</navbar>
 			<!-- Toggler -->
-			<div sclass="sidebar-collapse">
-				<a id="toggler" iconSclass="z-icon-angle-double-left" />
-			</div>
-			<!-- Tooptip for Calender Navitem -->
-			<popup id="calpp" zclass="tooltip"
-				sclass="right tooltip-error cal">
-				<span zclass="tooltip-arrow" />
-				<label zclass="tooltip-inner" value="2 Important Event" />
-			</popup>
 	</div>
 </zk>
