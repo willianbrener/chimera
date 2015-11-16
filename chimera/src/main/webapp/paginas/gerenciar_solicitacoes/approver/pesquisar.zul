@@ -3,13 +3,14 @@
 <?link href="/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"?>
 <?link href="/css/fonts.css" rel="stylesheet" type="text/css"?>
 <?link href="/less/index.css.dsp" rel="stylesheet" type="text/css"?>
+<?link href="/css/style.css" rel="stylesheet" type="text/css"?>
 <?init class="org.zkoss.zk.ui.util.Composition" arg0="/componentes/templates/approver/templateApprover.zul"?>
 <zk>
 	
 	 <div self="@define(content)"
         apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('br.com.ueg.pids.ViewModel.GerenciarSolicitacoesViewModel')"
-           align="center"  width="100%" style="margin-top:50px">
+            width="100%" style="margin-top:50px">
            
 		<include src="gerenciar_solicitacoes.zul"/>
 	</div>

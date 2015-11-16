@@ -11,27 +11,31 @@
 		align="center" width="100%" style="margin-top:50px">
 		<hbox>
 
-			<datebox id="in" onChange="cal.value = in.value"  value="@bind(vm.data01)"
-					format="dd/MM/yyyy" locale="pt_BR" placeholder="DD/MM/YYYY"/>
-					
-			<calendar id="cal" onChange="in.value = cal.value"  value="@bind(vm.data01)"
-					  />
-					
+			<datebox class="input-group" id="in"
+				onChange="cal.value = in.value" value="@bind(vm.data01)"
+				format="dd/MM/yyyy" locale="pt_BR" placeholder="DD/MM/YYYY" />
+
+			<calendar class="input-group" id="cal"
+				onChange="in.value = cal.value" value="@bind(vm.data01)" />
+
 
 		</hbox>
 		<separator spacing="10px" />
 		<hbox>
 
-			<datebox id="in2" onChange="cal2.value = in2.value"  value="@bind(vm.data02)"
-					format="dd/MM/yyyy" locale="pt_BR" placeholder="DD/MM/YYYY"/>
-					
-			<calendar id="cal2" onChange="in2.value = cal2.value"  value="@bind(vm.data02)"/>
+			<datebox class="input-group" id="in2"
+				onChange="cal2.value = in2.value" value="@bind(vm.data02)"
+				format="dd/MM/yyyy" locale="pt_BR" placeholder="DD/MM/YYYY" />
+
+			<calendar id="cal2" onChange="in2.value = cal2.value"
+				value="@bind(vm.data02)" />
 
 		</hbox>
 		<separator spacing="20px" />
-		<button label="Gerar Relatório"
-			onClick="@command('gerarRelatorioData')" />
-
+		<div class="btn btn-primary btn-lg">
+			<button class="btn-primary" label="Gerar Relatório"
+				onClick="@command('gerarRelatorioData')" />
+		</div>
 	</div>
 
 </zk>

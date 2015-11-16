@@ -45,6 +45,7 @@
 					]]></attribute>
 					</navitem>	 -->
 			</nav>
+			</navbar>
 			<!-- Toggler -->
 			<div sclass="sidebar-collapse">
 				<a id="toggler" iconSclass="z-icon-angle-double-left" />

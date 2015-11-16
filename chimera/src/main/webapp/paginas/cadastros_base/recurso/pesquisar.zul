@@ -3,6 +3,7 @@
 <?init class="org.zkoss.zk.ui.util.Composition" arg0="/componentes/templates/master/templateMaster.zul"?>
 <?link href="/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css"?>
 <?link href="/css/fonts.css" rel="stylesheet" type="text/css"?>
+<?link href="/css/style.css" rel="stylesheet" type="text/css"?>
 <?link href="/less/index.css.dsp" rel="stylesheet" type="text/css"?>
 <zk>
   <div self="@define(content)"

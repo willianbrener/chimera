@@ -1,4 +1,4 @@
-package br.com.ueg.pids.ViewModel;
+package br.com.ueg.pids.ViewModel.Update;
 
 import java.util.List;
 
@@ -15,36 +15,33 @@ import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
+import br.com.ueg.pids.Control.CargoController;
 import br.com.ueg.pids.Control.DepartamentoController;
-import br.com.ueg.pids.Control.RecursoController;
+import br.com.ueg.pids.Model.Cargo;
 import br.com.ueg.pids.Model.Departamento;
-import br.com.ueg.pids.Model.Recurso;
 import br.com.ueg.pids.Utils.Return;
+import br.com.ueg.pids.ViewModel.GenericViewModel;
 
 @SuppressWarnings("serial")
-public class RecursoUpdateViewModel extends
-		GenericViewModel<Recurso, RecursoController> {
+public class CargoUpdateViewModel extends
+		GenericViewModel<Cargo, CargoController> {
 
-	/**
-	 * 
-	 */
-	
-	@Wire("#RecursoUpdate")
+	@Wire("#CargoUpdate")
 	private Window win;
 	private String recordMode;
 	private Departamento departamentoSelecionado;
 	private List<Departamento> departamentoList;
-	private List<Recurso> lstRecurso;
+	private List<Cargo> lstCargo;
 
 	@Init
 	public void initSetup(@ContextParam(ContextType.VIEW) Component view,
-			@ExecutionArgParam("RecursoObject") Recurso c1,
+			@ExecutionArgParam("CargoObject") Cargo c1,
 			@ExecutionArgParam("recordMode") String recordMode)
 			throws CloneNotSupportedException {
 		Selectors.wireComponents(view, this, false);
 		setRecordMode(recordMode);
 		if (recordMode.equals("EDIT")) {
-			itemSelected = c1;
+			setEntity(c1);
 		}
 	}
 
@@ -52,25 +49,20 @@ public class RecursoUpdateViewModel extends
 	public void closeThis() {
 		win.detach();
 	}
-	
+
 	@NotifyChange("entity")
 	@Command
 	public Return update() {
 		Return ret = new Return(true);
+		ret = getControl().alterar(getEntity());
 
-		if (departamentoSelecionado == null) {
-			ret = getControl().alterar(getItemSelected());
-		} else {
-			getItemSelected().setDepartamento(departamentoSelecionado);
-			
-			ret = getControl().alterar(getItemSelected());
-		}
-		
 		if (ret.isValid()) {
 			closeThis();
-			Messagebox.show("Recurso alterado com sucesso!", "Sucess",Messagebox.OK, Messagebox.INFORMATION);
-			
-			Executions.sendRedirect("/paginas/cadastros_base/recurso/pesquisar.zul");
+			Messagebox.show("Cargo alterado com sucesso!", "Sucess",
+					Messagebox.OK, Messagebox.INFORMATION);
+
+			Executions
+					.sendRedirect("/paginas/cadastros_base/cargo/pesquisar.zul");
 		}
 		return ret;
 	}
@@ -83,6 +75,16 @@ public class RecursoUpdateViewModel extends
 		this.recordMode = recordMode;
 	}
 
+	@Override
+	public Cargo getObject() {
+		return new Cargo();
+	}
+
+	@Override
+	public CargoController getControl() {
+		return new CargoController();
+	}
+
 	public Departamento getDepartamentoSelecionado() {
 		return departamentoSelecionado;
 	}
@@ -91,11 +93,10 @@ public class RecursoUpdateViewModel extends
 		this.departamentoSelecionado = departamentoSelecionado;
 	}
 
-	
 	public void setDepartamentoList(List<Departamento> departamentoList) {
 		this.departamentoList = departamentoList;
 	}
-	
+
 	@NotifyChange("departamentoList")
 	public List<Departamento> getDepartamentoList() {
 		DepartamentoController departamentoController = new DepartamentoController();
@@ -103,30 +104,12 @@ public class RecursoUpdateViewModel extends
 		return departamentoList;
 	}
 
-	public Window getWin() {
-		return win;
+	public List<Cargo> getLstCargo() {
+		return lstCargo;
 	}
 
-	public void setWin(Window win) {
-		this.win = win;
+	public void setLstCargo(List<Cargo> lstCargo) {
+		this.lstCargo = lstCargo;
 	}
 
-	public List<Recurso> getLstRecurso() {
-		return lstRecurso;
-	}
-
-	public void setLstRecurso(List<Recurso> lstRecurso) {
-		this.lstRecurso = lstRecurso;
-	}
-
-	@Override
-	public Recurso getObject() {
-		return new Recurso();
-	}
-
-	@Override
-	public RecursoController getControl() {
-		return new RecursoController();
-	}
-	
 }

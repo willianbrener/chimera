@@ -1,69 +1,95 @@
 <?init class="br.com.ueg.pids.Login.AuthenticationInit"?>
 <zk>
-		<grid hflex="min" sclass="nostyle">
-			<rows>
+		<div xmlns:n="native">
+		<div class="col-sm-1"></div>
+		<div class="col-sm-10">
+			<div class="row">
+				<div sclass="col-sm-4 normal-article">
+					<n:h4>Usuário:</n:h4>
+					<textbox id="fldUser" readonly="true"
+						value="@bind(vm.entity.usuario.account)" class="form-control" />
 
-				<row>
-					<label value="Usuário:" />
-					<textbox id="fldUser" readonly="true" value="@bind(vm.entity.usuario.account)" width="100%" />
+					<n:h4>Departamento:</n:h4>
+					<textbox id="fldDepartament" readonly="true"
+						value="@bind(vm.entity.usuario.cargo.departamento.nome)"
+						class="form-control" />
+				</div>
+				<div sclass="col-sm-4 normal-article">
 
-					<label value="Departamento:" />
-					<textbox id="fldDepartament" readonly="true" value="@bind(vm.entity.usuario.cargo.departamento.nome)"  width="100%" />
+					<n:h4>Cargo:</n:h4>
+					<textbox id="fldCargo" readonly="true"
+						value="@bind(vm.entity.usuario.cargo.nome)" class="form-control" />
+
+					<n:h4>Permissão:</n:h4>
+					<textbox id="fldPermission" readonly="true"
+						value="@bind(vm.entity.usuario.permissao)" class="form-control" />
+				</div>
+				<div sclass="col-sm-4 normal-article">
+					<n:h4>Recurso:</n:h4>
+					<textbox id="fldRecurso" readonly="true"
+						value="@bind(vm.entity.recurso.nome)" class="form-control" />
+
+					<n:h4>Status:</n:h4>
+					<textbox id="fldStatus" readonly="true"
+						value="@bind(vm.entity.situacao)" class="form-control" />
+				</div>
+			</div>
+
+			<listbox id="lb" model="@bind(vm.lstSolicitacoes)"
+				emptyMessage="Nenhuma solicitação selecionada."
+				style="margin-top:10px" mold="paging" pageSize="5"
+				xmlns:w="http://www.zkoss.org/2005/zk/client"
+				selectedItem="@bind(vm.itemSelected)">
 
 
-				</row>
-				<row>
-					<label value="Cargo:" />
-					<textbox id="fldCargo" readonly="true" value="@bind(vm.entity.usuario.cargo.nome)" width="100%" />
-
-					<label value="Permissão:" />
-					<textbox id="fldPermission" readonly="true" value="@bind(vm.entity.usuario.permissao)"  width="100%" />
-				</row>
-				
-				<row>
-					<label value="Recurso:" />
-					<textbox id="fldRecurso" readonly="true"  value="@bind(vm.entity.recurso.nome)" width="100%" />
-
-					<label value="Status:" />
-					<textbox id="fldStatus" readonly="true" value="@bind(vm.entity.situacao)" width="60%" />
-				</row>
-			</rows>
-		</grid>
-		<listbox sclass="mylist" id="list"  model="@bind(vm.lstSolicitacoes)"
-			emptyMessage="Nenhuma solicitação selecionada." width="700px"
-			style="margin-top:10px" mold="paging" pageSize="5" selectedItem="@bind(vm.itemSelected)" >
-
- 
-			<listhead sizable="true">
-				<listheader label="Data" align="center" 
-					sort="auto(data)" />
-				<listheader label="Usuário" align="center" 
-					sort="auto(usuario)" />
-				<listheader label="Descrição" align="center" 
-					sort="auto(descricao)" />
+				<listhead sizable="true">
+					<listheader label="Data" align="center"
+						sort="auto(data)" />
+					<listheader label="Usuário" align="center"
+						sort="auto(usuario)" />
+					<listheader label="Descrição" align="center"
+						sort="auto(descricao)" />
 					<listheader label="" align="center" />
-			</listhead>
-			<template name="model">
-				<listitem >
-					<listcell  label="@bind(each.data)" sclass="highlightcell" onClick="@command('setaValores')"></listcell>
-					<listcell  label="@bind(each.usuario.account)" onClick="@command('setaValores')"></listcell>
-					<listcell  label="@bind(each.descricao)" onClick="@command('setaValores')"></listcell>
-					<listcell >
-						
-						<button image="/imagens/remove-icon.png"
-							onClick="@command('deletar') @global-command('refresh')" />
-						<button image="/imagens/edit-icon.png"
-							onClick="@command('telaAlterar') @global-command('refresh')" />
-					</listcell>
+				</listhead>
+				<template name="model">
+					<listitem>
+						<listcell label="@bind(each.data)"
+							sclass="highlightcell" onClick="@command('setaValores')">
+						</listcell>
+						<listcell label="@bind(each.usuario.account)"
+							onClick="@command('setaValores')">
+						</listcell>
+						<listcell label="@bind(each.descricao)"
+							onClick="@command('setaValores')">
+						</listcell>
+						<listcell>
 
-				</listitem>
-			</template>
-		</listbox>
-		<auxhead>
-			<auxheader class="topic">
-				<button label="Rejeitar" onClick="@command('rejeitar')" />
-				<button label="Executar" onClick="@command('executar')" />
-				<button label="Limpar" onClick="@command('limpar')" />
-			</auxheader>
-		</auxhead>
+							<button image="/imagens/remove-icon.png"
+								onClick="@command('deletar') @global-command('refresh')" />
+							<button image="/imagens/edit-icon.png"
+								onClick="@command('telaAlterar') @global-command('refresh')" />
+						</listcell>
+
+					</listitem>
+				</template>
+			</listbox>
+			<auxhead>
+				<auxheader class="topic">
+					<div class="btn btn-danger btn-md">
+						<button label="Rejeitar" sclass="btn-danger"
+							onClick="@command('rejeitar')" />
+					</div>
+					<div class="btn btn-success btn-md">
+						<button label="Aprovar" sclass="btn-success"
+							onClick="@command('executar')" />
+					</div>
+					<div class="btn btn-warning btn-md">
+						<button label="Limpar" sclass="btn-warning"
+							onClick="@command('limpar')" />
+					</div>
+				</auxheader>
+			</auxhead>
+		</div>
+		<div class="col-sm-1"></div>
+	</div>
 </zk>

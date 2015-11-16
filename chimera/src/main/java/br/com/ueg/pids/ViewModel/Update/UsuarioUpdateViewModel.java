@@ -1,4 +1,4 @@
-package br.com.ueg.pids.ViewModel;
+package br.com.ueg.pids.ViewModel.Update;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +21,7 @@ import br.com.ueg.pids.Enum.Permissao;
 import br.com.ueg.pids.Model.Cargo;
 import br.com.ueg.pids.Model.Usuario;
 import br.com.ueg.pids.Utils.Return;
+import br.com.ueg.pids.ViewModel.GenericViewModel;
 
 @SuppressWarnings("serial")
 public class UsuarioUpdateViewModel extends GenericViewModel<Usuario, UsuarioController>{
@@ -41,7 +42,7 @@ public class UsuarioUpdateViewModel extends GenericViewModel<Usuario, UsuarioCon
 		Selectors.wireComponents(view, this, false);
 		setRecordMode(recordMode);
 		if (recordMode.equals("EDIT")) {
-			itemSelected = c1;
+			setEntity(c1);
 		}
 	}
 

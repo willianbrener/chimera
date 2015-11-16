@@ -2,78 +2,95 @@
 <zk>
 
 	<div xmlns:n="native">
-		<div class="col-sm-3"></div>
-		<div class="col-sm-6">
+		<div class="col-sm-1"></div>
+		<div class="col-sm-10">
+			<div class="row">
+				<div sclass="col-sm-4 normal-article">
+					<n:h4>Usuário:</n:h4>
+					<textbox id="fldUser"
+						value="@bind(vm.entity.usuario.nome)" readonly="true"
+						class="form-control" />
 
-			<n:h4>Usuário:</n:h4>
-			<textbox id="fldUser" value="@bind(vm.entity.usuario.nome)"
-				readonly="true" class="form-control" />
+					<n:h4>Departamento:</n:h4>
+					<textbox id="fldDepartament"
+						value="@bind(vm.entity.usuario.cargo.departamento.nome)"
+						readonly="true" class="form-control" />
+				</div>
+				<div sclass="col-sm-4 normal-article">
+					<n:h4>Data:</n:h4>
+					<div class="input-group">
+						<datebox id="fldDate" value="@bind(vm.data)"
+							sclass="input-group" format="dd/MM/yyyy" locale="pt_BR"
+							placeholder="DD/MM/YYYY" />
+					</div>
 
-			<n:h4>Departamento:</n:h4>
-			<div class="input-group">
-				<textbox id="fldDepartament"
-					value="@bind(vm.entity.usuario.cargo.departamento.nome)"
-					readonly="true" class="form-control" />
-			</div>
-			<n:h4>Data:</n:h4>
-			<div class="input-group">
-				<datebox id="fldDate" value="@bind(vm.data)"
-					format="dd/MM/yyyy" locale="pt_BR" placeholder="DD/MM/YYYY"
-					class="form-control" />
-			</div>
+					<n:h4>Cargo:</n:h4>
+					<textbox id="fldCargo"
+						value="@bind(vm.entity.usuario.cargo.nome)" readonly="true"
+						class="form-control" />
+				</div>
 
-			<n:h4>Cargo:</n:h4>
-			<div class="input-group">
-				<textbox id="fldCargo"
-					value="@bind(vm.entity.usuario.cargo.nome)" readonly="true"
-					class="form-control" />
-			</div>
-			<n:h4>Permissão:</n:h4>
-			<div class="input-group">
-				<textbox id="fldPermissao"
-					value="@bind(vm.entity.usuario.permissao)" readonly="true"
-					class="form-control" />
-			</div>
-			<div class="input-group">
-				<n:h4>Hora:</n:h4>
-				<textbox id="fldHour" value="@bind(vm.entity.hora)"
-					placeholder="HH:MM" class="form-control" />
-			</div>
-			<n:h4>Título:</n:h4>
-			<textbox id="fldTittle" value="@bind(vm.entity.titulo)"
-				class="form-control" />
+				<div sclass="col-sm-4 normal-article">
+					<n:h4>Permissão:</n:h4>
+					<div class="input-group">
+						<textbox id="fldPermissao"
+							value="@bind(vm.entity.usuario.permissao)" readonly="true"
+							class="form-control" />
+					</div>
 
-
-			<n:h4>Recurso:</n:h4>
-			<div class="input-group">
-				<combobox readonly="true" model="@load(vm.recursoList)"
-					class="form-control" selectedItem="@bind(vm.entity.recurso)">
-					<template name="model">
-						<comboitem label="@load(each.nome)" />
-					</template>
-				</combobox>
+					<div class="input-group">
+						<n:h4>Hora:</n:h4>
+						<textbox id="fldHour"
+							value="@bind(vm.entity.hora)" placeholder="HH:MM"
+							class="form-control" />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+			<div sclass="col-sm-8 normal-article">
+					<n:h4>Título:</n:h4>
+					<textbox id="fldTittle"
+						value="@bind(vm.entity.titulo)" class="form-control" />
+				</div>
+				<div sclass="col-sm-4 normal-article">
+					<n:h4>Recurso:</n:h4>
+					<div class="input-group">
+						<combobox readonly="true"
+							model="@load(vm.recursoList)" class="form-control"
+							selectedItem="@bind(vm.entity.recurso)">
+							<template name="model">
+								<comboitem label="@load(each.nome)" />
+							</template>
+						</combobox>
+					</div>
+				</div>
+				
 			</div>
 
 			<n:h4>Descrição:</n:h4>
 			<textbox id="fldDescription" rows="4" tabindex="11"
 				value="@bind(vm.entity.descricao)" class="form-control" />
-			<separator></separator>
 
-			<div class="btn btn-success btn-lg">
-				<button label="Salvar" onClick="@command('salvar')" />
-			</div>
-			<space></space>
-			<div class="btn btn-danger btn-lg">
-				<button label="Cancelar" onClick="@command('cancelar')" />
-			</div>
-			<space></space>
-			<div class="btn btn-primary btn-lg">
-				<button label="Limpar" onClick="@command('limpar')" />
-			</div>
+			<separator spacing="20px" />
 
+			<div class="col-sm-10">
+				<div class="btn btn-success btn-lg">
+					<button label="Salvar" onClick="@command('salvar')" />
+				</div>
+				<space></space>
+				<div class="btn btn-danger btn-lg">
+					<button label="Cancelar"
+						onClick="@command('cancelar')" />
+				</div>
+				<space></space>
+				<div class="btn btn-primary btn-lg">
+					<button label="Limpar" onClick="@command('limpar')" />
+				</div>
+			</div>
 		</div>
-		<div class="col-sm-3"></div>
+		<div class="col-sm-1"></div>
 	</div>
+
 	<script type="text/javascript">
 		zk.afterMount(function() { jq("$fldHour").mask("99:99");});
 	</script>

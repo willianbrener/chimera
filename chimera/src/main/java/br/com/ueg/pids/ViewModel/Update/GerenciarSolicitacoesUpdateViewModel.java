@@ -1,4 +1,4 @@
-package br.com.ueg.pids.ViewModel;
+package br.com.ueg.pids.ViewModel.Update;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -24,6 +24,7 @@ import br.com.ueg.pids.Model.GerenciarSolicitacoes;
 import br.com.ueg.pids.Model.Recurso;
 import br.com.ueg.pids.Model.Usuario;
 import br.com.ueg.pids.Utils.Return;
+import br.com.ueg.pids.ViewModel.GenericViewModel;
 
 @SuppressWarnings("serial")
 public class GerenciarSolicitacoesUpdateViewModel
@@ -50,7 +51,7 @@ public class GerenciarSolicitacoesUpdateViewModel
 		Selectors.wireComponents(view, this, false);
 		setRecordMode(recordMode);
 		if (recordMode.equals("EDIT")) {
-			itemSelected = c1;
+			setEntity(c1);
 		}
 	}
 

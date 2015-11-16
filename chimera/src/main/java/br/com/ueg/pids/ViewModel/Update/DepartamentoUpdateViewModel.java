@@ -1,4 +1,4 @@
-package br.com.ueg.pids.ViewModel;
+package br.com.ueg.pids.ViewModel.Update;
 
 import java.util.List;
 
@@ -17,6 +17,7 @@ import org.zkoss.zul.Window;
 import br.com.ueg.pids.Control.DepartamentoController;
 import br.com.ueg.pids.Model.Departamento;
 import br.com.ueg.pids.Utils.Return;
+import br.com.ueg.pids.ViewModel.GenericViewModel;
 
 @SuppressWarnings("serial")
 public class DepartamentoUpdateViewModel extends GenericViewModel<Departamento, DepartamentoController>{
@@ -36,7 +37,7 @@ public class DepartamentoUpdateViewModel extends GenericViewModel<Departamento, 
 		Selectors.wireComponents(view, this, false);
 		setRecordMode(recordMode);
 		if (recordMode.equals("EDIT")) {
-			itemSelected = c1;
+			setEntity(c1);
 		}
 	}
 
