@@ -10,11 +10,14 @@ import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.select.annotation.Wire;
+import org.zkoss.zk.ui.util.Clients;
 import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Textbox;
 import org.zkoss.zul.Window;
 
 import br.com.ueg.pids.Control.CargoController;
 import br.com.ueg.pids.Control.DepartamentoController;
+import br.com.ueg.pids.Enum.TypeMessage;
 import br.com.ueg.pids.Model.Cargo;
 import br.com.ueg.pids.Model.Departamento;
 import br.com.ueg.pids.Utils.Return;
@@ -43,14 +46,14 @@ public class CargoViewModel extends GenericViewModel<Cargo, CargoController> {
 					getEntity().setAtivo(true);
 					ret = getControl().salvar(getEntity());
 			if (ret.isValid()) {
-				Messagebox.show("Cadastro realizado com sucesso!","Sucess",
-						Messagebox.OK, Messagebox.INFORMATION);
-				Executions
-						.sendRedirect("/paginas/cadastros_base/cargo/pesquisar.zul");
+				msgbox.mensagem(TypeMessage.SUCESSO, "Cadastro realizado com sucesso!");
+				Executions.sendRedirect("/paginas/cadastros_base/cargo/pesquisar.zul");
 		
+		}else{
+			msgbox.mensagem(ret.getTypeMessage(), ret.getMensagem());
 		}
 
-		return null;
+		return ret;
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -60,8 +63,7 @@ public class CargoViewModel extends GenericViewModel<Cargo, CargoController> {
 
 		Return ret = new Return(true);
 		if (itemSelected == null) {
-			Messagebox.show("Selecione um item para ser deletado!", "Error",
-					Messagebox.OK, Messagebox.EXCLAMATION);
+			msgbox.mensagem(TypeMessage.ERROR, "Selecione um item para ser deletado!");
 		} else {
 			String str = "Deseja deletar o cargo \""
 					+ getItemSelected().getNome() + "\"?";
@@ -75,10 +77,7 @@ public class CargoViewModel extends GenericViewModel<Cargo, CargoController> {
 								if (event.getName().equals("onYes")) {
 
 									getControl().desativar(getItemSelected());
-									Messagebox.show(
-											"Cargo deletado com sucesso!",
-											"Sucess", Messagebox.OK,
-											Messagebox.INFORMATION);
+									msgbox.mensagem(TypeMessage.SUCESSO, "Cargo deletado com sucesso!");
 									setItemSelected(null);
 								}
 							}
@@ -105,8 +104,7 @@ public class CargoViewModel extends GenericViewModel<Cargo, CargoController> {
 	public Return telaAlterar() {
 		Return ret = new Return(true);
 		if (itemSelected == null) {
-			Messagebox.show("Selecione algum item para alterar!", "Error",
-					Messagebox.OK, Messagebox.EXCLAMATION);
+			msgbox.mensagem(TypeMessage.AVISO, "Selecione algum item para alterar!");
 		} else {
 			final HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("CargoObject", this.itemSelected);

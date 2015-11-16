@@ -27,7 +27,8 @@ public class RecursoController extends GenericController<Recurso>{
 	
 	@Override
 	public Return validar(IModel<?> imodel) {
-		return null;
+		Return ret = new Return(true);
+		return ret;
 	}
 
 	@Override

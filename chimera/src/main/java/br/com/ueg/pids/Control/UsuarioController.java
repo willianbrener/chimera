@@ -6,6 +6,7 @@ import java.util.List;
 import org.zkoss.zul.Messagebox;
 
 import br.com.ueg.pids.Colections.ColecaoUsuario;
+import br.com.ueg.pids.Enum.TypeMessage;
 import br.com.ueg.pids.Mailer.Mailer;
 import br.com.ueg.pids.Model.IModel;
 import br.com.ueg.pids.Model.Usuario;
@@ -34,37 +35,29 @@ public class UsuarioController extends GenericController<Usuario> {
 		
 		if (getUsuario().getNome() == null || getUsuario().getNome().equals("")) {
 
-			Messagebox.show("Nome em branco ou inválido!", "Error",
-					Messagebox.OK, Messagebox.ERROR);
-			ret.setValid(false);
+			ret = new Return(false, "Nome em branco ou inválida!",
+					TypeMessage.ERROR);
 		}else if(getUsuario().getNome().length() < 3){
-			Messagebox.show("Nome com menos de 3 caracteres!", "Error",
-					Messagebox.OK, Messagebox.ERROR);
-			ret.setValid(false);
+			ret = new Return(false, "Nome com menos de 3 caracteres!",
+					TypeMessage.ERROR);
 		}else if(getUsuario().getAccount() == null || getUsuario().getAccount().equals("")){
-			Messagebox.show("Conta em branco ou inválida!", "Error",
-					Messagebox.OK, Messagebox.ERROR);
-			ret.setValid(false);
+			ret = new Return(false, "Conta em branco ou inválida!",
+					TypeMessage.ERROR);
 		}else if(getUsuario().getAccount().length() < 3){
-			Messagebox.show("Conta com menos de 3 caracteres!", "Error",
-					Messagebox.OK, Messagebox.ERROR);
-			ret.setValid(false);
+			ret = new Return(false, "Conta com menos de 3 caracteres!",
+					TypeMessage.ERROR);
 		}else if(getUsuario().getPassword() == null || getUsuario().getPassword().equals("")){
-			Messagebox.show("Senha em branco ou inválido!", "Error",
-					Messagebox.OK, Messagebox.ERROR);
-			ret.setValid(false);
+			ret = new Return(false, "Senha em branco ou inválido!",
+					TypeMessage.ERROR);
 		}else if(!mail.validatorEmail(getUsuario().getEmail())){
-			Messagebox.show("Email em branco ou inválido!", "Error",
-					Messagebox.OK, Messagebox.ERROR);
-			ret.setValid(false);
+			ret = new Return(false, "Email em branco ou inválido!",
+					TypeMessage.ERROR);
 		}else if(getUsuario().getPermissao() == null || getUsuario().getPermissao().equals("")){
-			Messagebox.show("Permissao em branco ou inválido!", "Error",
-					Messagebox.OK, Messagebox.ERROR);
-			ret.setValid(false);
+			ret = new Return(false, "Permissao em branco ou inválido!",
+					TypeMessage.ERROR);
 		}else if(getUsuario().getCargo() == null || getUsuario().getCargo().equals("")){
-			Messagebox.show("Cargo em branco ou inválido!", "Error",
-					Messagebox.OK, Messagebox.ERROR);
-			ret.setValid(false);
+			ret = new Return(false, "Cargo em branco ou inválido!",
+					TypeMessage.ERROR);
 		}
 			return ret;
 	}

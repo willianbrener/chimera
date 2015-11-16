@@ -5,6 +5,7 @@ import java.util.List;
 import br.com.ueg.pids.DAO.GenericDAO;
 import br.com.ueg.pids.Model.IModel;
 import br.com.ueg.pids.Model.Usuario;
+import br.com.ueg.pids.Utils.GenericNotification;
 import br.com.ueg.pids.Utils.Return;
 
 
@@ -16,7 +17,7 @@ public abstract class GenericController<Entity> implements IController{
 	@SuppressWarnings("unused")
 	private List<Entity> list;
 	private List<Entity> lstCriteria;    
-
+	GenericNotification msgbox = new GenericNotification();
 	public void setList(List<Entity> list) {
 		this.list = list;
 	}
@@ -96,6 +97,14 @@ public abstract class GenericController<Entity> implements IController{
 
 	public List<?> listarTodos(String keyword) {
 		return lstEntities;
+	}
+
+	public GenericNotification getMsgbox() {
+		return msgbox;
+	}
+
+	public void setMsgbox(GenericNotification msgbox) {
+		this.msgbox = msgbox;
 	}
 
 

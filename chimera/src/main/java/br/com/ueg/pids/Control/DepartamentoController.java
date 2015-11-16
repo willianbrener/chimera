@@ -6,6 +6,7 @@ import java.util.List;
 import org.zkoss.zul.Messagebox;
 
 import br.com.ueg.pids.Colections.ColecaoDepartamento;
+import br.com.ueg.pids.Enum.TypeMessage;
 import br.com.ueg.pids.Model.Departamento;
 import br.com.ueg.pids.Model.IModel;
 import br.com.ueg.pids.Utils.Return;
@@ -61,21 +62,17 @@ public class DepartamentoController extends GenericController<Departamento> {
 		if (getDepartamento().getNome() == null
 				|| getDepartamento().getNome().equals("")) {
 
-			Messagebox.show("Nome em branco ou inválido!", "Error",
-					Messagebox.OK, Messagebox.ERROR);
-			ret.setValid(false);
+			ret = new Return(false, "Nome em branco ou inválido!",
+					TypeMessage.ERROR);
 		} else if (getDepartamento().getResponsavel() == null
 				|| getDepartamento().getResponsavel().equals("")) {
-			Messagebox.show("Responsavel em branco ou inválido!", "Error",
-					Messagebox.OK, Messagebox.ERROR);
-			ret.setValid(false);
+			ret = new Return(false, "Responsavel em branco ou inválido!",
+					TypeMessage.ERROR);
 
 		} else if (getDepartamento().getNivel() == null
 				|| getDepartamento().getNivel().equals("")) {
-			Messagebox.show("Nivel em branco ou inválido!", "Error",
-					Messagebox.OK, Messagebox.ERROR);
-			ret.setValid(false);
-
+			ret = new Return(false, "Nível em branco ou inválido!",
+					TypeMessage.ERROR);
 		}
 		return ret;
 	}

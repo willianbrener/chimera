@@ -17,6 +17,7 @@ import org.zkoss.zul.Window;
 import br.com.ueg.pids.Control.CargoController;
 import br.com.ueg.pids.Control.UsuarioController;
 import br.com.ueg.pids.Enum.Permissao;
+import br.com.ueg.pids.Enum.TypeMessage;
 import br.com.ueg.pids.Model.Cargo;
 import br.com.ueg.pids.Model.Usuario;
 import br.com.ueg.pids.Utils.Return;
@@ -45,8 +46,7 @@ public class UsuarioViewModel extends GenericViewModel<Usuario, UsuarioControlle
 					getEntity().setAtivo(true);
 					ret = getControl().salvar(getEntity());
 			if (ret.isValid()) {
-				Messagebox.show("Cadastro realizado com sucesso!","Sucess",
-						Messagebox.OK, Messagebox.INFORMATION);
+				msgbox.mensagem(TypeMessage.SUCESSO, "Cadastro realizado com sucesso!");
 				Executions
 						.sendRedirect("/paginas/cadastros_base/usuario/pesquisar.zul");
 		
@@ -62,8 +62,7 @@ public class UsuarioViewModel extends GenericViewModel<Usuario, UsuarioControlle
 
 		Return ret = new Return(true);
 		if (itemSelected == null) {
-			Messagebox.show("Selecione um item para ser deletado!", "Error",
-					Messagebox.OK, Messagebox.EXCLAMATION);
+			msgbox.mensagem(TypeMessage.AVISO, "Selecione um item a ser deletado!");
 		} else {
 			String str = "Deseja deletar o usuario \""
 					+ getItemSelected().getNome() + "\"?";
@@ -77,10 +76,7 @@ public class UsuarioViewModel extends GenericViewModel<Usuario, UsuarioControlle
 								if (event.getName().equals("onYes")) {
 
 									getControl().desativar(getItemSelected());
-									Messagebox.show(
-											"Usuario deletado com sucesso!",
-											"Sucess", Messagebox.OK,
-											Messagebox.INFORMATION);
+									msgbox.mensagem(TypeMessage.SUCESSO, "Usuário deletado com sucesso!");
 									setItemSelected(null);
 								}
 							}
@@ -106,8 +102,7 @@ public class UsuarioViewModel extends GenericViewModel<Usuario, UsuarioControlle
 	public Return telaAlterar() {
 		Return ret = new Return(true);
 		if (itemSelected == null) {
-			Messagebox.show("Selecione algum item para alterar!", "Error",
-					Messagebox.OK, Messagebox.EXCLAMATION);
+			msgbox.mensagem(TypeMessage.AVISO, "Selecione algum item para alterar!");
 		} else {
 			final HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("UsuarioObject", this.itemSelected);

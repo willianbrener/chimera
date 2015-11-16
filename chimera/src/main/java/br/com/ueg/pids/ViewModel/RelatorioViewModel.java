@@ -16,6 +16,7 @@ import org.zkoss.zul.Messagebox;
 import br.com.ueg.pids.Control.DepartamentoController;
 import br.com.ueg.pids.Control.RelatorioController;
 import br.com.ueg.pids.Converter.DateUtils;
+import br.com.ueg.pids.Enum.TypeMessage;
 import br.com.ueg.pids.Model.Departamento;
 import br.com.ueg.pids.Model.Relatorio;
 
@@ -64,8 +65,7 @@ public class RelatorioViewModel extends GenericViewModel<Relatorio, RelatorioCon
 					e.printStackTrace();
 				}
 		}else{
-			Messagebox.show("Nenhum departamento selecionado!", "Error",
-					Messagebox.OK, Messagebox.EXCLAMATION);
+			msgbox.mensagem(TypeMessage.AVISO, "Nenhum departamento selecionado!");
 			
 		}
 		
@@ -90,8 +90,7 @@ public class RelatorioViewModel extends GenericViewModel<Relatorio, RelatorioCon
 				e.printStackTrace();
 			}
 			}else{
-				Messagebox.show("Selecione a data!", "Error",
-						Messagebox.OK, Messagebox.EXCLAMATION);
+				msgbox.mensagem(TypeMessage.AVISO, "Selecione a data!");
 			}
 			
 		}

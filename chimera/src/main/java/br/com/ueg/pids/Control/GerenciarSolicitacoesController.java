@@ -7,6 +7,7 @@ import org.zkoss.zul.Messagebox;
 
 import br.com.ueg.pids.Colections.ColecaoGerenciarSolicitacoes;
 import br.com.ueg.pids.Colections.ColecaoUsuario;
+import br.com.ueg.pids.Enum.TypeMessage;
 import br.com.ueg.pids.Model.GerenciarSolicitacoes;
 import br.com.ueg.pids.Model.IModel;
 import br.com.ueg.pids.Model.Usuario;
@@ -54,30 +55,25 @@ public class GerenciarSolicitacoesController extends GenericController<Gerenciar
 		Return ret = new Return(true);
 		if (getSolicitacoes().getTitulo() == null || getSolicitacoes().getTitulo().equals("")) {
 
-			Messagebox.show("Titulo em branco ou inválido!", "Error",
-					Messagebox.OK, Messagebox.ERROR);
-			ret.setValid(false);
+			ret = new Return(false, "Titulo em branco ou inválido!",
+					TypeMessage.ERROR);
 		}else  if (getSolicitacoes().getTitulo().length() < 3) {
-		  Messagebox.show("Titulo com menos de 3 caracteres!", "Error",
-		  Messagebox.OK, Messagebox.ERROR); ret.setValid(false); 
+		  ret = new Return(false, "Titulo com menos de 3 caracteres!",
+					TypeMessage.ERROR);
 		  
 		}else  if (getSolicitacoes().getDescricao()== null || getSolicitacoes().getDescricao().equals("")) {
-			Messagebox.show("Descrição em branco ou inválida!", "Error",
-					Messagebox.OK, Messagebox.ERROR);
-			ret.setValid(false);
+			ret = new Return(false, "Descrição em branco ou inválida!",
+					TypeMessage.ERROR);
 		}else  if (getSolicitacoes().getData()== null || getSolicitacoes().getData().equals("")) {
-			Messagebox.show("Data em branco ou inválida!", "Error",
-					Messagebox.OK, Messagebox.ERROR);
-			ret.setValid(false);
+			ret = new Return(false, "Data em branco ou inválida!",
+					TypeMessage.ERROR);
 					  
 		}else if (getSolicitacoes().getHora()== null || getSolicitacoes().getHora().equals("")) {
-			Messagebox.show("Hora em branco ou inválida!", "Error",
-					Messagebox.OK, Messagebox.ERROR);
-			ret.setValid(false);
+			ret = new Return(false, "Hora em branco ou inválida!",
+					TypeMessage.ERROR);
 		}else if (getSolicitacoes().getRecurso()== null || getSolicitacoes().getRecurso().equals("")) {
-			Messagebox.show("Recurso em branco ou inválido!", "Error",
-					Messagebox.OK, Messagebox.ERROR);
-			ret.setValid(false);
+			ret = new Return(false, "Recurso em branco ou inválida!",
+					TypeMessage.ERROR);
 		}
 		return ret;
 	}

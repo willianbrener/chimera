@@ -17,6 +17,7 @@ import br.com.ueg.pids.Control.GerenciarSolicitacoesController;
 import br.com.ueg.pids.Control.RecursoController;
 import br.com.ueg.pids.Converter.DateUtils;
 import br.com.ueg.pids.Enum.Permissao;
+import br.com.ueg.pids.Enum.TypeMessage;
 import br.com.ueg.pids.Model.Cargo;
 import br.com.ueg.pids.Model.GerenciarSolicitacoes;
 import br.com.ueg.pids.Model.Recurso;
@@ -108,8 +109,7 @@ public class GerenciarSolicitacoesViewModel
 		getEntity().setSituacao("PENDENTE");
 		ret = getControl().salvar(getEntity());
 		if (ret.isValid()) {
-			Messagebox.show("Solicitação realizada com sucesso!", "Sucess",
-					Messagebox.OK, Messagebox.INFORMATION);
+			msgbox.mensagem(TypeMessage.SUCESSO, "Solicitação realizada com sucesso!");
 			if(getEntity().getUsuario().getPermissao().equals("TOTAL")){
 				Executions.sendRedirect("/paginas/gerenciar_solicitacoes/administrator/pesquisar.zul");
 			}else if(getEntity().getUsuario().getPermissao().equals("APROVADOR")){
@@ -120,6 +120,8 @@ public class GerenciarSolicitacoesViewModel
 				Executions.sendRedirect("/paginas/gerenciar_solicitacoes/executioner/pesquisar.zul");
 			}
 			
+		}else{
+			
 		}
 
 		return null;
@@ -129,8 +131,7 @@ public class GerenciarSolicitacoesViewModel
 	public Return telaAlterar() {
 		Return ret = new Return(true);
 		if (itemSelected == null) {
-			Messagebox.show("Selecione algum item para alterar!", "Error",
-					Messagebox.OK, Messagebox.EXCLAMATION);
+			msgbox.mensagem(TypeMessage.AVISO, "Selecione algum item para alterar!");
 		} else {
 			final HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("SolicitacaoObject", this.itemSelected);
@@ -161,8 +162,7 @@ public class GerenciarSolicitacoesViewModel
 
 		Return ret = new Return(true);
 		if (itemSelected == null) {
-			Messagebox.show("Selecione um item para ser deletado!", "Error",
-					Messagebox.OK, Messagebox.EXCLAMATION);
+			msgbox.mensagem(TypeMessage.ERROR, "Selecione um item para ser deletado!");
 		} else {
 			String str = "Deseja deletar a solicitacao \""
 					+ getItemSelected().getTitulo() + "\"?";
@@ -176,10 +176,7 @@ public class GerenciarSolicitacoesViewModel
 								if (event.getName().equals("onYes")) {
 
 									getControl().desativar(getItemSelected());
-									Messagebox.show(
-											"Solicitação deletada com sucesso!",
-											"Sucesso", Messagebox.OK,
-											Messagebox.INFORMATION);
+									msgbox.mensagem(TypeMessage.SUCESSO, "Solicitação deletada com sucesso!");
 									setItemSelected(null);
 								}
 							}
@@ -206,14 +203,11 @@ public class GerenciarSolicitacoesViewModel
 		Return ret = new Return(false);
 		if(getItemSelected()!= null && getItemSelected().getSituacao().equals("PENDENTE")){
 			ret = getControl().alterarSolicitacao(getItemSelected(),"APROVADA");
-			Messagebox.show("Solicitacao Aprovada!", "Sucesso",
-					Messagebox.OK, Messagebox.INFORMATION);
+			msgbox.mensagem(TypeMessage.SUCESSO, "Solicitacao Aprovada!");
 		}else if(getItemSelected()== null){
-			Messagebox.show("Selecione uma solicitação!", "AVISO",
-					Messagebox.OK, Messagebox.EXCLAMATION);
+			msgbox.mensagem(TypeMessage.AVISO, "Selecione uma solicitação!");
 		}else if(getItemSelected().getSituacao().equals("APROVADA")){
-			Messagebox.show("Solicitação já aprovada!", "AVISO",
-					Messagebox.OK, Messagebox.EXCLAMATION);
+			msgbox.mensagem(TypeMessage.AVISO, "Solicitação já aprovada!");
 		}
 		if(ret.isValid()){
 			limpar();
@@ -233,8 +227,7 @@ public class GerenciarSolicitacoesViewModel
 				ret = telaRecusar();
 			}
 		}else if(getItemSelected()== null){
-			Messagebox.show("Selecione uma solicitação!", "AVISO",
-					Messagebox.OK, Messagebox.EXCLAMATION);
+			msgbox.mensagem(TypeMessage.AVISO, "Selecione uma solicitação!");
 		}
 		if(ret.isValid()){
 			limpar();
@@ -250,8 +243,7 @@ public class GerenciarSolicitacoesViewModel
 		if(getItemSelected()!= null && getItemSelected().getSituacao().equals("APROVADA")){
 			ret = getControl().alterarSolicitacao(getItemSelected(),"EXECUTADA");
 		}else if(getItemSelected()== null){
-			Messagebox.show("Selecione uma solicitação!", "AVISO",
-					Messagebox.OK, Messagebox.EXCLAMATION);
+			msgbox.mensagem(TypeMessage.AVISO, "Selecione uma solicitação!");
 		}
 		if(ret.isValid()){
 			limpar();

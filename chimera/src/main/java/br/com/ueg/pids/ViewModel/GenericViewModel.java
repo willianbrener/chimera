@@ -25,6 +25,7 @@ import br.com.ueg.pids.Control.GenericController;
 import br.com.ueg.pids.Model.GenericModel;
 import br.com.ueg.pids.Model.UserCredential;
 import br.com.ueg.pids.Utils.Connect;
+import br.com.ueg.pids.Utils.GenericNotification;
 
 @SuppressWarnings({ "deprecation", "serial", "rawtypes" })
 public abstract class GenericViewModel<M extends GenericModel, C extends GenericController<M>> extends Div{
@@ -36,7 +37,7 @@ public abstract class GenericViewModel<M extends GenericModel, C extends Generic
 	Session sess = Sessions.getCurrent();
 	UserCredential user = new UserCredential();
 	protected String keyword;
-	
+	GenericNotification msgbox = new GenericNotification();
 
 	public abstract M getObject();
 

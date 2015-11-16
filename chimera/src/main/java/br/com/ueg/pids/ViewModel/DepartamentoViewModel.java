@@ -14,6 +14,7 @@ import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 import br.com.ueg.pids.Control.DepartamentoController;
+import br.com.ueg.pids.Enum.TypeMessage;
 import br.com.ueg.pids.Model.Departamento;
 import br.com.ueg.pids.Utils.Return;
 
@@ -48,12 +49,12 @@ public class DepartamentoViewModel extends GenericViewModel<Departamento, Depart
 					getEntity().setAtivo(true);
 					ret = getControl().salvar(getEntity());
 			if (ret.isValid()) {
-				Messagebox.show("Departamento cadastrado com sucesso!","Sucess",
-						Messagebox.OK, Messagebox.INFORMATION);
-				Executions
-						.sendRedirect("/paginas/cadastros_base/departamento/pesquisar.zul");
+				msgbox.mensagem(TypeMessage.SUCESSO, "Cadastro realizado com sucesso!");
+				Executions.sendRedirect("/paginas/cadastros_base/departamento/pesquisar.zul");
+			}else{
+				msgbox.mensagem(ret.getTypeMessage(), ret.getMensagem());
 			}
-			return null;		
+			return ret;		
 	}
 	
 	@Command
@@ -75,8 +76,7 @@ public class DepartamentoViewModel extends GenericViewModel<Departamento, Depart
 
 		Return ret = new Return(true);
 		if (itemSelected == null) {
-			Messagebox.show("Selecione um item para ser deletado!", "Error",
-					Messagebox.OK, Messagebox.EXCLAMATION);
+			msgbox.mensagem(TypeMessage.AVISO, "Selecione um item para ser deletado!");
 		} else {
 			String str = "Deseja deletar o departamento \""
 					+ getItemSelected().getNome() + "\"?";
@@ -90,17 +90,8 @@ public class DepartamentoViewModel extends GenericViewModel<Departamento, Depart
 								if (event.getName().equals("onYes")) {
 
 									getControl().desativar(getItemSelected());
-									Messagebox.show(
-											"Departamento deletado com sucesso!",
-											"Sucess", Messagebox.OK,
-											Messagebox.INFORMATION);
+									msgbox.mensagem(TypeMessage.SUCESSO, "Departamento deletado com sucesso!");
 									setItemSelected(null);
-									// AnnotateDataBinder binder =
-									// (AnnotateDataBinder)
-									// Page.getAttribute("binder");
-									// binder.loadAll();
-
-//									setLstCargo(getControl().ListarTodos());
 								}
 							}
 						}
@@ -114,8 +105,7 @@ public class DepartamentoViewModel extends GenericViewModel<Departamento, Depart
 	public Return telaAlterar() {
 		Return ret = new Return(true);
 		if (itemSelected == null) {
-			Messagebox.show("Selecione algum item para alterar!", "Error",
-					Messagebox.OK, Messagebox.EXCLAMATION);
+			msgbox.mensagem(TypeMessage.AVISO, "Selecione algum item para alterar!");
 		} else {
 			final HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("DepartamentoObject", this.itemSelected);
