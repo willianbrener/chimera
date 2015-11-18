@@ -18,3 +18,5 @@ usaria o CHIMERA.
 > Davis Antonio (Analista de Sistema)
 
 > Willian Brener (Estagiário)
+
+![Logo](https://filsdelhomme.files.wordpress.com/2012/12/chimera.jpg)
