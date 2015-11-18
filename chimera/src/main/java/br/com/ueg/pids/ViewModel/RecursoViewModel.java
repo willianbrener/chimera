@@ -15,7 +15,6 @@ import org.zkoss.zul.Window;
 
 import br.com.ueg.pids.Control.DepartamentoController;
 import br.com.ueg.pids.Control.RecursoController;
-import br.com.ueg.pids.Enum.TypeMessage;
 import br.com.ueg.pids.Model.Departamento;
 import br.com.ueg.pids.Model.Recurso;
 import br.com.ueg.pids.Utils.Return;
@@ -41,15 +40,34 @@ public class RecursoViewModel extends GenericViewModel<Recurso, RecursoControlle
 	@Command
 	public Return salvar() {
 		Return ret = new Return(true);
-					getEntity().setAtivo(true);
-					ret = getControl().salvar(getEntity());
+		getEntity().setAtivo(true);
+		getEntity().setDepartamento(departamentoSelecionado);
+		
+		if(getEntity().getNome() == null){
+			Messagebox.show("Campo não obrigatório preenchido!","Error",
+					Messagebox.OK, Messagebox.ERROR);
+			return null;
+		}else{
+			if(getEntity().getNome().length() < 3){
+				Messagebox.show("O campo nome deve ser maior que 3 caracteres!","Error",
+						Messagebox.OK, Messagebox.ERROR);
+				return null;
+			}
+		}
+		
+		if(departamentoSelecionado == null){
+			Messagebox.show("Campo não preenchido!","Error",
+					Messagebox.OK, Messagebox.ERROR);
+			return null;
+		}
+		
+		ret = getControl().salvar(getEntity());
 			if (ret.isValid()) {
-				msgbox.mensagem(TypeMessage.SUCESSO, "Cadastro realizado com sucesso!");
+				Messagebox.show("Cadastro realizado com sucesso!","Sucess",
+						Messagebox.OK, Messagebox.INFORMATION);
 				Executions
 						.sendRedirect("/paginas/cadastros_base/recurso/pesquisar.zul");
 		
-		}else{
-			msgbox.mensagem(ret.getTypeMessage(), ret.getMensagem());
 		}
 
 		return null;
@@ -62,7 +80,8 @@ public class RecursoViewModel extends GenericViewModel<Recurso, RecursoControlle
 
 		Return ret = new Return(true);
 		if (itemSelected == null) {
-			msgbox.mensagem(TypeMessage.AVISO, "Selecione um item para ser deletado!");
+			Messagebox.show("Selecione um item para ser deletado!", "Error",
+					Messagebox.OK, Messagebox.EXCLAMATION);
 		} else {
 			String str = "Deseja deletar o recurso \""
 					+ getItemSelected().getNome() + "\"?";
@@ -76,7 +95,10 @@ public class RecursoViewModel extends GenericViewModel<Recurso, RecursoControlle
 								if (event.getName().equals("onYes")) {
 
 									getControl().desativar(getItemSelected());
-									msgbox.mensagem(TypeMessage.SUCESSO, "Recurso deletado com sucesso!");
+									Messagebox.show(
+											"Recurso deletado com sucesso!",
+											"Sucess", Messagebox.OK,
+											Messagebox.INFORMATION);
 									setItemSelected(null);
 								}
 							}
@@ -98,18 +120,19 @@ public class RecursoViewModel extends GenericViewModel<Recurso, RecursoControlle
 
 	}
 
-
 	@Command
 	public Return telaAlterar() {
 		Return ret = new Return(true);
 		if (itemSelected == null) {
-			msgbox.mensagem(TypeMessage.AVISO, "Selecione algum item para alterar!");
+			Messagebox.show("Selecione algum item para alterar!", "Error",
+					Messagebox.OK, Messagebox.EXCLAMATION);
 		} else {
 			final HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("RecursoObject", this.itemSelected);
 			map.put("recordMode", "EDIT");
 			setRecursoSelectedIndex(lstRecurso.indexOf(itemSelected));
 			Executions.createComponents("recurso_component.zul", null, map);
+			// setItemSelected(null);
 		}
 		return ret;
 	}

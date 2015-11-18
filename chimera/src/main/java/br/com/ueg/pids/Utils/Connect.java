@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /*
- * Classe responsável por Criar conexão com o banco de dados da aplicacao....
+ * Classe responsï¿½vel por Criar conexï¿½o com o banco de dados da aplicacao....
  */
 
 public class Connect {
@@ -21,12 +21,12 @@ public class Connect {
 	        try {  
 	        	Class.forName("org.postgresql.Driver");
 	            String url = "jdbc:postgresql://localhost:5432/chimera";  
-	            String username = "postgres";        //nome de um usuário de seu BD        
-	            String password = "postgres";      //sua senha de acesso  
+	            String username = "jeanmonteiro";        //nome de um usuï¿½rio de seu BD        
+	            String password = "123456";      //sua senha de acesso  
 	            connection = DriverManager.getConnection(url, username, password);
 	            statement = (Statement) connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
 	            return true;  
-	        }  catch (ClassNotFoundException e) {  //Driver não encontrado  
+	        }  catch (ClassNotFoundException e) {  //Driver nï¿½o encontrado  
 	            System.out.println("O driver expecificado nao foi encontrado.");  
 	            return false;  
 	        } catch (SQLException e) {  
@@ -83,7 +83,7 @@ public class Connect {
 	}
 	
 	/*
-	 * Foi utilizado uma função que devolve o ResultSet para percorrer
+	 * Foi utilizado uma funï¿½ï¿½o que devolve o ResultSet para percorrer
 	 * os resultados da sql passada por parametro
 	 */
 	public static ResultSet setResultSet(String sql){
@@ -97,9 +97,9 @@ public class Connect {
 	}
 	
 	/*
-	 * Foi utilizado uma função que devolver um inteiro com total de runs afetados
+	 * Foi utilizado uma funï¿½ï¿½o que devolver um inteiro com total de runs afetados
 	 * utilizado para inserir e update e delete no banco onde geralmente sao afetados apenas 1
-	 * posteriomente este numero é utilizado para validação se retorna 1 rodou de acordo com 
+	 * posteriomente este numero ï¿½ utilizado para validaï¿½ï¿½o se retorna 1 rodou de acordo com 
 	 * o planejado caso 0 ocorreu erro.
 	 */
 	public static int runSQL(String sql){

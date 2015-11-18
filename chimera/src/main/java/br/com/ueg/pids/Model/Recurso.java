@@ -67,7 +67,7 @@ public class Recurso extends GenericModel<Integer>{
 		this.departamento = departamento;
 	}
 
-	public boolean isAtivo() {
+	public boolean getAtivo() {
 		return ativo;
 	}
 

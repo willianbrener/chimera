@@ -45,7 +45,7 @@ public class RecursoUpdateViewModel extends
 		Selectors.wireComponents(view, this, false);
 		setRecordMode(recordMode);
 		if (recordMode.equals("EDIT")) {
-			setEntity(c1);
+			itemSelected = c1;
 		}
 	}
 
