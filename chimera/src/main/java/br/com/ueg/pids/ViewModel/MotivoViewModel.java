@@ -1,6 +1,7 @@
 package br.com.ueg.pids.ViewModel;
 
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,7 +61,7 @@ public class MotivoViewModel extends
 	}
 	
 	@Command
-	public Return salvar(){
+	public Return salvar() throws SQLException{
 		Return ret = new Return(true);
 		getEntity().setAtivo(true);
 		

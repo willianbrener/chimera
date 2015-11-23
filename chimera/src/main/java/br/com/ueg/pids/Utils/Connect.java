@@ -21,8 +21,8 @@ public class Connect {
 	        try {  
 	        	Class.forName("org.postgresql.Driver");
 	            String url = "jdbc:postgresql://localhost:5432/chimera";  
-	            String username = "jeanmonteiro";        //nome de um usu�rio de seu BD        
-	            String password = "123456";      //sua senha de acesso  
+	            String username = "postgres";        //nome de um usu�rio de seu BD        
+	            String password = "postgres";      //sua senha de acesso  
 	            connection = DriverManager.getConnection(url, username, password);
 	            statement = (Statement) connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE,ResultSet.CONCUR_UPDATABLE);
 	            return true;  

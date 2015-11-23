@@ -46,7 +46,7 @@
 				</a>
 				<a
 					iconSclass="btn btn-xs no-hover btn-primary z-icon-user"
-					>
+					 onClick="@command('redireciona')">
 					<label>Solicitações Reprovadas</label>
 					<label value="@bind(vm.reprovadas)"
 						class="badge badge-info pull-right" />

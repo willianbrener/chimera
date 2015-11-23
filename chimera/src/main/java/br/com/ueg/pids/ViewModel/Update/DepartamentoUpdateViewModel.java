@@ -1,5 +1,6 @@
 package br.com.ueg.pids.ViewModel.Update;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.zkoss.bind.annotation.Command;
@@ -48,7 +49,7 @@ public class DepartamentoUpdateViewModel extends GenericViewModel<Departamento, 
 	
 	@NotifyChange("lstDepartamento")
 	@Command
-	public Return update() {
+	public Return update() throws SQLException {
 		Return ret = new Return(true);
 
 		

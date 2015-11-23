@@ -1,5 +1,6 @@
 package br.com.ueg.pids.ViewModel;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -41,7 +42,7 @@ public class CargoViewModel extends GenericViewModel<Cargo, CargoController> {
 
 	@NotifyChange("entity")
 	@Command
-	public Return salvar() {
+	public Return salvar() throws SQLException {
 		Return ret = new Return(true);
 					getEntity().setAtivo(true);
 					ret = getControl().salvar(getEntity());

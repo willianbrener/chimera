@@ -39,7 +39,7 @@
 				emptyMessage="Nenhuma solicitação selecionada."
 				style="margin-top:10px" mold="paging" pageSize="5"
 				xmlns:w="http://www.zkoss.org/2005/zk/client"
-				selectedItem="@bind(vm.itemSelected)">
+				selectedItem="@bind(vm.itemSelected)" checkmark="true">
 
 
 				<listhead sizable="true">

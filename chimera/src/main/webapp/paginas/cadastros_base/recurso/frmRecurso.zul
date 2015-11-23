@@ -13,7 +13,7 @@
 			<div class="input-group">
 				<combobox readonly="true" class="form-control"
 					model="@load(vm.departamentoList)"
-					selectedItem="@bind(vm.departamentoSelecionado)">
+					selectedItem="@bind(fx.departamento)">
 					<template name="model">
 						<comboitem label="@load(each.nome)" />
 					</template>

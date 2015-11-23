@@ -1,5 +1,6 @@
 package br.com.ueg.pids.ViewModel.Update;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.zkoss.bind.annotation.Command;
@@ -45,7 +46,7 @@ public class RecursoUpdateViewModel extends
 		Selectors.wireComponents(view, this, false);
 		setRecordMode(recordMode);
 		if (recordMode.equals("EDIT")) {
-			itemSelected = c1;
+			setEntity(c1);
 		}
 	}
 
@@ -56,17 +57,10 @@ public class RecursoUpdateViewModel extends
 	
 	@NotifyChange("entity")
 	@Command
-	public Return update() {
+	public Return update() throws SQLException {
 		Return ret = new Return(true);
 
-		if (departamentoSelecionado == null) {
-			ret = getControl().alterar(getItemSelected());
-		} else {
-			getItemSelected().setDepartamento(departamentoSelecionado);
-			
-			ret = getControl().alterar(getItemSelected());
-		}
-		
+			ret = getControl().alterar(getEntity());
 		if (ret.isValid()) {
 			closeThis();
 			Messagebox.show("Recurso alterado com sucesso!", "Sucess",Messagebox.OK, Messagebox.INFORMATION);

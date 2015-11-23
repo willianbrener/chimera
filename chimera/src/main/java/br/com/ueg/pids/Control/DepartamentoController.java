@@ -55,24 +55,26 @@ public class DepartamentoController extends GenericController<Departamento> {
 	}
 
 	@Override
-	public Return validar(IModel<?> imodel) {
+	public Return validar(IModel<?> imodel) throws SQLException {
 		Return ret = new Return(true);
 		setDepartamento((Departamento) imodel);
 
 		if (getDepartamento().getNome() == null
 				|| getDepartamento().getNome().equals("")) {
 
-			ret = new Return(false, "Nome em branco ou inválido!",
+			ret = new Return(false, "Nome em branco ou invï¿½lido!",
 					TypeMessage.ERROR);
 		} else if (getDepartamento().getResponsavel() == null
 				|| getDepartamento().getResponsavel().equals("")) {
-			ret = new Return(false, "Responsavel em branco ou inválido!",
+			ret = new Return(false, "Responsavel em branco ou invï¿½lido!",
 					TypeMessage.ERROR);
 
 		} else if (getDepartamento().getNivel() == null
 				|| getDepartamento().getNivel().equals("")) {
-			ret = new Return(false, "Nível em branco ou inválido!",
+			ret = new Return(false, "Nï¿½vel em branco ou invï¿½lido!",
 					TypeMessage.ERROR);
+		}else if(!dao.pesquisarNome(departamento, getDepartamento().getNome()).isEmpty()){
+			ret = new Return(false, "Nome jÃ¡ existente!", TypeMessage.ERROR);
 		}
 		return ret;
 	}

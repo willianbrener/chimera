@@ -3,7 +3,6 @@ package br.com.ueg.pids.Control;
 import java.sql.SQLException;
 import java.util.List;
 
-import org.zkoss.zul.Messagebox;
 
 import br.com.ueg.pids.Colections.ColecaoUsuario;
 import br.com.ueg.pids.Enum.TypeMessage;
@@ -28,36 +27,38 @@ public class UsuarioController extends GenericController<Usuario> {
 	
 
 	@Override
-	public Return validar(IModel<?> imodel) {
+	public Return validar(IModel<?> imodel) throws SQLException {
 		setUsuario((Usuario) imodel);
 		Return ret = new Return(true);
 		Mailer mail = new Mailer();
 		
 		if (getUsuario().getNome() == null || getUsuario().getNome().equals("")) {
 
-			ret = new Return(false, "Nome em branco ou inválida!",
+			ret = new Return(false, "Nome em branco ou invï¿½lida!",
 					TypeMessage.ERROR);
 		}else if(getUsuario().getNome().length() < 3){
 			ret = new Return(false, "Nome com menos de 3 caracteres!",
 					TypeMessage.ERROR);
 		}else if(getUsuario().getAccount() == null || getUsuario().getAccount().equals("")){
-			ret = new Return(false, "Conta em branco ou inválida!",
+			ret = new Return(false, "Conta em branco ou invï¿½lida!",
 					TypeMessage.ERROR);
 		}else if(getUsuario().getAccount().length() < 3){
 			ret = new Return(false, "Conta com menos de 3 caracteres!",
 					TypeMessage.ERROR);
 		}else if(getUsuario().getPassword() == null || getUsuario().getPassword().equals("")){
-			ret = new Return(false, "Senha em branco ou inválido!",
+			ret = new Return(false, "Senha em branco ou invï¿½lido!",
 					TypeMessage.ERROR);
 		}else if(!mail.validatorEmail(getUsuario().getEmail())){
-			ret = new Return(false, "Email em branco ou inválido!",
+			ret = new Return(false, "Email em branco ou invï¿½lido!",
 					TypeMessage.ERROR);
 		}else if(getUsuario().getPermissao() == null || getUsuario().getPermissao().equals("")){
-			ret = new Return(false, "Permissao em branco ou inválido!",
+			ret = new Return(false, "Permissao em branco ou invï¿½lido!",
 					TypeMessage.ERROR);
 		}else if(getUsuario().getCargo() == null || getUsuario().getCargo().equals("")){
-			ret = new Return(false, "Cargo em branco ou inválido!",
+			ret = new Return(false, "Cargo em branco ou invï¿½lido!",
 					TypeMessage.ERROR);
+		}else if(!dao.pesquisarNome(usuario, getUsuario().getAccount()).isEmpty()){
+			ret = new Return(false, "Conta jÃ¡ existente!", TypeMessage.ERROR);
 		}
 			return ret;
 	}

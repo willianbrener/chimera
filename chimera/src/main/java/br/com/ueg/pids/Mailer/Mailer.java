@@ -23,7 +23,7 @@ public class Mailer {
 		        email.setSubject(assunto); // Assunto do e-mail
 		    
 		    EmailAttachment anexo = new EmailAttachment();
-		    anexo.setPath(caminho); // Caminho de onde est· o arquivo para envio
+		    anexo.setPath(caminho); // Caminho de onde est√° o arquivo para envio
 		    anexo.setDisposition(EmailAttachment.ATTACHMENT);
 		    anexo.setName(nomeArquivo); // Nome do Arquivo anexado
 		    
@@ -46,16 +46,16 @@ public class Mailer {
 					+ 				"<td style='padding:10px 20px 10px 10px'>"
 					+ 					"<b>Sr.(a)"+nome+",</b>"
 					+ 					"<br/><br/>"
-					+ 					"O fulado est· solicitando o recurso X."
+					+ 					""+assunto+""
 					+ 					"<br/><br/>"
 					+ 					"<b>SISTEMA CHIMERA.</b>"
 					+ 					"<br/><br/>"
-					+ 					"<i>Por favor n„o responda essa mensagem. Esse È um e-mail autom·tico.</i>"
+					+ 					"<i>Por favor n√£o responda essa mensagem. Esse √© um e-mail autom√°tico.</i>"
 					+ 					"<br/><br/>"
 					+ 				"</td>"
 					+ 			"</tr>"
 					+ 			"<tr style='height:auto'>"
-					+ 				"<td><img src='ENDERE«O IMAGEM DO CHIMERA'></td>"
+					+ 				"<td><img src='ENDERE√áO IMAGEM DO CHIMERA'></td>"
 					+ 			"</tr>"
 					+ 		"</table>"
 					+ 	"</body>"

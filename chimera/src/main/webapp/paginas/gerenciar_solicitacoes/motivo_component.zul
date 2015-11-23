@@ -8,7 +8,7 @@
 		closable="false" position="center"
 		viewModel="@id('vm') @init('br.com.ueg.pids.ViewModel.MotivoViewModel')">
 		<separator />
-		<flabeltitle value="Motivo Recusa" />
+		<label value="Motivo Recusa" />
 		<separator />
 		<panel width="100%">
 			<panelchildren>
@@ -21,9 +21,9 @@
 					<rows>
 						<row>
 							<hbox>
-								<flabel value="Descrição:" />
+								<label value="Descrição:" />
 							</hbox>
-							<ftextbox name="fldDescricao"
+							<textbox name="fldDescricao"
 								value="@bind(vm.entity.descricao)" width="210px;" 
 								rows="6"
 								tabindex="11" inplace="true"  type="text"  />
@@ -35,9 +35,9 @@
 		</panel>
 		<separator />
 		<div align="center">
-			<fbutton id="submit" label="Submit"
+			<button id="submit" label="Submit"
 				onClick="@command('salvar')" />
-			<fbutton id="cancel" label="Cancel"
+			<button id="cancel" label="Cancel"
 				onClick="@command('closeThis')" />
 		</div>
 		<separator />

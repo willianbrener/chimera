@@ -1,5 +1,6 @@
 package br.com.ueg.pids.ViewModel;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 
@@ -44,7 +45,7 @@ public class DepartamentoViewModel extends GenericViewModel<Departamento, Depart
 	}
 	
 	@Command
-	public Return salvar() {
+	public Return salvar() throws SQLException {
 		Return ret = new Return(true);
 					getEntity().setAtivo(true);
 					ret = getControl().salvar(getEntity());

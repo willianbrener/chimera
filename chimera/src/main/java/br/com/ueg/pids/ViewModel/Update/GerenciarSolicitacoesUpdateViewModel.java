@@ -1,5 +1,6 @@
 package br.com.ueg.pids.ViewModel.Update;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -57,14 +58,14 @@ public class GerenciarSolicitacoesUpdateViewModel
 
 	@NotifyChange("entity")
 	@Command
-	public Return update() {
+	public Return update() throws SQLException {
 		Return ret = new Return(true);
 
 		ret = getControl().alterar(getItemSelected());
 
 		if (ret.isValid()) {
 			closeThis();
-			Messagebox.show("Solicitação alterada com sucesso!", "Sucess",
+			Messagebox.show("Solicitaï¿½ï¿½o alterada com sucesso!", "Sucess",
 					Messagebox.OK, Messagebox.INFORMATION);
 		}
 		return ret;

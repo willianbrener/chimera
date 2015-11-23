@@ -1,5 +1,6 @@
 package br.com.ueg.pids.Control;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import br.com.ueg.pids.DAO.GenericDAO;
@@ -22,10 +23,10 @@ public abstract class GenericController<Entity> implements IController{
 		this.list = list;
 	}
 
-	public abstract Return validar(IModel<?> imodel);
+	public abstract Return validar(IModel<?> imodel) throws SQLException;
 	public abstract Return validarItemUnico(IModel<?> imodel);
 	
-	public Return salvar(IModel<?> imodel) {
+	public Return salvar(IModel<?> imodel) throws SQLException {
 		Return res = validar(imodel);
 		if (res.isValid()) {
 			return dao.inserir(imodel);
@@ -33,8 +34,8 @@ public abstract class GenericController<Entity> implements IController{
 		return res;
 	}
 
-	public Return alterar(IModel<?> imodel) {
-		Return res = validarSolicitacao(imodel);
+	public Return alterar(IModel<?> imodel) throws SQLException {
+		Return res = validar(imodel);
 		if (res.isValid()) {
 			return dao.alterar(imodel);
 		}

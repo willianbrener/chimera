@@ -1,5 +1,6 @@
 package br.com.ueg.pids.ViewModel;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -42,6 +43,7 @@ public class GerenciarSolicitacoesViewModel
 	private Date data = new Date();
 	private Integer solicitacaoSelectedIndex;
 	private DateUtils dateUtils = new DateUtils();
+
 	@Init
 	public void init() {
 		super.init();
@@ -54,9 +56,10 @@ public class GerenciarSolicitacoesViewModel
 			setUsuario((Usuario) getLstUsuarios().get(0));
 		}
 
-		if ( (lstSolicitacoes == null || lstSolicitacoes.size() == 0) && verificaComponent().equals("listar")) {
-			getSolicitacoesList(getUsuario().getPermissao(),getUsuario());
-		} 
+		if ((lstSolicitacoes == null || lstSolicitacoes.size() == 0)
+				&& verificaComponent().equals("listar")) {
+			getSolicitacoesList(getUsuario().getPermissao(), getUsuario());
+		}
 	}
 
 	@Command
@@ -76,7 +79,7 @@ public class GerenciarSolicitacoesViewModel
 		setLstUsuarios(getControl().getLstUsuarioDados(usuario.getNome()));
 		if (getLstUsuarios() != null && getLstUsuarios().size() == 1) {
 			getEntity().setUsuario((Usuario) getLstUsuarios().get(0));
-			
+
 		} else {
 
 		}
@@ -99,9 +102,8 @@ public class GerenciarSolicitacoesViewModel
 	}
 
 	@Command
-	public Return salvar() {
+	public Return salvar() throws SQLException {
 		Return ret = new Return(true);
-		
 
 		String newDate = dateUtils.DateToString(getData());
 		getEntity().setAtivo(true);
@@ -109,52 +111,73 @@ public class GerenciarSolicitacoesViewModel
 		getEntity().setSituacao("PENDENTE");
 		ret = getControl().salvar(getEntity());
 		if (ret.isValid()) {
-			msgbox.mensagem(TypeMessage.SUCESSO, "Solicitação realizada com sucesso!");
-			if(getEntity().getUsuario().getPermissao().equals("TOTAL")){
-				Executions.sendRedirect("/paginas/gerenciar_solicitacoes/administrator/pesquisar.zul");
-			}else if(getEntity().getUsuario().getPermissao().equals("APROVADOR")){
-				Executions.sendRedirect("/paginas/gerenciar_solicitacoes/approver/pesquisar.zul");
-			}else if(getEntity().getUsuario().getPermissao().equals("SOLICITANTE")){
-				Executions.sendRedirect("/paginas/gerenciar_solicitacoes/user/pesquisar.zul");
-			}else if(getEntity().getUsuario().getPermissao().equals("EXECUTOR")){
-				Executions.sendRedirect("/paginas/gerenciar_solicitacoes/executioner/pesquisar.zul");
+			msgbox.mensagem(TypeMessage.SUCESSO,
+					"Solicitaï¿½ï¿½o realizada com sucesso!");
+			if (getEntity().getUsuario().getPermissao().equals("TOTAL")) {
+				Executions
+						.sendRedirect("/paginas/gerenciar_solicitacoes/administrator/pesquisar.zul");
+			} else if (getEntity().getUsuario().getPermissao()
+					.equals("APROVADOR")) {
+				Executions
+						.sendRedirect("/paginas/gerenciar_solicitacoes/approver/pesquisar.zul");
+			} else if (getEntity().getUsuario().getPermissao()
+					.equals("SOLICITANTE")) {
+				Executions
+						.sendRedirect("/paginas/gerenciar_solicitacoes/user/pesquisar.zul");
+			} else if (getEntity().getUsuario().getPermissao()
+					.equals("EXECUTOR")) {
+				Executions
+						.sendRedirect("/paginas/gerenciar_solicitacoes/executioner/pesquisar.zul");
 			}
-			
-		}else{
-			
+
+		} else {
+
 		}
 
 		return null;
 	}
-	
+
 	@Command
 	public Return telaAlterar() {
 		Return ret = new Return(true);
 		if (itemSelected == null) {
-			msgbox.mensagem(TypeMessage.AVISO, "Selecione algum item para alterar!");
-		} else {
+			msgbox.mensagem(TypeMessage.AVISO,
+					"Selecione algum item para alterar!");
+		} else if (itemSelected.getSituacao().equalsIgnoreCase("APROVADA")) {
+			msgbox.mensagem(TypeMessage.AVISO, "SolicitaÃ§Ã£o jÃ¡ aprovada!");
+		} else if (!itemSelected.getSituacao().equalsIgnoreCase("APROVADA")
+				&& itemSelected != null) {
 			final HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("SolicitacaoObject", this.itemSelected);
 			map.put("recordMode", "EDIT");
 			setSolicitacaoSelectedIndex(lstSolicitacoes.indexOf(itemSelected));
-			Executions.createComponents("/paginas/gerenciar_solicitacoes/solicitacao_component.zul", null, map);
-			// setItemSelected(null);
+			Executions
+					.createComponents(
+							"/paginas/gerenciar_solicitacoes/solicitacao_component.zul",
+							null, map);
 		}
 		return ret;
 	}
-	
+
 	@Command
 	public Return telaRecusar() {
 		Return ret = new Return(true);
+		if (itemSelected != null) {
 			final HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("SolicitacaoObject", this.itemSelected);
 			map.put("recordMode", "EDIT");
 			setSolicitacaoSelectedIndex(lstSolicitacoes.indexOf(itemSelected));
-			Executions.createComponents("/paginas/gerenciar_solicitacoes/motivo_component.zul", null, map);
+			Executions.createComponents(
+					"/paginas/gerenciar_solicitacoes/motivo_component.zul",
+					null, map);
 			// setItemSelected(null);
+		} else {
+			msgbox.mensagem(TypeMessage.AVISO,
+					"Selecione algum item para recusar!");
+		}
 		return ret;
 	}
-	
+
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Command
 	@NotifyChange("lstSolicitacoes")
@@ -162,7 +185,8 @@ public class GerenciarSolicitacoesViewModel
 
 		Return ret = new Return(true);
 		if (itemSelected == null) {
-			msgbox.mensagem(TypeMessage.ERROR, "Selecione um item para ser deletado!");
+			msgbox.mensagem(TypeMessage.ERROR,
+					"Selecione um item para ser deletado!");
 		} else {
 			String str = "Deseja deletar a solicitacao \""
 					+ getItemSelected().getTitulo() + "\"?";
@@ -176,7 +200,8 @@ public class GerenciarSolicitacoesViewModel
 								if (event.getName().equals("onYes")) {
 
 									getControl().desativar(getItemSelected());
-									msgbox.mensagem(TypeMessage.SUCESSO, "Solicitação deletada com sucesso!");
+									msgbox.mensagem(TypeMessage.SUCESSO,
+											"Solicitaï¿½ï¿½o deletada com sucesso!");
 									setItemSelected(null);
 								}
 							}
@@ -186,73 +211,79 @@ public class GerenciarSolicitacoesViewModel
 		}
 		return ret;
 	}
+
 	@NotifyChange("entity")
 	@Command
-	public Return limpar(){
+	public Return limpar() {
 		Return ret = new Return(true);
-		if(getEntity() != null){
+		if (getEntity() != null) {
 			setEntity(null);
 			setItemSelected(null);
 		}
 		return ret;
 	}
-	
+
 	@NotifyChange("lstSolicitacoes")
 	@Command
-	public Return aprovar(){
+	public Return aprovar() {
 		Return ret = new Return(false);
-		if(getItemSelected()!= null && getItemSelected().getSituacao().equals("PENDENTE")){
-			ret = getControl().alterarSolicitacao(getItemSelected(),"APROVADA");
+		if (getItemSelected() != null
+				&& getItemSelected().getSituacao().equals("PENDENTE")) {
+			ret = getControl()
+					.alterarSolicitacao(getItemSelected(), "APROVADA");
 			msgbox.mensagem(TypeMessage.SUCESSO, "Solicitacao Aprovada!");
-		}else if(getItemSelected()== null){
-			msgbox.mensagem(TypeMessage.AVISO, "Selecione uma solicitação!");
-		}else if(getItemSelected().getSituacao().equals("APROVADA")){
-			msgbox.mensagem(TypeMessage.AVISO, "Solicitação já aprovada!");
+		} else if (getItemSelected() == null) {
+			msgbox.mensagem(TypeMessage.AVISO, "Selecione uma solicitaï¿½ï¿½o!");
+		} else if (getItemSelected().getSituacao().equals("APROVADA")) {
+			msgbox.mensagem(TypeMessage.AVISO, "Solicitaï¿½ï¿½o jï¿½ aprovada!");
 		}
-		if(ret.isValid()){
+		if (ret.isValid()) {
 			limpar();
-			getSolicitacoesList(getUsuario().getPermissao(),getUsuario());
+			getSolicitacoesList(getUsuario().getPermissao(), getUsuario());
 		}
-		
+
 		return ret;
 	}
-	
+
 	@NotifyChange("lstSolicitacoes")
 	@Command
-	public Return rejeitar(){
+	public Return rejeitar() {
 		Return ret = new Return(false);
-		if(getItemSelected()!= null && getItemSelected().getSituacao().equals("PENDENTE")){
-			ret = getControl().alterarSolicitacao(getItemSelected(),"REPROVADA");
-			if(ret.isValid()){
+		if (getItemSelected() != null
+				&& getItemSelected().getSituacao().equals("PENDENTE")) {
+			ret = getControl().alterarSolicitacao(getItemSelected(),
+					"REPROVADA");
+			if (ret.isValid()) {
 				ret = telaRecusar();
 			}
-		}else if(getItemSelected()== null){
-			msgbox.mensagem(TypeMessage.AVISO, "Selecione uma solicitação!");
+		} else if (getItemSelected() == null) {
+			msgbox.mensagem(TypeMessage.AVISO, "Selecione uma solicitaï¿½ï¿½o!");
 		}
-		if(ret.isValid()){
+		if (ret.isValid()) {
 			limpar();
-			getSolicitacoesList(getUsuario().getPermissao(),getUsuario());
+			getSolicitacoesList(getUsuario().getPermissao(), getUsuario());
 		}
 		return ret;
 	}
-	
+
 	@NotifyChange("lstSolicitacoes")
 	@Command
-	public Return executar(){
+	public Return executar() {
 		Return ret = new Return(false);
-		if(getItemSelected()!= null && getItemSelected().getSituacao().equals("APROVADA")){
-			ret = getControl().alterarSolicitacao(getItemSelected(),"EXECUTADA");
-		}else if(getItemSelected()== null){
-			msgbox.mensagem(TypeMessage.AVISO, "Selecione uma solicitação!");
+		if (getItemSelected() != null
+				&& getItemSelected().getSituacao().equals("APROVADA")) {
+			ret = getControl().alterarSolicitacao(getItemSelected(),
+					"EXECUTADA");
+		} else if (getItemSelected() == null) {
+			msgbox.mensagem(TypeMessage.AVISO, "Selecione uma solicitaï¿½ï¿½o!");
 		}
-		if(ret.isValid()){
+		if (ret.isValid()) {
 			limpar();
-			getSolicitacoesList(getUsuario().getPermissao(),getUsuario());
+			getSolicitacoesList(getUsuario().getPermissao(), getUsuario());
 		}
 		return ret;
 	}
-	
-	
+
 	@Override
 	public GerenciarSolicitacoes getObject() {
 		return new GerenciarSolicitacoes();
@@ -279,9 +310,11 @@ public class GerenciarSolicitacoesViewModel
 	}
 
 	@NotifyChange("lstSolicitacoes")
-	public List<GerenciarSolicitacoes> getSolicitacoesList(String string, Usuario usuario) {
+	public List<GerenciarSolicitacoes> getSolicitacoesList(String string,
+			Usuario usuario) {
 		GerenciarSolicitacoesController solicitacoesController = new GerenciarSolicitacoesController();
-		lstSolicitacoes = solicitacoesController.getLstEntities(string,usuario);
+		lstSolicitacoes = solicitacoesController
+				.getLstEntities(string, usuario);
 		return lstSolicitacoes;
 	}
 

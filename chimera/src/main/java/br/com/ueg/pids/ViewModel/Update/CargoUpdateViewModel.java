@@ -1,5 +1,6 @@
 package br.com.ueg.pids.ViewModel.Update;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import org.zkoss.bind.annotation.Command;
@@ -52,7 +53,7 @@ public class CargoUpdateViewModel extends
 
 	@NotifyChange("entity")
 	@Command
-	public Return update() {
+	public Return update() throws SQLException {
 		Return ret = new Return(true);
 		ret = getControl().alterar(getEntity());
 

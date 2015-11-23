@@ -39,7 +39,7 @@
 				emptyMessage="Nenhuma solicitação selecionada."
 				style="margin-top:10px" mold="paging" pageSize="5"
 				xmlns:w="http://www.zkoss.org/2005/zk/client"
-				selectedItem="@bind(vm.itemSelected)">
+				selectedItem="@bind(vm.itemSelected)" checkmark="true">
 
 
 				<listhead sizable="true">
@@ -80,7 +80,7 @@
 							onClick="@command('rejeitar')" />
 					</div>
 					<div class="btn btn-success btn-md">
-						<button label="Aprovar" sclass="btn-success"
+						<button label="Executar" sclass="btn-success"
 							onClick="@command('executar')" />
 					</div>
 					<div class="btn btn-warning btn-md">

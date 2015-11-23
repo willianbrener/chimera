@@ -1,5 +1,6 @@
 package br.com.ueg.pids.ViewModel.Update;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,15 +54,10 @@ public class UsuarioUpdateViewModel extends GenericViewModel<Usuario, UsuarioCon
 	
 	@NotifyChange("lstUsuario")
 	@Command
-	public Return update() {
+	public Return update() throws SQLException {
 		Return ret = new Return(true);
-		if (permissaoSelecionada == null) {
-			ret = getControl().alterar(getItemSelected());
-		} else {
-			getItemSelected().setPermissao(permissaoSelecionada.getNome());
-			
-			ret = getControl().alterar(getItemSelected());
-		}
+			ret = getControl().alterar(getEntity());
+		
 		
 		if (ret.isValid()) {
 			closeThis();

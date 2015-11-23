@@ -6,6 +6,7 @@ import java.util.List;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.HtmlBasedComponent;
 import org.zkoss.zk.ui.Session;
@@ -27,13 +28,12 @@ import br.com.ueg.pids.Utils.Return;
 
 @SuppressWarnings("serial")
 public class NavbarViewModel extends Div {
-	
+
 	@Wire
 	A atask, anoti, amsg;
-	
+
 	AuthenticationService authService = new AuthentificationServiceImpl2();
 	private int aprovadas, executadas, reprovadas;
-	
 
 	private int qtdSolitacoes;
 	private List<GerenciarSolicitacoes> solicitacoes = new ArrayList<GerenciarSolicitacoes>();
@@ -41,64 +41,73 @@ public class NavbarViewModel extends Div {
 	Session sess = Sessions.getCurrent();
 	UserCredential user = new UserCredential();
 	private List<?> lstUsuarios;
-	
-	
-	
+
 	@Init
 	public void init() {
-		user = (UserCredential)sess.getAttribute("userCredential");
+		user = (UserCredential) sess.getAttribute("userCredential");
 		populaDadosUsuario();
 		populaDadosSolicitacoes();
 	}
-	
+
 	public Return populaDadosSolicitacoes() {
 		Return ret = new Return(true);
 		GerenciarSolicitacoesController control = new GerenciarSolicitacoesController();
 		setSolicitacoes(control.getLstEntities(user.getPermission(), usuario));
 		if (getSolicitacoes() != null && getSolicitacoes().size() > 0) {
 			for (GerenciarSolicitacoes soli : solicitacoes) {
-				if(soli.getSituacao().equals("REPROVADA")){
+				if (soli.getSituacao().equals("REPROVADA")) {
 					reprovadas++;
-				}else if(soli.getSituacao().equals("APROVADA")){
+				} else if (soli.getSituacao().equals("APROVADA")) {
 					aprovadas++;
-				}else if(soli.getSituacao().equals("EXECUTADA")){
+				} else if (soli.getSituacao().equals("EXECUTADA")) {
 					executadas++;
 				}
-				
+
 			}
-			
-		} 
-		qtdSolitacoes = reprovadas+aprovadas+executadas;
+
+		}
+		qtdSolitacoes = reprovadas + aprovadas + executadas;
 		return ret;
 	}
-	
+
 	public Return populaDadosUsuario() {
 		Return ret = new Return(true);
 		GerenciarSolicitacoesController control = new GerenciarSolicitacoesController();
 		setLstUsuarios(control.getLstUsuarioDados(user.getName()));
-	
+
 		setUsuario((Usuario) getLstUsuarios().get(0));
-		
+
 		return ret;
 	}
+
+	@Command
+	public Return redireciona() {
+		Return ret = new Return(true);
+		if (user.getPermission().equalsIgnoreCase("SOLICITANTE")) {
+			Executions
+					.sendRedirect("/paginas/gerenciar_solicitacoes/user/solicitacoes_reprovadas.zul");
+		}
+		return ret;
+	}
+
 	@Listen("onOpen = #taskpp")
 	public void toggleTaskPopup(OpenEvent event) {
 		toggleOpenClass(event.isOpen(), atask);
 	}
-	
+
 	@Listen("onOpen = #notipp")
 	public void toggleNotiPopup(OpenEvent event) {
 		toggleOpenClass(event.isOpen(), anoti);
 	}
-	
+
 	@Listen("onOpen = #msgpp")
 	public void toggleMsgPopup(OpenEvent event) {
 		toggleOpenClass(event.isOpen(), amsg);
 	}
-	
+
 	@Command
-	public void doLogout(){
-		authService.logout();		
+	public void doLogout() {
+		authService.logout();
 		Executions.sendRedirect("/login.zul");
 	}
 
@@ -112,8 +121,6 @@ public class NavbarViewModel extends Div {
 			comp.setSclass(scls.replace(" open", ""));
 		}
 	}
-
-	
 
 	public int getAprovadas() {
 		return aprovadas;
@@ -170,5 +177,5 @@ public class NavbarViewModel extends Div {
 	public void setLstUsuarios(List<?> lstUsuarios) {
 		this.lstUsuarios = lstUsuarios;
 	}
-	
+
 }
