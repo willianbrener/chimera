@@ -6,13 +6,22 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import org.zkoss.bind.annotation.AfterCompose;
+import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.ContextParam;
+import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
+import org.zkoss.zk.ui.event.InputEvent;
+import org.zkoss.zk.ui.select.Selectors;
+import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zul.Messagebox;
+import org.zkoss.zul.Textbox;
 
 import br.com.ueg.pids.Control.GerenciarSolicitacoesController;
 import br.com.ueg.pids.Control.RecursoController;
@@ -31,7 +40,7 @@ import br.com.ueg.pids.Utils.Utils;
 public class GerenciarSolicitacoesViewModel
 		extends
 		GenericViewModel<GerenciarSolicitacoes, GerenciarSolicitacoesController> {
-
+	private String selection;
 	private Cargo cargoSelected = new Cargo();
 	private Permissao permissaoSelecionada;
 	private List<GerenciarSolicitacoes> lstSolicitacoes = new ArrayList<GerenciarSolicitacoes>();
@@ -45,8 +54,10 @@ public class GerenciarSolicitacoesViewModel
 	private DateUtils dateUtils = new DateUtils();
 
 	@Init
-	public void init() {
+	public void init(@ContextParam(ContextType.VIEW) Component view)
+			throws Exception {
 		super.init();
+		Selectors.wireEventListeners(view, this);
 		usuario.setNome(user.getName());
 		if (getEntity() != null && verificaComponent().equals("criar")) {
 			populaDadosUsuario();
@@ -284,6 +295,20 @@ public class GerenciarSolicitacoesViewModel
 		return ret;
 	}
 
+	@Command
+	public void doCommand(@BindingParam("self_value") String self_value,
+			@BindingParam("self_value") String event_value,
+			@ContextParam(ContextType.TRIGGER_EVENT) InputEvent event) {
+		System.out.println("doCommand: selection: " + selection
+				+ " self_value: " + self_value + " event_value: " + event_value
+				+ " event_value2: " + event.getValue());
+	}
+
+	@Listen("onChanging=#t1")
+	public void onChanging(InputEvent event) {
+		System.out.println("onChanging=#t1: event_value3: " + event.getValue());
+	}
+
 	@Override
 	public GerenciarSolicitacoes getObject() {
 		return new GerenciarSolicitacoes();
@@ -400,6 +425,14 @@ public class GerenciarSolicitacoesViewModel
 
 	public void setSolicitacaoSelectedIndex(Integer solicitacaoSelectedIndex) {
 		this.solicitacaoSelectedIndex = solicitacaoSelectedIndex;
+	}
+
+	public String getSelection() {
+		return selection;
+	}
+
+	public void setSelection(String selection) {
+		this.selection = selection;
 	}
 
 }

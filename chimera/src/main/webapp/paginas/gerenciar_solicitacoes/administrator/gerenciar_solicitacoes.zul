@@ -37,6 +37,17 @@
 				</div>
 			</div>
 
+			<div class="row" xmlns:c="client">
+				<div sclass="col-sm-4 normal-article">
+					<n:h4>Pesquisar:</n:h4>
+					<textbox id="t1"
+						value="@load(vm.selection) @save(vm.selection, before='doCommand')"
+						onChanging="@command('doCommand', self_value=self.value, event_value=event.value)"
+						class="form-control" />
+
+				</div>
+			</div>
+
 			<listbox id="lb" model="@bind(vm.lstSolicitacoes)"
 				emptyMessage="Nenhuma solicitação selecionada."
 				style="margin-top:10px" mold="paging" pageSize="5"

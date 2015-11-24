@@ -36,3 +36,8 @@ div.z-listbox { border: 1px solid #B3B3B3; background-color:
     border-top-left-radius: 0;
     border-left: 0;
  }
+ 
+ 
+ div.red{
+ color: red;
+ }
