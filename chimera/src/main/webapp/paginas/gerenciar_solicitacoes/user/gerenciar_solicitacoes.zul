@@ -34,6 +34,59 @@
 						value="@bind(vm.entity.situacao)" class="form-control" />
 				</div>
 			</div>
+			
+						<div class="row">
+				<div sclass="col-sm-12 normal-article">
+					<n:h4>Filtro:</n:h4>
+					<div class="row">
+						<div class="col-sm-3">
+							<combobox readonly="true"
+								model="@load(vm.recursoList)" class="form-control"
+								selectedItem="@bind(vm.entity.recurso)">
+								<template name="model">
+									<comboitem label="@load(each.nome)" />
+								</template>
+							</combobox>
+						</div>
+						<div class="col-sm-2">
+							<checkbox label="Status"
+								checked="false" />
+						</div>
+
+					</div>
+					<div class="row">
+						<div class="col-sm-3">
+							<combobox readonly="true"
+								model="@load(vm.recursoList)" class="form-control"
+								selectedItem="@bind(vm.entity.recurso)">
+								<template name="model">
+									<comboitem label="@load(each.nome)" />
+								</template>
+							</combobox>
+						</div>
+						<div class="col-sm-2">
+							<checkbox label="Recurso"
+								checked="false" />
+						</div>
+
+					</div>
+					<div class="row">
+						<div class="col-sm-3">
+							<combobox readonly="true"
+								model="@load(vm.recursoList)" class="form-control"
+								selectedItem="@bind(vm.entity.recurso)">
+								<template name="model">
+									<comboitem label="@load(each.nome)" />
+								</template>
+							</combobox>
+						</div>
+						<div class="col-sm-2">
+							<checkbox label="Departamento"
+								checked="false" />
+						</div>
+
+					</div>
+				</div>
 
 			<listbox id="lb" model="@bind(vm.lstSolicitacoes)"
 				emptyMessage="Nenhuma solicitação selecionada."
@@ -47,8 +100,8 @@
 						sort="auto(data)" />
 					<listheader label="Usuário" align="center"
 						sort="auto(usuario)" />
-					<listheader label="Descrição" align="center"
-						sort="auto(descricao)" />
+					<listheader label="Título" align="center"
+						sort="auto(titulo)" />
 					<listheader label="" align="center" />
 				</listhead>
 				<template name="model">
@@ -59,11 +112,13 @@
 						<listcell label="@bind(each.usuario.account)"
 							onClick="@command('setaValores')">
 						</listcell>
-						<listcell label="@bind(each.descricao)"
+						<listcell label="@bind(each.titulo)"
 							onClick="@command('setaValores')">
 						</listcell>
 						<listcell>
-
+							<button image="/imagens/icon_lupa.png"
+								onClick="@command('telaDetalhar') @global-command('refresh')" />
+							
 							<button image="/imagens/remove-icon.png"
 								onClick="@command('deletar') @global-command('refresh')" />
 							<button image="/imagens/edit-icon.png"

@@ -1,0 +1,97 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk xmlns:n="native">
+
+	<window title="Solicitacao Alterar" border="normal"
+		id="SolicitacoesUpdate" width="700px" height="auto"
+		apply="org.zkoss.bind.BindComposer" sclass="mymodal"
+		minimizable="false" mode="modal" maximizable="false" closable="true"
+		position="center"
+		viewModel="@id('vm') @init('br.com.ueg.pids.ViewModel.Update.GerenciarSolicitacoesUpdateViewModel')">
+		<separator />
+		<separator />
+		<div class="col-sm-1"></div>
+		<div class="col-sm-10">
+			<div class="row">
+			<div sclass="col-sm-2 normal-article">
+			<n:h7>Nº :</n:h7>
+					<textbox id="fldId"
+						value="@bind(vm.entity.idsolicitacoes)" readonly="true"
+						class="form-control" />
+			</div>
+			</div>
+			<div class="row">
+				
+				<div sclass="col-sm-4 normal-article">
+					<n:h4>Usuário:</n:h4>
+					<textbox id="fldUser"
+						value="@bind(vm.entity.usuario.nome)" readonly="true"
+						class="form-control" />
+
+					<n:h4>Departamento:</n:h4>
+					<textbox id="fldDepartament"
+						value="@bind(vm.entity.usuario.cargo.departamento.nome)"
+						readonly="true" class="form-control" />
+				</div>
+				<div sclass="col-sm-4 normal-article">
+					<n:h4>Data:</n:h4>
+					<div class="input-group">
+						<datebox id="fldDate" value="@bind(vm.data)"
+							sclass="input-group" readonly="true" format="dd/MM/yyyy" locale="pt_BR"
+							placeholder="DD/MM/YYYY" />
+					</div>
+
+					<n:h4>Cargo:</n:h4>
+					<textbox id="fldCargo"
+						value="@bind(vm.entity.usuario.cargo.nome)" readonly="true"
+						class="form-control" />
+				</div>
+
+				<div sclass="col-sm-4 normal-article">
+					<n:h4>Permissão:</n:h4>
+					<div class="input-group">
+						<textbox id="fldPermissao"
+							value="@bind(vm.entity.usuario.permissao)" readonly="true"
+							class="form-control" />
+					</div>
+
+					<div class="input-group">
+						<n:h4>Hora:</n:h4>
+						<textbox id="fldHour" readonly="true"
+							value="@bind(vm.entity.hora)" placeholder="HH:MM"
+							class="form-control" />
+					</div>
+				</div>
+			</div>
+			<div class="row">
+			<div sclass="col-sm-8 normal-article">
+					<n:h4>Título:</n:h4>
+					<textbox id="fldTittle" readonly="true"
+						value="@bind(vm.entity.titulo)" class="form-control" />
+				</div>
+				<div sclass="col-sm-4 normal-article">
+					<n:h4>Recurso:</n:h4>
+					<div class="input-group"> 
+						<combobox readonly="true" value="@bind(vm.entity.recurso.nome)"
+							model="@load(vm.recursoList)" class="form-control"
+							selectedItem="@bind(vm.entity.recurso)">
+							<template name="model">
+								<comboitem label="@load(each.nome)" />
+							</template>
+						</combobox>
+					</div>
+				</div>
+				
+			</div>
+
+			<n:h4>Descrição:</n:h4>
+			<textbox id="fldDescription" rows="4" readonly="true" tabindex="11"
+				value="@bind(vm.entity.descricao)" class="form-control" />
+
+			<separator spacing="20px" />
+
+			
+		</div>
+		<div class="col-sm-1"></div>
+		<separator />
+	</window>
+</zk>

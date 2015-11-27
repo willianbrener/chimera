@@ -52,7 +52,7 @@ public class GerenciarSolicitacoesViewModel
 	private Date data = new Date();
 	private Integer solicitacaoSelectedIndex;
 	private DateUtils dateUtils = new DateUtils();
-
+	private boolean filtroRec, filtroDepart, filtroStatus;
 	@Init
 	public void init(@ContextParam(ContextType.VIEW) Component view)
 			throws Exception {
@@ -171,6 +171,26 @@ public class GerenciarSolicitacoesViewModel
 	}
 
 	@Command
+	public Return telaDetalhar() {
+		Return ret = new Return(true);
+
+		if (itemSelected == null) {
+			msgbox.mensagem(TypeMessage.AVISO,
+					"Selecione algum item para alterar!");
+		} else {
+			final HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("SolicitacaoObject", this.itemSelected);
+			map.put("recordMode", "EDIT");
+			setSolicitacaoSelectedIndex(lstSolicitacoes.indexOf(itemSelected));
+			Executions
+					.createComponents(
+							"/paginas/gerenciar_solicitacoes/solicitacao_detalhar.zul",
+							null, map);
+		}
+		return ret;
+	}
+
+	@Command
 	public Return telaRecusar() {
 		Return ret = new Return(true);
 		if (itemSelected != null) {
@@ -212,7 +232,7 @@ public class GerenciarSolicitacoesViewModel
 
 									getControl().desativar(getItemSelected());
 									msgbox.mensagem(TypeMessage.SUCESSO,
-											"Solicita��o deletada com sucesso!");
+											"Solicitação deletada com sucesso!");
 									setItemSelected(null);
 								}
 							}
@@ -433,6 +453,38 @@ public class GerenciarSolicitacoesViewModel
 
 	public void setSelection(String selection) {
 		this.selection = selection;
+	}
+
+	public DateUtils getDateUtils() {
+		return dateUtils;
+	}
+
+	public void setDateUtils(DateUtils dateUtils) {
+		this.dateUtils = dateUtils;
+	}
+
+	public boolean isFiltroRec() {
+		return filtroRec;
+	}
+
+	public void setFiltroRec(boolean filtroRec) {
+		this.filtroRec = filtroRec;
+	}
+
+	public boolean isFiltroDepart() {
+		return filtroDepart;
+	}
+
+	public void setFiltroDepart(boolean filtroDepart) {
+		this.filtroDepart = filtroDepart;
+	}
+
+	public boolean isFiltroStatus() {
+		return filtroStatus;
+	}
+
+	public void setFiltroStatus(boolean filtroStatus) {
+		this.filtroStatus = filtroStatus;
 	}
 
 }
