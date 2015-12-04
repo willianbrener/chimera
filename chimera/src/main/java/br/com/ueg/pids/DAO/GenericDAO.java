@@ -266,8 +266,14 @@ where	situacao='APROVADA						|
 		if(string.equals("APROVADOR")){
 			
 			
-			String sqlAll = "select "+ entidade.getTableColumnNames()+" from " + entidade.getTableName() + " ";
-			sqlAll = sqlAll + " where ativo = true";
+	  String sqlAll = "select distinct s.idsolicitacoes,s.titulo,s.descricao,s.data,s.hora,s.situacao,s.idusuario,s.idrecurso,s.ativo "
+					+ "from " + entidade.getTableName() + " as s,"
+					+ "			departamento as d,"
+					+ "			recurso as r ";
+	sqlAll = sqlAll + "where 	s.idrecurso = r.idrecurso "
+					+ "and 		r.iddepartamento = d.idepartamento "
+					+ "and 		d.iddepartamento="+usuario.getCargo().getDepartamento().getIddepartamento()+" "
+					+ "and 		ativo = true";
 			sql = sqlAll;
 		}else if(string.equals("SOLICITANTE")){
 			String sqlAll = "select * "
@@ -279,8 +285,8 @@ where	situacao='APROVADA						|
 		sql = sqlAll;
 		}else if(string.equals("EXECUTOR")){
 			String sqlAll = "select "+ entidade.getTableColumnNames()+" from " + entidade.getTableName() + " ";
-			sqlAll = sqlAll + " where situacao='APROVADA' "
-							+ "and ativo = true";
+			sqlAll = sqlAll + " where situacao in ('APROVADA','EXECUTADA')"
+							+ " and ativo = true";
 			sql = sqlAll;
 		}else if(string.equals("TOTAL")){
 			String sqlAll = "select "+ entidade.getTableColumnNames()+" from " + entidade.getTableName() + " ";

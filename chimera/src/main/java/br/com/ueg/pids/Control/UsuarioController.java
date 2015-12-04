@@ -34,31 +34,31 @@ public class UsuarioController extends GenericController<Usuario> {
 		
 		if (getUsuario().getNome() == null || getUsuario().getNome().equals("")) {
 
-			ret = new Return(false, "Nome em branco ou invï¿½lida!",
+			ret = new Return(false, "Nome em branco ou inválida!",
 					TypeMessage.ERROR);
 		}else if(getUsuario().getNome().length() < 3){
 			ret = new Return(false, "Nome com menos de 3 caracteres!",
 					TypeMessage.ERROR);
 		}else if(getUsuario().getAccount() == null || getUsuario().getAccount().equals("")){
-			ret = new Return(false, "Conta em branco ou invï¿½lida!",
+			ret = new Return(false, "Conta em branco ou inválida!",
 					TypeMessage.ERROR);
 		}else if(getUsuario().getAccount().length() < 3){
 			ret = new Return(false, "Conta com menos de 3 caracteres!",
 					TypeMessage.ERROR);
 		}else if(getUsuario().getPassword() == null || getUsuario().getPassword().equals("")){
-			ret = new Return(false, "Senha em branco ou invï¿½lido!",
+			ret = new Return(false, "Senha em branco ou inválido!",
 					TypeMessage.ERROR);
 		}else if(!mail.validatorEmail(getUsuario().getEmail())){
-			ret = new Return(false, "Email em branco ou invï¿½lido!",
+			ret = new Return(false, "Email em branco ou inválido!",
 					TypeMessage.ERROR);
 		}else if(getUsuario().getPermissao() == null || getUsuario().getPermissao().equals("")){
-			ret = new Return(false, "Permissao em branco ou invï¿½lido!",
+			ret = new Return(false, "Permissao em branco ou inválido!",
 					TypeMessage.ERROR);
 		}else if(getUsuario().getCargo() == null || getUsuario().getCargo().equals("")){
-			ret = new Return(false, "Cargo em branco ou invï¿½lido!",
+			ret = new Return(false, "Cargo em branco ou inválido!",
 					TypeMessage.ERROR);
 		}else if(!dao.pesquisarNome(usuario, getUsuario().getAccount()).isEmpty()){
-			ret = new Return(false, "Conta jÃ¡ existente!", TypeMessage.ERROR);
+			ret = new Return(false, "Conta já existente!", TypeMessage.ERROR);
 		}
 			return ret;
 	}

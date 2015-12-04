@@ -6,8 +6,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-import org.zkoss.bind.annotation.AfterCompose;
-import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.ContextParam;
 import org.zkoss.bind.annotation.ContextType;
@@ -17,18 +15,18 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
-import org.zkoss.zk.ui.event.InputEvent;
 import org.zkoss.zk.ui.select.Selectors;
-import org.zkoss.zk.ui.select.annotation.Listen;
 import org.zkoss.zul.Messagebox;
-import org.zkoss.zul.Textbox;
 
+import br.com.ueg.pids.Control.DepartamentoController;
 import br.com.ueg.pids.Control.GerenciarSolicitacoesController;
 import br.com.ueg.pids.Control.RecursoController;
 import br.com.ueg.pids.Converter.DateUtils;
 import br.com.ueg.pids.Enum.Permissao;
+import br.com.ueg.pids.Enum.SituacaoSolicitacao;
 import br.com.ueg.pids.Enum.TypeMessage;
 import br.com.ueg.pids.Model.Cargo;
+import br.com.ueg.pids.Model.Departamento;
 import br.com.ueg.pids.Model.GerenciarSolicitacoes;
 import br.com.ueg.pids.Model.Recurso;
 import br.com.ueg.pids.Model.UserCredential;
@@ -40,24 +38,32 @@ import br.com.ueg.pids.Utils.Utils;
 public class GerenciarSolicitacoesViewModel
 		extends
 		GenericViewModel<GerenciarSolicitacoes, GerenciarSolicitacoesController> {
-	private String selection;
 	private Cargo cargoSelected = new Cargo();
 	private Permissao permissaoSelecionada;
 	private List<GerenciarSolicitacoes> lstSolicitacoes = new ArrayList<GerenciarSolicitacoes>();
+	private List<GerenciarSolicitacoes> lstFiltroDepartamento = new ArrayList<GerenciarSolicitacoes>();
+	private List<GerenciarSolicitacoes> lstFiltroSituacao = new ArrayList<GerenciarSolicitacoes>();
+	private List<GerenciarSolicitacoes> lstFiltroRecurso = new ArrayList<GerenciarSolicitacoes>();
 	private List<Permissao> permissaoList = new ArrayList<Permissao>();
 	private List<?> lstSolicitacao;
 	private Usuario usuario = new Usuario();
 	private List<?> lstUsuarios;
-	private List<Recurso> lstRecurso;
+	private List<Recurso> lstRecurso,
+			lstRecursoFiltro = new ArrayList<Recurso>();
+	private List<Departamento> lstDepartamentoFiltro = new ArrayList<Departamento>();
+	private List<SituacaoSolicitacao> lstSituacaoFiltro = new ArrayList<SituacaoSolicitacao>();
 	private Date data = new Date();
 	private Integer solicitacaoSelectedIndex;
 	private DateUtils dateUtils = new DateUtils();
-	private boolean filtroRec, filtroDepart, filtroStatus;
+	private boolean filtroStatus, filtroDepart, filtroRec;
+	private Recurso recFilter = new Recurso();
+	private Departamento depFilter = new Departamento();
+	private SituacaoSolicitacao situFilter;
+	private Utils utils = new Utils();
+
 	@Init
-	public void init(@ContextParam(ContextType.VIEW) Component view)
-			throws Exception {
+	public void init() {
 		super.init();
-		Selectors.wireEventListeners(view, this);
 		usuario.setNome(user.getName());
 		if (getEntity() != null && verificaComponent().equals("criar")) {
 			populaDadosUsuario();
@@ -98,7 +104,7 @@ public class GerenciarSolicitacoesViewModel
 	}
 
 	public String verificaComponent() {
-		Utils utils = new Utils();
+
 		String ret = null;
 		if (utils.verificaPaginaSolicitacoes(
 				Executions.getCurrent().getDesktop().getRequestPath()).equals(
@@ -123,7 +129,7 @@ public class GerenciarSolicitacoesViewModel
 		ret = getControl().salvar(getEntity());
 		if (ret.isValid()) {
 			msgbox.mensagem(TypeMessage.SUCESSO,
-					"Solicitaï¿½ï¿½o realizada com sucesso!");
+					"Solicitação realizada com sucesso!");
 			if (getEntity().getUsuario().getPermissao().equals("TOTAL")) {
 				Executions
 						.sendRedirect("/paginas/gerenciar_solicitacoes/administrator/pesquisar.zul");
@@ -155,7 +161,7 @@ public class GerenciarSolicitacoesViewModel
 			msgbox.mensagem(TypeMessage.AVISO,
 					"Selecione algum item para alterar!");
 		} else if (itemSelected.getSituacao().equalsIgnoreCase("APROVADA")) {
-			msgbox.mensagem(TypeMessage.AVISO, "SolicitaÃ§Ã£o jÃ¡ aprovada!");
+			msgbox.mensagem(TypeMessage.AVISO, "Solicitaçãoo já aprovada!");
 		} else if (!itemSelected.getSituacao().equalsIgnoreCase("APROVADA")
 				&& itemSelected != null) {
 			final HashMap<String, Object> map = new HashMap<String, Object>();
@@ -182,10 +188,9 @@ public class GerenciarSolicitacoesViewModel
 			map.put("SolicitacaoObject", this.itemSelected);
 			map.put("recordMode", "EDIT");
 			setSolicitacaoSelectedIndex(lstSolicitacoes.indexOf(itemSelected));
-			Executions
-					.createComponents(
-							"/paginas/gerenciar_solicitacoes/solicitacao_detalhar.zul",
-							null, map);
+			Executions.createComponents(
+					"/paginas/gerenciar_solicitacoes/solicitacao_detalhar.zul",
+					null, map);
 		}
 		return ret;
 	}
@@ -229,10 +234,9 @@ public class GerenciarSolicitacoesViewModel
 								return;
 							} else {
 								if (event.getName().equals("onYes")) {
-
 									getControl().desativar(getItemSelected());
 									msgbox.mensagem(TypeMessage.SUCESSO,
-											"SolicitaÃ§Ã£o deletada com sucesso!");
+											"Solicitação deletada com sucesso!");
 									setItemSelected(null);
 								}
 							}
@@ -254,19 +258,31 @@ public class GerenciarSolicitacoesViewModel
 		return ret;
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@NotifyChange("lstSolicitacoes")
 	@Command
 	public Return aprovar() {
 		Return ret = new Return(false);
 		if (getItemSelected() != null
 				&& getItemSelected().getSituacao().equals("PENDENTE")) {
-			ret = getControl()
-					.alterarSolicitacao(getItemSelected(), "APROVADA");
-			msgbox.mensagem(TypeMessage.SUCESSO, "Solicitacao Aprovada!");
+			Messagebox.show("Deseja aprovar solicitação?", "Confirm",
+					Messagebox.YES | Messagebox.NO, Messagebox.QUESTION,
+					new EventListener() {
+						public void onEvent(Event event) throws Exception {
+							if (event.getName().equals("onNo")) {
+								return;
+							} else {
+								if (event.getName().equals("onYes")) {
+									getControl().alterarSolicitacao(
+											getItemSelected(), "APROVADA");
+								}
+							}
+						}
+					});
 		} else if (getItemSelected() == null) {
-			msgbox.mensagem(TypeMessage.AVISO, "Selecione uma solicitaï¿½ï¿½o!");
+			msgbox.mensagem(TypeMessage.AVISO, "Selecione uma solicitação!");
 		} else if (getItemSelected().getSituacao().equals("APROVADA")) {
-			msgbox.mensagem(TypeMessage.AVISO, "Solicitaï¿½ï¿½o jï¿½ aprovada!");
+			msgbox.mensagem(TypeMessage.AVISO, "Solicitação já aprovada!");
 		}
 		if (ret.isValid()) {
 			limpar();
@@ -279,16 +295,51 @@ public class GerenciarSolicitacoesViewModel
 	@NotifyChange("lstSolicitacoes")
 	@Command
 	public Return rejeitar() {
-		Return ret = new Return(false);
+		Return ret = new Return(true);
 		if (getItemSelected() != null
 				&& getItemSelected().getSituacao().equals("PENDENTE")) {
-			ret = getControl().alterarSolicitacao(getItemSelected(),
-					"REPROVADA");
+			ret = telaRecusar();
+
 			if (ret.isValid()) {
-				ret = telaRecusar();
+				ret = getControl().alterarSolicitacao(getItemSelected(),
+						"REPROVADA");
 			}
 		} else if (getItemSelected() == null) {
-			msgbox.mensagem(TypeMessage.AVISO, "Selecione uma solicitaï¿½ï¿½o!");
+			msgbox.mensagem(TypeMessage.AVISO, "Selecione uma solicitação!");
+		}
+		if (ret.isValid()) {
+			limpar();
+			getSolicitacoesList(getUsuario().getPermissao(), getUsuario());
+		}
+		return ret;
+	}
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@NotifyChange("lstSolicitacoes")
+	@Command
+	public Return executar() {
+		Return ret = new Return(false);
+		if (getItemSelected() != null
+				&& getItemSelected().getSituacao().equals("APROVADA")) {
+			Messagebox.show("Deseja executar solicitação?", "Confirm",
+					Messagebox.YES | Messagebox.NO, Messagebox.QUESTION,
+					new EventListener() {
+						public void onEvent(Event event) throws Exception {
+							if (event.getName().equals("onNo")) {
+								return;
+							} else {
+								if (event.getName().equals("onYes")) {
+									getControl().alterarSolicitacao(
+											getItemSelected(), "EXECUTADA");
+								}
+							}
+						}
+					});
+		} else if (getItemSelected() == null) {
+			msgbox.mensagem(TypeMessage.AVISO, "Selecione uma solicitação!");
+		}else if(getItemSelected() != null
+				&& getItemSelected().getSituacao().equals("EXECUTADA")){
+			msgbox.mensagem(TypeMessage.AVISO, "Solicitação já executada!");
 		}
 		if (ret.isValid()) {
 			limpar();
@@ -299,34 +350,85 @@ public class GerenciarSolicitacoesViewModel
 
 	@NotifyChange("lstSolicitacoes")
 	@Command
-	public Return executar() {
-		Return ret = new Return(false);
-		if (getItemSelected() != null
-				&& getItemSelected().getSituacao().equals("APROVADA")) {
-			ret = getControl().alterarSolicitacao(getItemSelected(),
-					"EXECUTADA");
-		} else if (getItemSelected() == null) {
-			msgbox.mensagem(TypeMessage.AVISO, "Selecione uma solicitaï¿½ï¿½o!");
+	public Return checkFiltro(@ContextParam(ContextType.VIEW) Component view) {
+		Return ret = new Return(true);
+		Selectors.wireComponents(view, this, false);
+
+		if (filtroStatus && lstFiltroSituacao.size() == 0
+				&& getSituFilter() != null) {
+			List<Integer> vetor = new ArrayList<Integer>();
+			if (lstSolicitacoes != null) {
+				for (int i = 0; i < lstSolicitacoes.size(); i++) {
+
+					if (!lstSolicitacoes.get(i).getSituacao()
+							.equals(getSituFilter().getNome())) {
+						lstFiltroSituacao.add(lstSolicitacoes.get(i));
+						vetor.add(i);
+					}
+				}
+				for (int j = vetor.size() - 1; j >= 0; j--) {
+
+					lstSolicitacoes.remove(vetor.get(j).intValue());
+					vetor.remove(j);
+				}
+			} else {
+				msgbox.mensagem(TypeMessage.AVISO, "Lista Vazia!");
+			}
+		} else if (!filtroStatus && lstFiltroSituacao.size() > 0) {
+			lstSolicitacoes.addAll(lstFiltroSituacao);
+			lstFiltroSituacao.clear();
 		}
-		if (ret.isValid()) {
-			limpar();
-			getSolicitacoesList(getUsuario().getPermissao(), getUsuario());
+
+		if (filtroDepart && lstFiltroDepartamento.size() == 0
+				&& getDepFilter() != null) {
+			List<Integer> vetor = new ArrayList<Integer>();
+			if (lstSolicitacoes != null) {
+				for (int i = 0; i < lstSolicitacoes.size(); i++) {
+
+					if (!(lstSolicitacoes.get(i).getUsuario().getCargo()
+							.getDepartamento().getIddepartamento() == getDepFilter()
+							.getIddepartamento())) {
+						lstFiltroDepartamento.add(lstSolicitacoes.get(i));
+						vetor.add(i);
+					}
+				}
+				for (int j = vetor.size() - 1; j >= 0; j--) {
+
+					lstSolicitacoes.remove(vetor.get(j).intValue());
+					vetor.remove(j);
+				}
+			} else {
+				msgbox.mensagem(TypeMessage.AVISO, "Lista Vazia!");
+			}
+		} else if (!filtroDepart && lstFiltroDepartamento.size() > 0) {
+			lstSolicitacoes.addAll(lstFiltroDepartamento);
+			lstFiltroDepartamento.clear();
+		}
+
+		if (filtroRec && lstFiltroRecurso.size() == 0 && getRecFilter() != null) {
+			List<Integer> vetor = new ArrayList<Integer>();
+			if (lstSolicitacoes != null) {
+				for (int i = 0; i < lstSolicitacoes.size(); i++) {
+
+					if (!(lstSolicitacoes.get(i).getRecurso().getIdrecurso() == getRecFilter()
+							.getIdrecurso())) {
+						lstFiltroRecurso.add(lstSolicitacoes.get(i));
+						vetor.add(i);
+					}
+				}
+				for (int j = vetor.size() - 1; j >= 0; j--) {
+
+					lstSolicitacoes.remove(vetor.get(j).intValue());
+					vetor.remove(j);
+				}
+			} else {
+				msgbox.mensagem(TypeMessage.AVISO, "Lista Vazia!");
+			}
+		} else if (!filtroRec && lstFiltroRecurso.size() > 0) {
+			lstSolicitacoes.addAll(lstFiltroRecurso);
+			lstFiltroRecurso.clear();
 		}
 		return ret;
-	}
-
-	@Command
-	public void doCommand(@BindingParam("self_value") String self_value,
-			@BindingParam("self_value") String event_value,
-			@ContextParam(ContextType.TRIGGER_EVENT) InputEvent event) {
-		System.out.println("doCommand: selection: " + selection
-				+ " self_value: " + self_value + " event_value: " + event_value
-				+ " event_value2: " + event.getValue());
-	}
-
-	@Listen("onChanging=#t1")
-	public void onChanging(InputEvent event) {
-		System.out.println("onChanging=#t1: event_value3: " + event.getValue());
 	}
 
 	@Override
@@ -352,6 +454,29 @@ public class GerenciarSolicitacoesViewModel
 		RecursoController recursoController = new RecursoController();
 		lstRecurso = recursoController.getLstEntities();
 		return lstRecurso;
+	}
+
+	@NotifyChange("lstRecursoFiltro")
+	public List<Recurso> getRecursoFiltro() {
+		RecursoController recursoController = new RecursoController();
+		lstRecurso = recursoController.getLstEntities();
+		return lstRecurso;
+	}
+
+	@NotifyChange("lstDepartamentoFiltro")
+	public List<Departamento> getDepartamentoFiltro() {
+		DepartamentoController departamentoController = new DepartamentoController();
+		lstDepartamentoFiltro = departamentoController.getLstEntities();
+		return lstDepartamentoFiltro;
+	}
+
+	@NotifyChange("lstSituacaoFiltro")
+	public List<SituacaoSolicitacao> getSituacaoFiltro() {
+		for (SituacaoSolicitacao situacao : SituacaoSolicitacao.values()) {
+			lstSituacaoFiltro.add(situacao);
+		}
+
+		return lstSituacaoFiltro;
 	}
 
 	@NotifyChange("lstSolicitacoes")
@@ -447,14 +572,6 @@ public class GerenciarSolicitacoesViewModel
 		this.solicitacaoSelectedIndex = solicitacaoSelectedIndex;
 	}
 
-	public String getSelection() {
-		return selection;
-	}
-
-	public void setSelection(String selection) {
-		this.selection = selection;
-	}
-
 	public DateUtils getDateUtils() {
 		return dateUtils;
 	}
@@ -463,12 +580,12 @@ public class GerenciarSolicitacoesViewModel
 		this.dateUtils = dateUtils;
 	}
 
-	public boolean isFiltroRec() {
-		return filtroRec;
+	public boolean isFiltroStatus() {
+		return filtroStatus;
 	}
 
-	public void setFiltroRec(boolean filtroRec) {
-		this.filtroRec = filtroRec;
+	public void setFiltroStatus(boolean filtroStatus) {
+		this.filtroStatus = filtroStatus;
 	}
 
 	public boolean isFiltroDepart() {
@@ -479,12 +596,87 @@ public class GerenciarSolicitacoesViewModel
 		this.filtroDepart = filtroDepart;
 	}
 
-	public boolean isFiltroStatus() {
-		return filtroStatus;
+	public boolean isFiltroRec() {
+		return filtroRec;
 	}
 
-	public void setFiltroStatus(boolean filtroStatus) {
-		this.filtroStatus = filtroStatus;
+	public void setFiltroRec(boolean filtroRec) {
+		this.filtroRec = filtroRec;
+	}
+
+	public List<Recurso> getLstRecursoFiltro() {
+		return lstRecursoFiltro;
+	}
+
+	public void setLstRecursoFiltro(List<Recurso> lstRecursoFiltro) {
+		this.lstRecursoFiltro = lstRecursoFiltro;
+	}
+
+	public List<Departamento> getLstDepartamentoFiltro() {
+		return lstDepartamentoFiltro;
+	}
+
+	public void setLstDepartamentoFiltro(
+			List<Departamento> lstDepartamentoFiltro) {
+		this.lstDepartamentoFiltro = lstDepartamentoFiltro;
+	}
+
+	public List<SituacaoSolicitacao> getLstSituacaoFiltro() {
+		return lstSituacaoFiltro;
+	}
+
+	public void setLstSituacaoFiltro(List<SituacaoSolicitacao> lstSituacaoFiltro) {
+		this.lstSituacaoFiltro = lstSituacaoFiltro;
+	}
+
+	public Recurso getRecFilter() {
+		return recFilter;
+	}
+
+	public void setRecFilter(Recurso recFilter) {
+		this.recFilter = recFilter;
+	}
+
+	public Departamento getDepFilter() {
+		return depFilter;
+	}
+
+	public void setDepFilter(Departamento depFilter) {
+		this.depFilter = depFilter;
+	}
+
+	public SituacaoSolicitacao getSituFilter() {
+		return situFilter;
+	}
+
+	public void setSituFilter(SituacaoSolicitacao situFilter) {
+		this.situFilter = situFilter;
+	}
+
+	public List<GerenciarSolicitacoes> getLstFiltroSituacao() {
+		return lstFiltroSituacao;
+	}
+
+	public void setLstFiltroSituacao(
+			List<GerenciarSolicitacoes> lstFiltroSituacao) {
+		this.lstFiltroSituacao = lstFiltroSituacao;
+	}
+
+	public List<GerenciarSolicitacoes> getLstFiltroRecurso() {
+		return lstFiltroRecurso;
+	}
+
+	public void setLstFiltroRecurso(List<GerenciarSolicitacoes> lstFiltroRecurso) {
+		this.lstFiltroRecurso = lstFiltroRecurso;
+	}
+
+	public List<GerenciarSolicitacoes> getLstFiltroDepartamento() {
+		return lstFiltroDepartamento;
+	}
+
+	public void setLstFiltroDepartamento(
+			List<GerenciarSolicitacoes> lstFiltroDepartamento) {
+		this.lstFiltroDepartamento = lstFiltroDepartamento;
 	}
 
 }

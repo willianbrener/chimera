@@ -42,11 +42,20 @@ public class GerenciarSolicitacoesController extends GenericController<Gerenciar
 	}
 	
 	public Return alterarSolicitacao(IModel<?> imodel, String string) {
-		Return res = validarSolicitacao(imodel);
-		if (res.isValid()) {
-			return dao.updateSolicitacao(imodel,string);
+		Return ret = validarSolicitacao(imodel);
+		if (ret.isValid()) {
+			ret = dao.updateSolicitacao(imodel,string);
+			if(ret.isValid()){
+				if(string.equalsIgnoreCase("APROVADA")){
+					msgbox.mensagem(TypeMessage.SUCESSO, "Solicitacao aprovada!");
+				}else if(string.equalsIgnoreCase("REPROVADA")){
+					msgbox.mensagem(TypeMessage.SUCESSO, "Solicitacao reprovada!");
+				}else if(string.equalsIgnoreCase("EXECUTADA")){
+					msgbox.mensagem(TypeMessage.SUCESSO, "Solicitacao executada!");
+				}
+			}
 		}
-		return res;
+		return ret;
 	}
 	
 	@Override

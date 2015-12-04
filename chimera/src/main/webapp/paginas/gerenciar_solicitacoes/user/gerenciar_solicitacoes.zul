@@ -1,6 +1,6 @@
 <?init class="br.com.ueg.pids.Login.AuthenticationInit"?>
 <zk>
-		<div xmlns:n="native">
+	<div xmlns:n="native">
 		<div class="col-sm-1"></div>
 		<div class="col-sm-10">
 			<div class="row">
@@ -34,109 +34,96 @@
 						value="@bind(vm.entity.situacao)" class="form-control" />
 				</div>
 			</div>
-			
-						<div class="row">
+
+			<div class="row" id="teste1">
 				<div sclass="col-sm-12 normal-article">
 					<n:h4>Filtro:</n:h4>
 					<div class="row">
 						<div class="col-sm-3">
-							<combobox readonly="true"
-								model="@load(vm.recursoList)" class="form-control"
-								selectedItem="@bind(vm.entity.recurso)">
+							<combobox readonly="true" id="comboStatus"
+								model="@load(vm.situacaoFiltro)" class="form-control"
+								selectedItem="@bind(vm.situFilter)">
 								<template name="model">
 									<comboitem label="@load(each.nome)" />
 								</template>
 							</combobox>
 						</div>
 						<div class="col-sm-2">
-							<checkbox label="Status"
-								checked="false" />
+							<checkbox id="filtroStatus" label="Status"
+								checked="@bind(vm.filtroStatus)"
+								onCheck="@command('checkFiltro')" />
 						</div>
-
 					</div>
 					<div class="row">
 						<div class="col-sm-3">
-							<combobox readonly="true"
-								model="@load(vm.recursoList)" class="form-control"
-								selectedItem="@bind(vm.entity.recurso)">
+							<combobox readonly="true" id="comboRec"
+								model="@load(vm.recursoFiltro)" class="form-control"
+								selectedItem="@bind(vm.recFilter)">
 								<template name="model">
 									<comboitem label="@load(each.nome)" />
 								</template>
 							</combobox>
 						</div>
 						<div class="col-sm-2">
-							<checkbox label="Recurso"
-								checked="false" />
-						</div>
-
-					</div>
-					<div class="row">
-						<div class="col-sm-3">
-							<combobox readonly="true"
-								model="@load(vm.recursoList)" class="form-control"
-								selectedItem="@bind(vm.entity.recurso)">
-								<template name="model">
-									<comboitem label="@load(each.nome)" />
-								</template>
-							</combobox>
-						</div>
-						<div class="col-sm-2">
-							<checkbox label="Departamento"
-								checked="false" />
+							<checkbox label="Recurso" id="filtroRec"
+								checked="@bind(vm.filtroRec)" onCheck="@command('checkFiltro')" />
 						</div>
 
 					</div>
 				</div>
-
-			<listbox id="lb" model="@bind(vm.lstSolicitacoes)"
-				emptyMessage="Nenhuma solicitação selecionada."
-				style="margin-top:10px" mold="paging" pageSize="5"
-				xmlns:w="http://www.zkoss.org/2005/zk/client"
-				selectedItem="@bind(vm.itemSelected)" checkmark="true">
+			</div>
 
 
-				<listhead sizable="true">
-					<listheader label="Data" align="center"
-						sort="auto(data)" />
-					<listheader label="Usuário" align="center"
-						sort="auto(usuario)" />
-					<listheader label="Título" align="center"
-						sort="auto(titulo)" />
-					<listheader label="" align="center" />
-				</listhead>
-				<template name="model">
-					<listitem>
-						<listcell label="@bind(each.data)"
-							sclass="highlightcell" onClick="@command('setaValores')">
-						</listcell>
-						<listcell label="@bind(each.usuario.account)"
-							onClick="@command('setaValores')">
-						</listcell>
-						<listcell label="@bind(each.titulo)"
-							onClick="@command('setaValores')">
-						</listcell>
-						<listcell>
-							<button image="/imagens/icon_lupa.png"
-								onClick="@command('telaDetalhar') @global-command('refresh')" />
-							
-							<button image="/imagens/remove-icon.png"
-								onClick="@command('deletar') @global-command('refresh')" />
-							<button image="/imagens/edit-icon.png"
-								onClick="@command('telaAlterar') @global-command('refresh')" />
-						</listcell>
+				<listbox id="lb" model="@bind(vm.lstSolicitacoes)"
+					emptyMessage="Nenhuma solicitação selecionada."
+					style="margin-top:10px" mold="paging" pageSize="5"
+					xmlns:w="http://www.zkoss.org/2005/zk/client"
+					selectedItem="@bind(vm.itemSelected)" checkmark="true">
 
-					</listitem>
-				</template>
-			</listbox>
-			<auxhead>
-				<auxheader class="topic">
-					<div class="btn btn-warning btn-md">
-						<button label="Limpar" sclass="btn-warning"
-							onClick="@command('limpar')" />
-					</div>
-				</auxheader>
-			</auxhead>
+
+					<listhead sizable="true">
+						<listheader label="Data" align="center"
+							sort="auto(data)" />
+						<listheader label="Usuário" align="center"
+							sort="auto(usuario)" />
+						<listheader label="Título" align="center"
+							sort="auto(titulo)" />
+						<listheader label="" align="center" />
+					</listhead>
+					<template name="model">
+						<listitem>
+							<listcell label="@bind(each.data)"
+								sclass="highlightcell" onClick="@command('setaValores')">
+							</listcell>
+							<listcell
+								label="@bind(each.usuario.account)"
+								onClick="@command('setaValores')">
+							</listcell>
+							<listcell label="@bind(each.titulo)"
+								onClick="@command('setaValores')">
+							</listcell>
+							<listcell>
+								<button image="/imagens/icon_lupa.png"
+									onClick="@command('telaDetalhar') @global-command('refresh')" />
+
+								<button image="/imagens/remove-icon.png"
+									onClick="@command('deletar') @global-command('refresh')" />
+								<button image="/imagens/edit-icon.png"
+									onClick="@command('telaAlterar') @global-command('refresh')" />
+							</listcell>
+
+						</listitem>
+					</template>
+				</listbox>
+				<auxhead>
+					<auxheader class="topic">
+						<div class="btn btn-warning btn-md">
+							<button label="Limpar" sclass="btn-warning"
+								onClick="@command('limpar')" />
+						</div>
+					</auxheader>
+				</auxhead>
+			</div>
+			<div class="col-sm-1"></div>
 		</div>
-		<div class="col-sm-1"></div>
-	</div>
 </zk>

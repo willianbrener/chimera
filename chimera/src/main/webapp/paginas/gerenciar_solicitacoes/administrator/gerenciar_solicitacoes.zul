@@ -37,46 +37,46 @@
 				</div>
 			</div>
 
-			<div class="row">
+			<div class="row" id="teste1">
 				<div sclass="col-sm-12 normal-article">
 					<n:h4>Filtro:</n:h4>
 					<div class="row">
 						<div class="col-sm-3">
-							<combobox readonly="true"
-								model="@load(vm.recursoList)" class="form-control"
-								selectedItem="@bind(vm.entity.recurso)">
+							<combobox readonly="true" id="comboStatus"
+								model="@load(vm.situacaoFiltro)" class="form-control"
+								selectedItem="@bind(vm.situFilter)">
 								<template name="model">
 									<comboitem label="@load(each.nome)" />
 								</template>
 							</combobox>
 						</div>
 						<div class="col-sm-2">
-							<checkbox label="Status"
-								checked="false" />
+							<checkbox id="filtroStatus" label="Status"
+								checked="@bind(vm.filtroStatus)"
+								onCheck="@command('checkFiltro')" />
 						</div>
-
 					</div>
 					<div class="row">
 						<div class="col-sm-3">
-							<combobox readonly="true"
-								model="@load(vm.recursoList)" class="form-control"
-								selectedItem="@bind(vm.entity.recurso)">
+							<combobox readonly="true" id="comboRec"
+								model="@load(vm.recursoFiltro)" class="form-control"
+								selectedItem="@bind(vm.recFilter)">
 								<template name="model">
 									<comboitem label="@load(each.nome)" />
 								</template>
 							</combobox>
 						</div>
 						<div class="col-sm-2">
-							<checkbox label="Recurso"
-								checked="false" />
+							<checkbox label="Recurso" id="filtroRec"
+								checked="@bind(vm.filtroRec)" onCheck="@command('checkFiltro')" />
 						</div>
 
 					</div>
 					<div class="row">
 						<div class="col-sm-3">
-							<combobox readonly="true"
-								model="@load(vm.recursoList)" class="form-control"
-								selectedItem="@bind(vm.entity.recurso)">
+							<combobox readonly="true" id="comboDepart"
+								model="@load(vm.departamentoFiltro)" class="form-control"
+								selectedItem="@bind(vm.depFilter)">
 								<template name="model">
 									<comboitem label="@load(each.nome)" />
 								</template>
@@ -84,12 +84,14 @@
 						</div>
 						<div class="col-sm-2">
 							<checkbox label="Departamento"
-								checked="false" />
+								id="filtroDepart" checked="@bind(vm.filtroDepart)"
+								onCheck="@command('checkFiltro')" />
 						</div>
 
 					</div>
 				</div>
 			</div>
+
 
 			<listbox id="lb" model="@bind(vm.lstSolicitacoes)"
 				emptyMessage="Nenhuma solicitação selecionada."
@@ -149,4 +151,5 @@
 		</div>
 		<div class="col-sm-1"></div>
 	</div>
+
 </zk>

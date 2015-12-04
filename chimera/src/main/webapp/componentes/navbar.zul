@@ -4,14 +4,16 @@
 		<!-- Brand Logo -->
 		<a label="Chimera " sclass="pull-left navbar-brand"
 			image="/imagens/logo.png" />
-			
+
 		<!-- Navbar -->
 		<hlayout sclass="nav-user pull-right" spacing="0">
 			<a id="anoti" iconSclass="z-icon-bell"
 				popup="notipp, position=after_end, type=toggle" sclass="grey">
-				<label value="@bind(vm.qtdSolitacoes)" sclass="badge badge-important" />
+				<label value="@bind(vm.qtdSolitacoes)"
+					sclass="badge badge-important" />
 			</a>
 			
+
 			<!-- User menu -->
 			<menubar sclass="user-menu grey">
 				<menu tooltiptext="Avatar"
@@ -23,14 +25,14 @@
 						<menuitem label="Profile"
 							iconSclass="z-icon-user" />
 						<menuseparator />
-						<menuitem id="logout" label="Logout" onClick="@command('doLogout')"
-							iconSclass="z-icon-eject" />
+						<menuitem id="logout" label="Logout"
+							onClick="@command('doLogout')" iconSclass="z-icon-eject" />
 					</menupopup>
 				</menu>
 			</menubar>
 		</hlayout>
-		
-		
+
+
 		<!-- Popups of navbar -->
 
 		<popup id="notipp" sclass="menu menu-white" width="240px">
@@ -38,27 +40,25 @@
 				iconSclass="z-icon-exclamation-triangle" />
 			<vlayout spacing="0">
 				<a
-					iconSclass="btn btn-xs no-hover btn-pink z-icon-comment"
-					>
+					iconSclass="btn btn-xs no-hover btn-pink z-icon-comment">
 					<label>Solicitações Aprovadas</label>
 					<label value="@bind(vm.aprovadas)"
 						class="badge badge-info pull-right" />
 				</a>
 				<a
 					iconSclass="btn btn-xs no-hover btn-primary z-icon-user"
-					 onClick="@command('redireciona')">
+					onClick="@command('redireciona')">
 					<label>Solicitações Reprovadas</label>
 					<label value="@bind(vm.reprovadas)"
 						class="badge badge-info pull-right" />
 				</a>
 				<a
-					iconSclass="btn btn-xs no-hover btn-success z-icon-shopping-cart"
-					>
+					iconSclass="btn btn-xs no-hover btn-success z-icon-shopping-cart">
 					<label>Solicitações Executadas</label>
 					<label value="@bind(vm.executadas)"
 						class="badge badge-info pull-right" />
 				</a>
-				
+
 				<a label="Veja todas notificações" href="#">
 					<span class="z-icon-arrow-right" />
 				</a>

@@ -1,5 +1,9 @@
 package br.com.ueg.pids.Utils;
 
+import br.com.ueg.pids.Enum.SituacaoSolicitacao;
+import br.com.ueg.pids.Model.Departamento;
+import br.com.ueg.pids.Model.Recurso;
+
 
 public class Utils {
 	/**
@@ -75,6 +79,7 @@ public class Utils {
 			return "user";
 		}
 		return retorno;
-
 	}
+	
+	
 }

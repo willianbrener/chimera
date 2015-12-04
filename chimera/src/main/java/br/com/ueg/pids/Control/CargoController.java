@@ -24,7 +24,7 @@ public class CargoController extends GenericController<Cargo> {
 		Return ret = new Return(true);
 		if (getCargo().getNome() == null || getCargo().getNome().equals("")) {
 
-			ret = new Return(false, "Nome em branco ou inv√°lido!",
+			ret = new Return(false, "Nome em branco ou inv·lido!",
 					TypeMessage.ERROR);
 
 		} else if (getCargo().getNome().length() < 3) {
@@ -39,10 +39,10 @@ public class CargoController extends GenericController<Cargo> {
 
 		} else if (getCargo().getDescricao() == null
 				|| getCargo().getDescricao().equals("")) {
-			ret = new Return(false, "Descri√ß√£o em branco!", TypeMessage.ERROR);
+			ret = new Return(false, "DescriÁ„o em branco!", TypeMessage.ERROR);
 
 		}else if(!dao.pesquisarNome(cargo, getCargo().getNome()).isEmpty()){
-			ret = new Return(false, "Nome j√° existente!", TypeMessage.ERROR);
+			ret = new Return(false, "Nome j· existente!", TypeMessage.ERROR);
 		}
 
 		return ret;

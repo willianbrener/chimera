@@ -62,19 +62,19 @@ public class DepartamentoController extends GenericController<Departamento> {
 		if (getDepartamento().getNome() == null
 				|| getDepartamento().getNome().equals("")) {
 
-			ret = new Return(false, "Nome em branco ou invï¿½lido!",
+			ret = new Return(false, "Nome em branco ou inválido!",
 					TypeMessage.ERROR);
 		} else if (getDepartamento().getResponsavel() == null
 				|| getDepartamento().getResponsavel().equals("")) {
-			ret = new Return(false, "Responsavel em branco ou invï¿½lido!",
+			ret = new Return(false, "Responsavel em branco ou inválido!",
 					TypeMessage.ERROR);
 
 		} else if (getDepartamento().getNivel() == null
 				|| getDepartamento().getNivel().equals("")) {
-			ret = new Return(false, "Nï¿½vel em branco ou invï¿½lido!",
+			ret = new Return(false, "Nável em branco ou inválido!",
 					TypeMessage.ERROR);
 		}else if(!dao.pesquisarNome(departamento, getDepartamento().getNome()).isEmpty()){
-			ret = new Return(false, "Nome jÃ¡ existente!", TypeMessage.ERROR);
+			ret = new Return(false, "Nome já existente!", TypeMessage.ERROR);
 		}
 		return ret;
 	}

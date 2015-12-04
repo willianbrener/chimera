@@ -10,7 +10,7 @@
 	 <div self="@define(content)"
         apply="org.zkoss.bind.BindComposer"
 		viewModel="@id('vm') @init('br.com.ueg.pids.ViewModel.GerenciarSolicitacoesViewModel')"
-            width="100%" style="margin-top:50px">
+            width="100%" style="margin-top:5px">
            
 		<include src="gerenciar_solicitacoes.zul"/>
 	</div>
