@@ -7,7 +7,7 @@
 	<packaging>war</packaging>
 
 	<properties>
-		<zk.version>7.0.3-Eval</zk.version>
+		<zk.version>8.6.4.2-Eval</zk.version>
 		<zkcharts.version>1.2.0-Eval</zkcharts.version>
 		<maven.build.timestamp.format>yyyy-MM-dd</maven.build.timestamp.format>
 	</properties>
